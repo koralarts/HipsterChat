@@ -522,7 +522,7 @@ namespace MiniClient
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.statusBar1);
             this.Name = "frmMain";
-            this.Text = "Mini Client";
+            this.Text = "Hipster Chat";
             this.contextMenuGC.ResumeLayout(false);
             this.contextMenuStripRoster.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
