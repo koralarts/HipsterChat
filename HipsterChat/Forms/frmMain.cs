@@ -873,8 +873,8 @@ namespace MiniClient
             			
 			connectToolStripMenuItem.Enabled	= true;
 			disconnectToolStripMenuItem.Enabled	= false;
-            toolStrip1.Enabled = true;
-            tabControl1.Enabled = true;
+            toolStrip1.Enabled = false;
+            tabControl1.Enabled = false;
             tabControl1.SelectedIndex = 0;
             cboStatus.SelectedValueChanged -= new System.EventHandler(this.cboStatus_SelectedValueChanged);
 
