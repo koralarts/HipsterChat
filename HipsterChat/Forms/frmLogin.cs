@@ -21,19 +21,17 @@ namespace MiniClient
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox txtJid;
 		private System.Windows.Forms.Button cmdLogin;
-		private System.Windows.Forms.Button cmdCancel;
-		private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button cmdCancel;
 		private System.Windows.Forms.TextBox txtPassword;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label5;		
 		private System.ComponentModel.Container components = null;
-		private System.Windows.Forms.TextBox txtResource;
-		private System.Windows.Forms.NumericUpDown numPriority;
-		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.TextBox txtPort;
-        private System.Windows.Forms.CheckBox chkSSL;
+        private System.Windows.Forms.TextBox txtResource;
         private CheckBox chkRegister;
+        private Label label6;
+        private TextBox txtPort;
+        private Label label4;
+        private NumericUpDown numPriority;
 
 		private XmppClientConnection _connection;
 
@@ -41,7 +39,7 @@ namespace MiniClient
 		{			
 			InitializeComponent();
 
-			LoadSettings();
+		
 			this.DialogResult = DialogResult.Cancel;
 			_connection = con;
 		}
@@ -72,17 +70,15 @@ namespace MiniClient
             this.txtJid = new System.Windows.Forms.TextBox();
             this.cmdLogin = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.numPriority = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtResource = new System.Windows.Forms.TextBox();
+            this.chkRegister = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtPort = new System.Windows.Forms.TextBox();
-            this.chkSSL = new System.Windows.Forms.CheckBox();
-            this.chkRegister = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numPriority = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numPriority)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,7 +89,7 @@ namespace MiniClient
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 16);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Jabber ID:";
+            this.label1.Text = "Username";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtJid
@@ -123,14 +119,6 @@ namespace MiniClient
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
             // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(80, 32);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(176, 16);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "user@server.org";
-            // 
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(80, 56);
@@ -149,27 +137,6 @@ namespace MiniClient
             this.label3.Text = "Password:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // numPriority
-            // 
-            this.numPriority.Location = new System.Drawing.Point(80, 88);
-            this.numPriority.Name = "numPriority";
-            this.numPriority.Size = new System.Drawing.Size(40, 20);
-            this.numPriority.TabIndex = 2;
-            this.numPriority.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(8, 88);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 16);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Priority:";
-            // 
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -186,6 +153,15 @@ namespace MiniClient
             this.txtResource.Size = new System.Drawing.Size(168, 20);
             this.txtResource.TabIndex = 4;
             this.txtResource.Text = "MiniClient";
+            // 
+            // chkRegister
+            // 
+            this.chkRegister.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.chkRegister.Location = new System.Drawing.Point(80, 174);
+            this.chkRegister.Name = "chkRegister";
+            this.chkRegister.Size = new System.Drawing.Size(160, 16);
+            this.chkRegister.TabIndex = 11;
+            this.chkRegister.Text = "register new Account";
             // 
             // label6
             // 
@@ -205,24 +181,26 @@ namespace MiniClient
             this.txtPort.TabIndex = 3;
             this.txtPort.Text = "5222";
             // 
-            // chkSSL
+            // label4
             // 
-            this.chkSSL.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.chkSSL.Location = new System.Drawing.Point(80, 152);
-            this.chkSSL.Name = "chkSSL";
-            this.chkSSL.Size = new System.Drawing.Size(160, 16);
-            this.chkSSL.TabIndex = 5;
-            this.chkSSL.Text = "use SSL (old style SSL)";
-            this.chkSSL.CheckedChanged += new System.EventHandler(this.chkSSL_CheckedChanged);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(8, 88);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 16);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Priority:";
             // 
-            // chkRegister
+            // numPriority
             // 
-            this.chkRegister.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.chkRegister.Location = new System.Drawing.Point(80, 174);
-            this.chkRegister.Name = "chkRegister";
-            this.chkRegister.Size = new System.Drawing.Size(160, 16);
-            this.chkRegister.TabIndex = 11;
-            this.chkRegister.Text = "register new Account";
+            this.numPriority.Location = new System.Drawing.Point(80, 88);
+            this.numPriority.Name = "numPriority";
+            this.numPriority.Size = new System.Drawing.Size(40, 20);
+            this.numPriority.TabIndex = 2;
+            this.numPriority.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             // 
             // frmLogin
             // 
@@ -234,13 +212,11 @@ namespace MiniClient
             this.Controls.Add(this.txtResource);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtJid);
-            this.Controls.Add(this.chkSSL);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.numPriority);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdLogin);
             this.Controls.Add(this.label1);
@@ -264,14 +240,14 @@ namespace MiniClient
 		private void cmdLogin_Click(object sender, System.EventArgs e)
 		{
 			Jid jid = new Jid(txtJid.Text);
-			
-			_connection.Server			            = jid.Server;
-			_connection.Username		            = jid.User;
+
+            _connection.Server                      = getServerName();
+            _connection.Username                    =txtJid.Text;
 			_connection.Password		            = txtPassword.Text;
             _connection.Resource                    = txtResource.Text;
-			_connection.Priority		            = (int) numPriority.Value;
-			_connection.Port			            = int.Parse(txtPort.Text);
-			_connection.UseSSL			            = chkSSL.Checked;
+            _connection.Priority                    = 10;
+            _connection.Port                        = 5222;
+            _connection.UseSSL                      = false;
             _connection.AutoResolveConnectServer    = true;
             _connection.UseCompression              = false;
 
@@ -308,7 +284,7 @@ namespace MiniClient
             
 			this.DialogResult = DialogResult.OK;
 			
-			SaveSettings();
+		
 			
 			this.Close();
 		}
@@ -334,47 +310,21 @@ namespace MiniClient
 			}
 		}
 
-		private void LoadSettings()
-		{
-			if (System.IO.File.Exists(SettingsFilename))
-			{
-				Document doc = new Document();
-                
-                doc.LoadFile(SettingsFilename);
-                Settings.Login login = doc.RootElement.SelectSingleElement(typeof(Settings.Login)) as Settings.Login;
-
-                txtJid.Text = login.Jid.ToString();
-                txtPassword.Text = login.Password;
-                txtResource.Text = login.Resource;
-                numPriority.Value = login.Priority;
-                chkSSL.Checked = login.Ssl;
-			}
-		}
-
-		private void SaveSettings()
-		{
-			Document doc = new Document();
-			
-            Settings.Settings settings = new Settings.Settings();
-
-            Settings.Login login = new Settings.Login();
-
-			login.Jid = new Jid(txtJid.Text);
-			login.Password  = txtPassword.Text;
-			login.Resource  = txtResource.Text;
-			login.Priority  = (int) numPriority.Value;
-			login.Port      = int.Parse(txtPort.Text);
-			login.Ssl       = chkSSL.Checked;
-
-			doc.ChildNodes.Add(settings);
-            settings.Login = login;
 		
-			doc.Save(SettingsFilename);
-		}
+
+		
 
 		private void chkSSL_CheckedChanged(object sender, System.EventArgs e)
 		{
 			txtPort.Text = "5223";
 		}
+        public String getServerName() {
+            string fileName = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            fileName += @"\chatservers.xml";
+            Document doc = new Document();
+            doc.LoadFile(fileName);
+            return doc.RootElement.SelectSingleElement("Server").Value;
+        }
+
 	}
 }
