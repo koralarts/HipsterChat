@@ -57,14 +57,9 @@ namespace MiniClient
         private ToolStripMenuItem exitToolStripMenuItem;
         private ToolStrip toolStrip1;
         private ToolStripButton toolStripButtonAdd;
-        private ToolStripMenuItem joinToolStripMenuItem;        
-        
-		private ToolStripMenuItem sendFileToolStripMenuItem;      
-       
-        private TabPage tabSocket;
-        private RichTextBox rtfDebugSocket;
-        private TabPage tabDebug;
-        private RichTextBox rtfDebug;
+        private ToolStripMenuItem joinToolStripMenuItem;
+
+        private ToolStripMenuItem sendFileToolStripMenuItem;
         private TabPage tabGC;
         private TreeView treeGC;
         private ToolStrip ToolStripGC;
@@ -239,10 +234,6 @@ namespace MiniClient
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonAdd = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSearch = new System.Windows.Forms.ToolStripButton();
-            this.tabSocket = new System.Windows.Forms.TabPage();
-            this.rtfDebugSocket = new System.Windows.Forms.RichTextBox();
-            this.tabDebug = new System.Windows.Forms.TabPage();
-            this.rtfDebug = new System.Windows.Forms.RichTextBox();
             this.tabGC = new System.Windows.Forms.TabPage();
             this.treeGC = new System.Windows.Forms.TreeView();
             this.ils16 = new System.Windows.Forms.ImageList(this.components);
@@ -257,8 +248,6 @@ namespace MiniClient
             this.contextMenuStripRoster.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            this.tabSocket.SuspendLayout();
-            this.tabDebug.SuspendLayout();
             this.tabGC.SuspendLayout();
             this.ToolStripGC.SuspendLayout();
             this.tabRoster.SuspendLayout();
@@ -348,14 +337,14 @@ namespace MiniClient
             this.toolStripMenuItem1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.Image = global::MiniClient.Properties.Resources.connect;
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.connectToolStripMenuItem.Text = "Connect";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
             // 
@@ -363,20 +352,20 @@ namespace MiniClient
             // 
             this.disconnectToolStripMenuItem.Image = global::MiniClient.Properties.Resources.disconnect;
             this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
-            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.disconnectToolStripMenuItem.Text = "Disconnect";
             this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.disconnectToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(134, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(130, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Image = global::MiniClient.Properties.Resources.door_in;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -412,51 +401,6 @@ namespace MiniClient
             this.toolStripButtonSearch.Text = "toolStripButton1";
             this.toolStripButtonSearch.ToolTipText = "User Search";
             this.toolStripButtonSearch.Click += new System.EventHandler(this.toolStripButtonSearch_Click);
-            // 
-            // tabSocket
-            // 
-            this.tabSocket.Controls.Add(this.rtfDebugSocket);
-            this.tabSocket.ImageIndex = 0;
-            this.tabSocket.Location = new System.Drawing.Point(4, 23);
-            this.tabSocket.Name = "tabSocket";
-            this.tabSocket.Size = new System.Drawing.Size(339, 362);
-            this.tabSocket.TabIndex = 2;
-            this.tabSocket.Text = "Socket Debug";
-            this.tabSocket.UseVisualStyleBackColor = true;
-            // 
-            // rtfDebugSocket
-            // 
-            this.rtfDebugSocket.BackColor = System.Drawing.SystemColors.Window;
-            this.rtfDebugSocket.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtfDebugSocket.Location = new System.Drawing.Point(0, 0);
-            this.rtfDebugSocket.Name = "rtfDebugSocket";
-            this.rtfDebugSocket.ReadOnly = true;
-            this.rtfDebugSocket.Size = new System.Drawing.Size(339, 362);
-            this.rtfDebugSocket.TabIndex = 1;
-            this.rtfDebugSocket.Text = "";
-            // 
-            // tabDebug
-            // 
-            this.tabDebug.Controls.Add(this.rtfDebug);
-            this.tabDebug.ImageIndex = 0;
-            this.tabDebug.Location = new System.Drawing.Point(4, 23);
-            this.tabDebug.Name = "tabDebug";
-            this.tabDebug.Size = new System.Drawing.Size(339, 362);
-            this.tabDebug.TabIndex = 1;
-            this.tabDebug.Text = "Debug";
-            this.tabDebug.UseVisualStyleBackColor = true;
-            this.tabDebug.Visible = false;
-            // 
-            // rtfDebug
-            // 
-            this.rtfDebug.BackColor = System.Drawing.SystemColors.Window;
-            this.rtfDebug.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtfDebug.Location = new System.Drawing.Point(0, 0);
-            this.rtfDebug.Name = "rtfDebug";
-            this.rtfDebug.ReadOnly = true;
-            this.rtfDebug.Size = new System.Drawing.Size(339, 362);
-            this.rtfDebug.TabIndex = 0;
-            this.rtfDebug.Text = "";
             // 
             // tabGC
             // 
@@ -509,7 +453,7 @@ namespace MiniClient
             this.toolStripButtonFindRooms.Image = global::MiniClient.Properties.Resources.comments;
             this.toolStripButtonFindRooms.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonFindRooms.Name = "toolStripButtonFindRooms";
-            this.toolStripButtonFindRooms.Size = new System.Drawing.Size(82, 22);
+            this.toolStripButtonFindRooms.Size = new System.Drawing.Size(90, 22);
             this.toolStripButtonFindRooms.Text = "Find Rooms";
             this.toolStripButtonFindRooms.Click += new System.EventHandler(this.toolStripButtonFindRooms_Click);
             // 
@@ -518,7 +462,7 @@ namespace MiniClient
             this.toolStripButtonFindPart.Image = global::MiniClient.Properties.Resources.group;
             this.toolStripButtonFindPart.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonFindPart.Name = "toolStripButtonFindPart";
-            this.toolStripButtonFindPart.Size = new System.Drawing.Size(106, 22);
+            this.toolStripButtonFindPart.Size = new System.Drawing.Size(115, 22);
             this.toolStripButtonFindPart.Text = "Find Participants";
             this.toolStripButtonFindPart.Click += new System.EventHandler(this.toolStripButtonFindPart_Click);
             // 
@@ -536,9 +480,9 @@ namespace MiniClient
             // 
             // rosterControl
             // 
-            this.rosterControl.ColorGroup = System.Drawing.SystemColors.Highlight;
+            this.rosterControl.ColorGroup = System.Drawing.Color.DarkGreen;
             this.rosterControl.ColorResource = System.Drawing.SystemColors.ControlText;
-            this.rosterControl.ColorRoot = System.Drawing.SystemColors.Highlight;
+            this.rosterControl.ColorRoot = System.Drawing.Color.DarkGreen;
             this.rosterControl.ColorRoster = System.Drawing.SystemColors.ControlText;
             this.rosterControl.DefaultGroupName = "ungrouped";
             this.rosterControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -561,8 +505,6 @@ namespace MiniClient
             // 
             this.tabControl1.Controls.Add(this.tabRoster);
             this.tabControl1.Controls.Add(this.tabGC);
-            this.tabControl1.Controls.Add(this.tabDebug);
-            this.tabControl1.Controls.Add(this.tabSocket);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.ImageList = this.ils16;
             this.tabControl1.Location = new System.Drawing.Point(0, 49);
@@ -587,8 +529,6 @@ namespace MiniClient
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.tabSocket.ResumeLayout(false);
-            this.tabDebug.ResumeLayout(false);
             this.tabGC.ResumeLayout(false);
             this.tabGC.PerformLayout();
             this.ToolStripGC.ResumeLayout(false);
@@ -622,13 +562,6 @@ namespace MiniClient
 				BeginInvoke(new XmlHandler(XmppCon_OnReadXml), new object[]{sender, xml});
 				return;
 			}
-			rtfDebug.SelectionStart		= rtfDebug.Text.Length;
-			rtfDebug.SelectionLength	= 0;
-			rtfDebug.SelectionColor		= Color.Red;
-			rtfDebug.AppendText("RECV: ");
-			rtfDebug.SelectionColor		= Color.Black;
-			rtfDebug.AppendText(xml);
-			rtfDebug.AppendText("\r\n"); 
 		}
 
 		private void XmppCon_OnWriteXml(object sender, string xml)
@@ -640,13 +573,6 @@ namespace MiniClient
 				BeginInvoke(new XmlHandler(XmppCon_OnWriteXml), new object[]{sender, xml});
 				return;
 			}
-            rtfDebug.SelectionStart = rtfDebug.Text.Length;
-            rtfDebug.SelectionLength = 0;
-            rtfDebug.SelectionColor = Color.Blue;
-            rtfDebug.AppendText("SEND: ");
-            rtfDebug.SelectionColor = Color.Black;
-            rtfDebug.AppendText(xml);
-            rtfDebug.AppendText("\r\n");
 		}
 
 		private void XmppCon_OnRosterStart(object sender)
@@ -971,21 +897,6 @@ namespace MiniClient
 				BeginInvoke(new agsXMPP.net.ClientSocket.OnSocketDataHandler(ClientSocket_OnReceive), new object[]{sender, data, count});
 				return;
 			}
-
-            try
-            {
-                rtfDebugSocket.SelectionStart = rtfDebug.Text.Length;
-                rtfDebugSocket.SelectionLength = 0;
-                rtfDebugSocket.SelectionColor = Color.Red;
-                rtfDebugSocket.AppendText("RECV: ");
-
-                rtfDebugSocket.SelectionStart = rtfDebug.Text.Length;
-                rtfDebugSocket.SelectionLength = 0;
-                rtfDebugSocket.SelectionColor = Color.Black;
-                rtfDebugSocket.AppendText(System.Text.Encoding.Default.GetString(data, 0, count));
-                rtfDebugSocket.AppendText("\r\n\r\n");
-            }
-            catch { }
 		}
 
 		private void ClientSocket_OnSend(object sender, byte[] data, int count)
@@ -997,21 +908,6 @@ namespace MiniClient
 				BeginInvoke(new agsXMPP.net.ClientSocket.OnSocketDataHandler(ClientSocket_OnSend), new object[]{sender, data, count});
 				return;
 			}
-
-            try
-            {
-                rtfDebugSocket.SelectionStart = rtfDebug.Text.Length;
-                rtfDebugSocket.SelectionLength = 0;
-                rtfDebugSocket.SelectionColor = Color.Blue;
-                rtfDebugSocket.AppendText("SEND: ");
-
-                rtfDebugSocket.SelectionStart = rtfDebug.Text.Length;
-                rtfDebugSocket.SelectionLength = 0;
-                rtfDebugSocket.SelectionColor = Color.Black;
-                rtfDebugSocket.AppendText(System.Text.Encoding.Default.GetString(data, 0, count));
-                rtfDebugSocket.AppendText("\r\n\r\n");
-            }
-            catch { }
 		}
         
 		private void XmppCon_OnXmppConnectionStateChanged(object sender, XmppConnectionState state)
