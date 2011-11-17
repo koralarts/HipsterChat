@@ -24,14 +24,8 @@ namespace MiniClient
         private System.Windows.Forms.Button cmdCancel;
 		private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Label label5;		
-		private System.ComponentModel.Container components = null;
-        private System.Windows.Forms.TextBox txtResource;
+        private System.ComponentModel.Container components = null;
         private CheckBox chkRegister;
-        private Label label6;
-        private TextBox txtPort;
-        private Label label4;
-        private NumericUpDown numPriority;
 
 		private XmppClientConnection _connection;
 
@@ -72,14 +66,7 @@ namespace MiniClient
             this.cmdCancel = new System.Windows.Forms.Button();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtResource = new System.Windows.Forms.TextBox();
             this.chkRegister = new System.Windows.Forms.CheckBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtPort = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.numPriority = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.numPriority)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -102,7 +89,7 @@ namespace MiniClient
             // cmdLogin
             // 
             this.cmdLogin.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cmdLogin.Location = new System.Drawing.Point(139, 213);
+            this.cmdLogin.Location = new System.Drawing.Point(141, 97);
             this.cmdLogin.Name = "cmdLogin";
             this.cmdLogin.Size = new System.Drawing.Size(88, 24);
             this.cmdLogin.TabIndex = 6;
@@ -112,7 +99,7 @@ namespace MiniClient
             // cmdCancel
             // 
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cmdCancel.Location = new System.Drawing.Point(32, 213);
+            this.cmdCancel.Location = new System.Drawing.Point(35, 97);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(88, 24);
             this.cmdCancel.TabIndex = 7;
@@ -121,7 +108,7 @@ namespace MiniClient
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(80, 56);
+            this.txtPassword.Location = new System.Drawing.Point(80, 39);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(168, 20);
@@ -130,92 +117,30 @@ namespace MiniClient
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(8, 56);
+            this.label3.Location = new System.Drawing.Point(8, 39);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 16);
             this.label3.TabIndex = 6;
             this.label3.Text = "Password:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label5
-            // 
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(8, 120);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(64, 16);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Resource:";
-            // 
-            // txtResource
-            // 
-            this.txtResource.Location = new System.Drawing.Point(80, 120);
-            this.txtResource.Name = "txtResource";
-            this.txtResource.Size = new System.Drawing.Size(168, 20);
-            this.txtResource.TabIndex = 4;
-            this.txtResource.Text = "MiniClient";
-            // 
             // chkRegister
             // 
             this.chkRegister.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.chkRegister.Location = new System.Drawing.Point(80, 174);
+            this.chkRegister.Location = new System.Drawing.Point(80, 65);
             this.chkRegister.Name = "chkRegister";
             this.chkRegister.Size = new System.Drawing.Size(160, 16);
             this.chkRegister.TabIndex = 11;
             this.chkRegister.Text = "register new Account";
             // 
-            // label6
-            // 
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(136, 88);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(32, 16);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "Port:";
-            // 
-            // txtPort
-            // 
-            this.txtPort.Location = new System.Drawing.Point(176, 88);
-            this.txtPort.MaxLength = 5;
-            this.txtPort.Name = "txtPort";
-            this.txtPort.Size = new System.Drawing.Size(72, 20);
-            this.txtPort.TabIndex = 3;
-            this.txtPort.Text = "5222";
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(8, 88);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 16);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Priority:";
-            // 
-            // numPriority
-            // 
-            this.numPriority.Location = new System.Drawing.Point(80, 88);
-            this.numPriority.Name = "numPriority";
-            this.numPriority.Size = new System.Drawing.Size(40, 20);
-            this.numPriority.TabIndex = 2;
-            this.numPriority.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
             // frmLogin
             // 
             this.AcceptButton = this.cmdLogin;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(258, 249);
+            this.ClientSize = new System.Drawing.Size(265, 146);
             this.Controls.Add(this.chkRegister);
-            this.Controls.Add(this.txtPort);
-            this.Controls.Add(this.txtResource);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtJid);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.numPriority);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdLogin);
@@ -225,7 +150,6 @@ namespace MiniClient
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Login form";
-            ((System.ComponentModel.ISupportInitialize)(this.numPriority)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -244,7 +168,7 @@ namespace MiniClient
             _connection.Server                      = getServerName();
             _connection.Username                    =txtJid.Text;
 			_connection.Password		            = txtPassword.Text;
-            _connection.Resource                    = txtResource.Text;
+            _connection.Resource                    = "HipsterChat";
             _connection.Priority                    = 10;
             _connection.Port                        = 5222;
             _connection.UseSSL                      = false;
@@ -314,10 +238,6 @@ namespace MiniClient
 
 		
 
-		private void chkSSL_CheckedChanged(object sender, System.EventArgs e)
-		{
-			txtPort.Text = "5223";
-		}
         public String getServerName() {
             string fileName = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             fileName += @"\chatservers.xml";
