@@ -70,7 +70,6 @@ namespace MiniClient
         private ComboBox cboStatus;
         private TabControl tabControl1;
         private ImageList ils16;
-        
 
         delegate void OnMessageDelegate(object sender, agsXMPP.protocol.client.Message msg);
 		delegate void OnPresenceDelegate(object sender, Presence pres);
@@ -350,9 +349,10 @@ namespace MiniClient
             // 
             // disconnectToolStripMenuItem
             // 
+            this.disconnectToolStripMenuItem.Enabled = false;
             this.disconnectToolStripMenuItem.Image = global::MiniClient.Properties.Resources.disconnect;
             this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
-            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.disconnectToolStripMenuItem.Text = "Disconnect";
             this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.disconnectToolStripMenuItem_Click);
             // 
@@ -371,6 +371,7 @@ namespace MiniClient
             // 
             // toolStrip1
             // 
+            this.toolStrip1.Enabled = false;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonAdd,
             this.toolStripButtonSearch});
@@ -506,6 +507,7 @@ namespace MiniClient
             this.tabControl1.Controls.Add(this.tabRoster);
             this.tabControl1.Controls.Add(this.tabGC);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Enabled = false;
             this.tabControl1.ImageList = this.ils16;
             this.tabControl1.Location = new System.Drawing.Point(0, 49);
             this.tabControl1.Name = "tabControl1";
@@ -522,7 +524,7 @@ namespace MiniClient
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.statusBar1);
             this.Name = "frmMain";
-            this.Text = "Mini Client";
+            this.Text = "Hipster Chat";
             this.contextMenuGC.ResumeLayout(false);
             this.contextMenuStripRoster.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
@@ -657,6 +659,8 @@ namespace MiniClient
             }
 			connectToolStripMenuItem.Enabled	= false;
 			disconnectToolStripMenuItem.Enabled	= true;
+            toolStrip1.Enabled = true;
+            tabControl1.Enabled = true;
             statusBar1.Text = "Online";
 
             DiscoServer();
@@ -869,6 +873,9 @@ namespace MiniClient
             			
 			connectToolStripMenuItem.Enabled	= true;
 			disconnectToolStripMenuItem.Enabled	= false;
+            toolStrip1.Enabled = true;
+            tabControl1.Enabled = true;
+            tabControl1.SelectedIndex = 0;
             cboStatus.SelectedValueChanged -= new System.EventHandler(this.cboStatus_SelectedValueChanged);
 
 			cboStatus.Text = "offline";
