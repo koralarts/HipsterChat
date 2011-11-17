@@ -72,7 +72,7 @@ namespace MiniClient
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(8, 8);
+            this.label1.Location = new System.Drawing.Point(7, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 16);
             this.label1.TabIndex = 0;
@@ -81,7 +81,7 @@ namespace MiniClient
             // 
             // txtJid
             // 
-            this.txtJid.Location = new System.Drawing.Point(80, 8);
+            this.txtJid.Location = new System.Drawing.Point(86, 13);
             this.txtJid.Name = "txtJid";
             this.txtJid.Size = new System.Drawing.Size(168, 20);
             this.txtJid.TabIndex = 0;
@@ -89,7 +89,7 @@ namespace MiniClient
             // cmdLogin
             // 
             this.cmdLogin.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cmdLogin.Location = new System.Drawing.Point(141, 97);
+            this.cmdLogin.Location = new System.Drawing.Point(138, 97);
             this.cmdLogin.Name = "cmdLogin";
             this.cmdLogin.Size = new System.Drawing.Size(88, 24);
             this.cmdLogin.TabIndex = 6;
@@ -99,7 +99,7 @@ namespace MiniClient
             // cmdCancel
             // 
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cmdCancel.Location = new System.Drawing.Point(35, 97);
+            this.cmdCancel.Location = new System.Drawing.Point(44, 97);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(88, 24);
             this.cmdCancel.TabIndex = 7;
@@ -108,7 +108,7 @@ namespace MiniClient
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(80, 39);
+            this.txtPassword.Location = new System.Drawing.Point(86, 40);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(168, 20);
@@ -117,7 +117,7 @@ namespace MiniClient
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(8, 39);
+            this.label3.Location = new System.Drawing.Point(7, 44);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 16);
             this.label3.TabIndex = 6;
@@ -127,17 +127,17 @@ namespace MiniClient
             // chkRegister
             // 
             this.chkRegister.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.chkRegister.Location = new System.Drawing.Point(80, 65);
+            this.chkRegister.Location = new System.Drawing.Point(86, 66);
             this.chkRegister.Name = "chkRegister";
             this.chkRegister.Size = new System.Drawing.Size(160, 16);
             this.chkRegister.TabIndex = 11;
-            this.chkRegister.Text = "register new Account";
+            this.chkRegister.Text = "Register A New Account";
             // 
             // frmLogin
             // 
             this.AcceptButton = this.cmdLogin;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(265, 146);
+            this.ClientSize = new System.Drawing.Size(266, 133);
             this.Controls.Add(this.chkRegister);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtJid);
@@ -149,7 +149,7 @@ namespace MiniClient
             this.MaximizeBox = false;
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Login form";
+            this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();
 
