@@ -80,7 +80,7 @@ namespace agsXMPP.ui.roster
             this.toolStripButtonFindPrevious});
             this.toolStrip.Location = new System.Drawing.Point(3, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(214, 25);
+            this.toolStrip.Size = new System.Drawing.Size(228, 25);
             this.toolStrip.TabIndex = 7;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -97,8 +97,8 @@ namespace agsXMPP.ui.roster
             // toolStripLabelFind
             // 
             this.toolStripLabelFind.Name = "toolStripLabelFind";
-            this.toolStripLabelFind.Size = new System.Drawing.Size(31, 22);
-            this.toolStripLabelFind.Text = "Find:";
+            this.toolStripLabelFind.Size = new System.Drawing.Size(45, 22);
+            this.toolStripLabelFind.Text = "Search:";
             // 
             // toolStripTextBox
             // 
@@ -145,12 +145,12 @@ namespace agsXMPP.ui.roster
             this.treeView.Size = new System.Drawing.Size(264, 170);
             this.treeView.TabIndex = 8;
             this.treeView.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterCollapse);
+            this.treeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterExpand);
             this.treeView.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.treeView_DrawNode);
             this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
-            this.treeView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.treeView_MouseMove);
-            this.treeView.MouseLeave += new System.EventHandler(this.treeView_MouseLeave);
-            this.treeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterExpand);
             this.treeView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.treeView_MouseDown);
+            this.treeView.MouseLeave += new System.EventHandler(this.treeView_MouseLeave);
+            this.treeView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.treeView_MouseMove);
             // 
             // RosterControl
             // 

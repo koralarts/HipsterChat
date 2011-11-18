@@ -41,10 +41,10 @@ namespace MiniClient
             this.statusBar1 = new System.Windows.Forms.StatusBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lvwRoster = new System.Windows.Forms.ListView();
-            this.headerNickname = new System.Windows.Forms.ColumnHeader();
-            this.headerStatus = new System.Windows.Forms.ColumnHeader();
-            this.headerRole = new System.Windows.Forms.ColumnHeader();
-            this.headerAffiliation = new System.Windows.Forms.ColumnHeader();
+            this.headerNickname = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.headerStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.headerRole = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.headerAffiliation = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ilsRoster = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -178,6 +178,7 @@ namespace MiniClient
             this.rtfChat.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtfChat.Location = new System.Drawing.Point(3, 33);
             this.rtfChat.Name = "rtfChat";
+            this.rtfChat.ReadOnly = true;
             this.rtfChat.Size = new System.Drawing.Size(425, 179);
             this.rtfChat.TabIndex = 3;
             this.rtfChat.Text = "";

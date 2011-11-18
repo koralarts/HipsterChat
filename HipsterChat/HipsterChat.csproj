@@ -115,6 +115,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.ico" />
+    <None Include="Resources\chatbg.png" />
+    <None Include="Resources\mainbg.png" />
     <None Include="Resources\package.png" />
     <None Include="Resources\user_delete.png" />
     <None Include="Resources\vcard.png" />

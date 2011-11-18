@@ -31,7 +31,6 @@ namespace MiniClient
             
             // Setup new Presence Callback
             m_XmppCon.PresenceGrabber.Add(roomJid, new BareJidComparer(), new PresenceCB(PresenceCallback), null);
-
         }
         #endregion
 
@@ -152,8 +151,11 @@ namespace MiniClient
         {
             if (msg.Type == MessageType.error)
             {
-                //Handle errors here
-                // we dont handle them in this example
+                MessageBox.Show("Error: " + msg.Body, 
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation,
+                    MessageBoxDefaultButton.Button1);
                 return;
             }
 
@@ -162,7 +164,6 @@ namespace MiniClient
                 txtSubject.Text = msg.Subject;
 
                 rtfChat.SelectionColor = Color.DarkGreen;
-                // The Nickname of the sender is in GroupChat in the Resource of the Jid
                 rtfChat.AppendText(msg.From.Resource + " changed subject: ");
                 rtfChat.SelectionColor = Color.Black;                
                 rtfChat.AppendText(msg.Subject);
@@ -174,7 +175,6 @@ namespace MiniClient
                     return;
 
                 rtfChat.SelectionColor = Color.Red;
-                // The Nickname of the sender is in GroupChat in the Resource of the Jid
                 rtfChat.AppendText(msg.From.Resource + " said: ");
                 rtfChat.SelectionColor = Color.Black;
                 rtfChat.AppendText(msg.Body);
@@ -184,7 +184,6 @@ namespace MiniClient
 
         private void cmdSend_Click(object sender, EventArgs e)
         {
-            // Make sure that the users send no empty messages
             if (rtfSend.Text.Length > 0)
             {
                 agsXMPP.protocol.client.Message msg = new agsXMPP.protocol.client.Message();
@@ -216,8 +215,5 @@ namespace MiniClient
 
             m_XmppCon.Send(msg);
         }
-
-        
-
     }
 }

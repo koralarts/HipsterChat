@@ -37,7 +37,7 @@ namespace agsXMPP.ui.roster
         private RosterNode      m_RootOnline;
         private RosterNode      m_RootOffline;
         private bool            m_HideEmptyGroups   = true;
-        private string          m_DefaultGroupName  = "ungrouped";
+        private string          m_DefaultGroupName  = "Ungrouped";
         private Color           m_ColorRoot         = SystemColors.Highlight;
         private Color           m_ColorGroup        = SystemColors.Highlight;
         private Color           m_ColorResource     = SystemColors.ControlText;
@@ -726,10 +726,5 @@ namespace agsXMPP.ui.roster
         {
             tool.Active = false;
         }
-
-            
-
-    
-        
     }
 }

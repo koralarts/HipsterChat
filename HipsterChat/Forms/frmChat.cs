@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 using agsXMPP;
 using agsXMPP.protocol;
@@ -20,13 +21,12 @@ namespace MiniClient
 		private System.ComponentModel.Container components = null;
 
 		private XmppClientConnection	_connection;
-		private Jid						m_Jid;
-		private System.Windows.Forms.StatusBar statusBar1;
-		private System.Windows.Forms.PictureBox pictureBox1;
-		private System.Windows.Forms.Button cmdSend;
-		private System.Windows.Forms.RichTextBox rtfSend;
-		private System.Windows.Forms.Splitter splitter1;
-		private System.Windows.Forms.RichTextBox rtfChat;
+        private Jid m_Jid;
+        private System.Windows.Forms.RichTextBox rtfChat;
+        private Button cmdSend1;
+        private TextBox rtfSend;
+        private Panel panel1;
+        private Button closeButton;
 		private string					_nickname;
 
 		
@@ -35,14 +35,11 @@ namespace MiniClient
 			m_Jid		= jid;
 			_connection = con;
 			_nickname	= nickname;
-		
-			
 
 			InitializeComponent();
 			
 			this.Text = "Chat with " + nickname;
-			
-			Util.ChatForms.Add(m_Jid.Bare.ToLower(), this);
+            Util.ChatForms.Add(m_Jid.Bare.ToLower(), this);
 
 			// Setup new Message Callback
             con.MessageGrabber.Add(jid, new BareJidComparer(), new MessageCB(MessageCallback), null);
@@ -54,12 +51,9 @@ namespace MiniClient
             _connection = con;
             _nickname = nickname;
 
-
-
             InitializeComponent();
 
             this.Text = "Chat with " + nickname;
-
             Util.ChatForms.Add(m_Jid.Bare.ToLower(), this);
 
             // Setup new Message Callback
@@ -97,90 +91,101 @@ namespace MiniClient
 		
 		private void InitializeComponent()
 		{
-			this.statusBar1 = new System.Windows.Forms.StatusBar();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
-			this.cmdSend = new System.Windows.Forms.Button();
-			this.rtfSend = new System.Windows.Forms.RichTextBox();
-			this.splitter1 = new System.Windows.Forms.Splitter();
-			this.rtfChat = new System.Windows.Forms.RichTextBox();
-			this.SuspendLayout();
-			// 
-			// statusBar1
-			// 
-			this.statusBar1.Location = new System.Drawing.Point(0, 214);
-			this.statusBar1.Name = "statusBar1";
-			this.statusBar1.Size = new System.Drawing.Size(424, 24);
-			this.statusBar1.TabIndex = 5;
-			// 
-			// pictureBox1
-			// 
-			this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.pictureBox1.Location = new System.Drawing.Point(0, 178);
-			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(424, 36);
-			this.pictureBox1.TabIndex = 6;
-			this.pictureBox1.TabStop = false;
-			// 
-			// cmdSend
-			// 
-			this.cmdSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.cmdSend.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.cmdSend.Location = new System.Drawing.Point(344, 184);
-			this.cmdSend.Name = "cmdSend";
-			this.cmdSend.Size = new System.Drawing.Size(72, 24);
-			this.cmdSend.TabIndex = 7;
-			this.cmdSend.Text = "&Send";
-			this.cmdSend.Click += new System.EventHandler(this.cmdSend_Click);
-			// 
-			// rtfSend
-			// 
-			this.rtfSend.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.rtfSend.Location = new System.Drawing.Point(0, 130);
-			this.rtfSend.Name = "rtfSend";
-			this.rtfSend.Size = new System.Drawing.Size(424, 48);
-			this.rtfSend.TabIndex = 8;
-			this.rtfSend.Text = "";
-			// 
-			// splitter1
-			// 
-			this.splitter1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.splitter1.Location = new System.Drawing.Point(0, 122);
-			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(424, 8);
-			this.splitter1.TabIndex = 9;
-			this.splitter1.TabStop = false;
-			// 
-			// rtfChat
-			// 
-			this.rtfChat.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.rtfChat.Location = new System.Drawing.Point(0, 0);
-			this.rtfChat.Name = "rtfChat";
-			this.rtfChat.Size = new System.Drawing.Size(424, 122);
-			this.rtfChat.TabIndex = 10;
-			this.rtfChat.Text = "";
-			// 
-			// frmChat
-			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(424, 238);
-			this.Controls.Add(this.rtfChat);
-			this.Controls.Add(this.splitter1);
-			this.Controls.Add(this.rtfSend);
-			this.Controls.Add(this.cmdSend);
-			this.Controls.Add(this.pictureBox1);
-			this.Controls.Add(this.statusBar1);
-			this.Name = "frmChat";
-			this.Text = "frmChat";
-			this.ResumeLayout(false);
-
+            this.rtfChat = new System.Windows.Forms.RichTextBox();
+            this.cmdSend1 = new System.Windows.Forms.Button();
+            this.rtfSend = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.closeButton = new System.Windows.Forms.Button();
+            this.panel1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // rtfSend
+            // 
+            this.rtfSend.BackColor = System.Drawing.Color.Black;
+            this.rtfSend.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtfSend.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.rtfSend.Location = new System.Drawing.Point(2, 2);
+            this.rtfSend.Multiline = true;
+            this.rtfSend.Name = "rtfSend";
+            this.rtfSend.Size = new System.Drawing.Size(223, 52);
+            this.rtfSend.TabIndex = 12;
+            // 
+            // rtfChat
+            // 
+            this.rtfChat.BackColor = System.Drawing.Color.Black;
+            this.rtfChat.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtfChat.Location = new System.Drawing.Point(21, 22);
+            this.rtfChat.Name = "rtfChat";
+            this.rtfChat.ReadOnly = true;
+            this.rtfChat.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.rtfChat.Size = new System.Drawing.Size(458, 225);
+            this.rtfChat.TabIndex = 10;
+            this.rtfChat.Text = "";
+            // 
+            // cmdSend1
+            // 
+            this.cmdSend1.BackColor = System.Drawing.Color.Transparent;
+            this.cmdSend1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdSend1.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.cmdSend1.Location = new System.Drawing.Point(102, 274);
+            this.cmdSend1.Name = "cmdSend1";
+            this.cmdSend1.Size = new System.Drawing.Size(75, 23);
+            this.cmdSend1.TabIndex = 11;
+            this.cmdSend1.Text = "Send";
+            this.cmdSend1.UseVisualStyleBackColor = false;
+            this.cmdSend1.Click += new System.EventHandler(this.cmdSend_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.rtfSend);
+            this.panel1.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.panel1.Location = new System.Drawing.Point(253, 271);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(229, 58);
+            this.panel1.TabIndex = 13;
+            // 
+            // closeButton
+            // 
+            this.closeButton.BackColor = System.Drawing.Color.Transparent;
+            this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.closeButton.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.closeButton.Location = new System.Drawing.Point(21, 274);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(75, 23);
+            this.closeButton.TabIndex = 14;
+            this.closeButton.Text = "Close";
+            this.closeButton.UseVisualStyleBackColor = false;
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            // 
+            // frmChat
+            // 
+            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.BackgroundImage = global::MiniClient.Properties.Resources.chatbg;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Controls.Add(this.closeButton);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.cmdSend1);
+            this.Controls.Add(this.rtfChat);
+            this.DoubleBuffered = true;
+            this.Name = "frmChat";
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmChat_MouseDown);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.ResumeLayout(false);
+            this.Width = BackgroundImage.Width;
+            this.Height = BackgroundImage.Height;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.BackColor = Color.FromArgb(0, 255, 0);
 		}
 		#endregion
 
 		private void OutgoingMessage(agsXMPP.protocol.client.Message msg)
 		{
-			rtfChat.SelectionColor = Color.Blue;
+			rtfChat.SelectionColor = Color.White;
 			rtfChat.AppendText("Me said: ");
-			rtfChat.SelectionColor = Color.Black;
+			rtfChat.SelectionColor = Color.DarkTurquoise;
 			rtfChat.AppendText(msg.Body);
 			rtfChat.AppendText("\r\n");
 		}
@@ -189,7 +194,7 @@ namespace MiniClient
 		{
 			rtfChat.SelectionColor = Color.Red;
 			rtfChat.AppendText(_nickname + " said: ");
-			rtfChat.SelectionColor = Color.Black;
+			rtfChat.SelectionColor = Color.DarkTurquoise;
 			rtfChat.AppendText(msg.Body);
 			rtfChat.AppendText("\r\n");
 		}
@@ -201,9 +206,13 @@ namespace MiniClient
 			msg.Type	= MessageType.chat;
 			msg.To		= m_Jid;
 			msg.Body	= rtfSend.Text;
-			
-			_connection.Send(msg);
-			OutgoingMessage(msg);
+
+            if (msg.Body != null)
+            {
+                _connection.Send(msg);
+                OutgoingMessage(msg);
+            }
+
 			rtfSend.Text = "";
 		}
 
@@ -221,6 +230,28 @@ namespace MiniClient
 			    IncomingMessage(msg);
 		}
 
-		
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+
+        [DllImportAttribute ("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, 
+        int Msg, int wParam, int lParam);
+          
+        [DllImportAttribute ("user32.dll")]
+        public static extern bool ReleaseCapture();
+
+        private void frmChat_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
 	}
 }

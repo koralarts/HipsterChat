@@ -71,12 +71,13 @@ namespace MiniClient
             // 
             // label1
             // 
+            this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(7, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 16);
+            this.label1.Size = new System.Drawing.Size(73, 16);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Username";
+            this.label1.Text = "Username:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtJid
@@ -116,28 +117,34 @@ namespace MiniClient
             // 
             // label3
             // 
+            this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(7, 44);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(64, 16);
+            this.label3.Size = new System.Drawing.Size(72, 16);
             this.label3.TabIndex = 6;
             this.label3.Text = "Password:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // chkRegister
             // 
+            this.chkRegister.BackColor = System.Drawing.Color.Transparent;
             this.chkRegister.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.chkRegister.Location = new System.Drawing.Point(86, 66);
             this.chkRegister.Name = "chkRegister";
             this.chkRegister.Size = new System.Drawing.Size(160, 16);
             this.chkRegister.TabIndex = 11;
             this.chkRegister.Text = "Register A New Account";
+            this.chkRegister.UseVisualStyleBackColor = false;
             // 
             // frmLogin
             // 
             this.AcceptButton = this.cmdLogin;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.BackgroundImage = global::MiniClient.Properties.Resources.mainbg;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(266, 133);
+            this.ControlBox = false;
             this.Controls.Add(this.chkRegister);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtJid);
@@ -145,8 +152,11 @@ namespace MiniClient
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdLogin);
             this.Controls.Add(this.label1);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(272, 161);
+            this.MinimumSize = new System.Drawing.Size(272, 161);
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Login";
