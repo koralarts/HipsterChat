@@ -29,6 +29,16 @@ namespace MiniClient
         private Button closeButton;
 		private string					_nickname;
 
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        private Label chatWithLabel;
+        public const int HT_CAPTION = 0x2;
+
+        [DllImportAttribute("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd,
+        int Msg, int wParam, int lParam);
+
+        [DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
 		
 		public frmChat(Jid jid, XmppClientConnection con, string nickname)
 		{
@@ -53,7 +63,8 @@ namespace MiniClient
 
             InitializeComponent();
 
-            this.Text = "Chat with " + nickname;
+            this.Text = "Chat with " + _nickname;
+            this.chatWithLabel.Text = "Chatting with: " + _nickname;
             Util.ChatForms.Add(m_Jid.Bare.ToLower(), this);
 
             // Setup new Message Callback
@@ -96,8 +107,36 @@ namespace MiniClient
             this.rtfSend = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.closeButton = new System.Windows.Forms.Button();
+            this.chatWithLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // rtfChat
+            // 
+            this.rtfChat.BackColor = System.Drawing.Color.Black;
+            this.rtfChat.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtfChat.Location = new System.Drawing.Point(21, 44);
+            this.rtfChat.Name = "rtfChat";
+            this.rtfChat.ReadOnly = true;
+            this.rtfChat.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.rtfChat.Size = new System.Drawing.Size(458, 203);
+            this.rtfChat.TabIndex = 10;
+            this.rtfChat.Text = "";
+            // 
+            // cmdSend1
+            // 
+            this.cmdSend1.BackColor = System.Drawing.Color.Transparent;
+            this.cmdSend1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkCyan;
+            this.cmdSend1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateGray;
+            this.cmdSend1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdSend1.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.cmdSend1.Location = new System.Drawing.Point(102, 274);
+            this.cmdSend1.Name = "cmdSend1";
+            this.cmdSend1.Size = new System.Drawing.Size(75, 23);
+            this.cmdSend1.TabIndex = 11;
+            this.cmdSend1.Text = "Send";
+            this.cmdSend1.UseVisualStyleBackColor = false;
+            this.cmdSend1.Click += new System.EventHandler(this.cmdSend_Click);
             // 
             // rtfSend
             // 
@@ -109,31 +148,6 @@ namespace MiniClient
             this.rtfSend.Name = "rtfSend";
             this.rtfSend.Size = new System.Drawing.Size(223, 52);
             this.rtfSend.TabIndex = 12;
-            // 
-            // rtfChat
-            // 
-            this.rtfChat.BackColor = System.Drawing.Color.Black;
-            this.rtfChat.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtfChat.Location = new System.Drawing.Point(21, 22);
-            this.rtfChat.Name = "rtfChat";
-            this.rtfChat.ReadOnly = true;
-            this.rtfChat.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtfChat.Size = new System.Drawing.Size(458, 225);
-            this.rtfChat.TabIndex = 10;
-            this.rtfChat.Text = "";
-            // 
-            // cmdSend1
-            // 
-            this.cmdSend1.BackColor = System.Drawing.Color.Transparent;
-            this.cmdSend1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdSend1.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.cmdSend1.Location = new System.Drawing.Point(102, 274);
-            this.cmdSend1.Name = "cmdSend1";
-            this.cmdSend1.Size = new System.Drawing.Size(75, 23);
-            this.cmdSend1.TabIndex = 11;
-            this.cmdSend1.Text = "Send";
-            this.cmdSend1.UseVisualStyleBackColor = false;
-            this.cmdSend1.Click += new System.EventHandler(this.cmdSend_Click);
             // 
             // panel1
             // 
@@ -149,6 +163,8 @@ namespace MiniClient
             // closeButton
             // 
             this.closeButton.BackColor = System.Drawing.Color.Transparent;
+            this.closeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkCyan;
+            this.closeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateGray;
             this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.closeButton.ForeColor = System.Drawing.Color.DarkTurquoise;
             this.closeButton.Location = new System.Drawing.Point(21, 274);
@@ -159,11 +175,24 @@ namespace MiniClient
             this.closeButton.UseVisualStyleBackColor = false;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
+            // chatWithLabel
+            // 
+            this.chatWithLabel.AutoSize = true;
+            this.chatWithLabel.BackColor = System.Drawing.Color.Transparent;
+            this.chatWithLabel.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.chatWithLabel.Location = new System.Drawing.Point(21, 25);
+            this.chatWithLabel.Name = "chatWithLabel";
+            this.chatWithLabel.Size = new System.Drawing.Size(71, 13);
+            this.chatWithLabel.TabIndex = 15;
+            this.chatWithLabel.Text = "Chatting with:";
+            // 
             // frmChat
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.BackgroundImage = global::MiniClient.Properties.Resources.chatbg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ClientSize = new System.Drawing.Size(500, 350);
+            this.Controls.Add(this.chatWithLabel);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.cmdSend1);
@@ -174,10 +203,8 @@ namespace MiniClient
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.Width = BackgroundImage.Width;
-            this.Height = BackgroundImage.Height;
+            this.PerformLayout();
             this.FormBorderStyle = FormBorderStyle.None;
-            this.BackColor = Color.FromArgb(0, 255, 0);
 		}
 		#endregion
 
@@ -234,16 +261,6 @@ namespace MiniClient
         {
             this.Close();
         }
-
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;
-
-        [DllImportAttribute ("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, 
-        int Msg, int wParam, int lParam);
-          
-        [DllImportAttribute ("user32.dll")]
-        public static extern bool ReleaseCapture();
 
         private void frmChat_MouseDown(object sender, MouseEventArgs e)
         {

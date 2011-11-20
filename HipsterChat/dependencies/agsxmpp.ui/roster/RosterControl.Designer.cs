@@ -55,19 +55,27 @@ namespace agsXMPP.ui.roster
             // 
             // toolStripContainer1.BottomToolStripPanel
             // 
+            this.toolStripContainer1.BottomToolStripPanel.BackColor = System.Drawing.Color.Black;
             this.toolStripContainer1.BottomToolStripPanel.Controls.Add(this.toolStrip);
             // 
             // toolStripContainer1.ContentPanel
             // 
+            this.toolStripContainer1.ContentPanel.BackColor = System.Drawing.Color.Transparent;
             this.toolStripContainer1.ContentPanel.Controls.Add(this.treeView);
+            this.toolStripContainer1.ContentPanel.ForeColor = System.Drawing.Color.DarkTurquoise;
             this.toolStripContainer1.ContentPanel.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(264, 170);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(264, 195);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
             this.toolStripContainer1.Size = new System.Drawing.Size(264, 220);
             this.toolStripContainer1.TabIndex = 7;
             this.toolStripContainer1.Text = "toolStripContainer1";
+            // 
+            // toolStripContainer1.TopToolStripPanel
+            // 
+            this.toolStripContainer1.TopToolStripPanel.BackColor = System.Drawing.Color.Black;
+            this.toolStripContainer1.TopToolStripPanel.ForeColor = System.Drawing.Color.DarkTurquoise;
             // 
             // toolStrip
             // 
@@ -80,9 +88,10 @@ namespace agsXMPP.ui.roster
             this.toolStripButtonFindPrevious});
             this.toolStrip.Location = new System.Drawing.Point(3, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(228, 25);
+            this.toolStrip.Size = new System.Drawing.Size(259, 25);
             this.toolStrip.TabIndex = 7;
             this.toolStrip.Text = "toolStrip1";
+            this.toolStrip.Visible = false;
             // 
             // toolStripButtonClose
             // 
@@ -130,19 +139,22 @@ namespace agsXMPP.ui.roster
             // 
             // treeView
             // 
+            this.treeView.BackColor = System.Drawing.Color.White;
             this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.treeView.ForeColor = System.Drawing.Color.DarkTurquoise;
             this.treeView.HideSelection = false;
             this.treeView.ImageIndex = 0;
             this.treeView.ImageList = this.ils16;
+            this.treeView.LineColor = System.Drawing.Color.Azure;
             this.treeView.Location = new System.Drawing.Point(0, 0);
             this.treeView.Name = "treeView";
             this.treeView.SelectedImageIndex = 0;
             this.treeView.ShowLines = false;
             this.treeView.ShowPlusMinus = false;
             this.treeView.ShowRootLines = false;
-            this.treeView.Size = new System.Drawing.Size(264, 170);
+            this.treeView.Size = new System.Drawing.Size(264, 195);
             this.treeView.TabIndex = 8;
             this.treeView.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterCollapse);
             this.treeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterExpand);
@@ -156,7 +168,9 @@ namespace agsXMPP.ui.roster
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.toolStripContainer1);
+            this.ForeColor = System.Drawing.Color.DarkTurquoise;
             this.Name = "RosterControl";
             this.Size = new System.Drawing.Size(264, 220);
             this.toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);

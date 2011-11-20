@@ -17,13 +17,11 @@ namespace MiniClient
 	/// Summary for frmLogin.
 	/// </summary>
 	public class frmLogin : System.Windows.Forms.Form
-	{
-		private System.Windows.Forms.Label label1;
+    {
 		private System.Windows.Forms.TextBox txtJid;
 		private System.Windows.Forms.Button cmdLogin;
         private System.Windows.Forms.Button cmdCancel;
-		private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtPassword;
         private System.ComponentModel.Container components = null;
         private CheckBox chkRegister;
 
@@ -60,77 +58,71 @@ namespace MiniClient
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.label1 = new System.Windows.Forms.Label();
             this.txtJid = new System.Windows.Forms.TextBox();
             this.cmdLogin = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.txtPassword = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.chkRegister = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(7, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 16);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Username:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // txtJid
             // 
-            this.txtJid.Location = new System.Drawing.Point(86, 13);
+            this.txtJid.BackColor = System.Drawing.Color.Black;
+            this.txtJid.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.txtJid.Location = new System.Drawing.Point(112, 46);
             this.txtJid.Name = "txtJid";
-            this.txtJid.Size = new System.Drawing.Size(168, 20);
+            this.txtJid.Size = new System.Drawing.Size(142, 20);
             this.txtJid.TabIndex = 0;
             // 
             // cmdLogin
             // 
-            this.cmdLogin.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cmdLogin.Location = new System.Drawing.Point(138, 97);
+            this.cmdLogin.BackColor = System.Drawing.Color.Transparent;
+            this.cmdLogin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkCyan;
+            this.cmdLogin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateGray;
+            this.cmdLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdLogin.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.cmdLogin.Location = new System.Drawing.Point(138, 120);
             this.cmdLogin.Name = "cmdLogin";
             this.cmdLogin.Size = new System.Drawing.Size(88, 24);
             this.cmdLogin.TabIndex = 6;
             this.cmdLogin.Text = "Login";
+            this.cmdLogin.UseVisualStyleBackColor = false;
             this.cmdLogin.Click += new System.EventHandler(this.cmdLogin_Click);
             // 
             // cmdCancel
             // 
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cmdCancel.Location = new System.Drawing.Point(44, 97);
+            this.cmdCancel.BackColor = System.Drawing.Color.Transparent;
+            this.cmdCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkCyan;
+            this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateGray;
+            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdCancel.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.cmdCancel.Location = new System.Drawing.Point(44, 120);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(88, 24);
             this.cmdCancel.TabIndex = 7;
             this.cmdCancel.Text = "Cancel";
+            this.cmdCancel.UseVisualStyleBackColor = false;
             this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(86, 40);
+            this.txtPassword.BackColor = System.Drawing.Color.Black;
+            this.txtPassword.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.txtPassword.Location = new System.Drawing.Point(112, 72);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(168, 20);
+            this.txtPassword.PasswordChar = ' ';
+            this.txtPassword.Size = new System.Drawing.Size(142, 20);
             this.txtPassword.TabIndex = 1;
-            // 
-            // label3
-            // 
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(7, 44);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 16);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Password:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // chkRegister
             // 
             this.chkRegister.BackColor = System.Drawing.Color.Transparent;
-            this.chkRegister.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.chkRegister.Location = new System.Drawing.Point(86, 66);
+            this.chkRegister.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.chkRegister.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.chkRegister.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.chkRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkRegister.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.chkRegister.Location = new System.Drawing.Point(86, 98);
             this.chkRegister.Name = "chkRegister";
             this.chkRegister.Size = new System.Drawing.Size(160, 16);
             this.chkRegister.TabIndex = 11;
@@ -141,28 +133,24 @@ namespace MiniClient
             // 
             this.AcceptButton = this.cmdLogin;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.BackgroundImage = global::MiniClient.Properties.Resources.mainbg;
+            this.BackgroundImage = global::MiniClient.Properties.Resources.loginBg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(266, 133);
+            this.ClientSize = new System.Drawing.Size(271, 160);
             this.ControlBox = false;
             this.Controls.Add(this.chkRegister);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtJid);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdLogin);
-            this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(272, 161);
-            this.MinimumSize = new System.Drawing.Size(272, 161);
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();
-
+            this.FormBorderStyle = FormBorderStyle.None;
 		}
 		#endregion
 

@@ -67,6 +67,20 @@ namespace MiniClient.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap close {
+            get {
+                object obj = ResourceManager.GetObject("close", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap close2 {
+            get {
+                object obj = ResourceManager.GetObject("close2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap comment {
             get {
                 object obj = ResourceManager.GetObject("comment", resourceCulture);
@@ -109,6 +123,13 @@ namespace MiniClient.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap loginBg {
+            get {
+                object obj = ResourceManager.GetObject("loginBg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap mainbg {
             get {
                 object obj = ResourceManager.GetObject("mainbg", resourceCulture);
@@ -116,9 +137,23 @@ namespace MiniClient.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap mainFrmBg {
+            get {
+                object obj = ResourceManager.GetObject("mainFrmBg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap package {
             get {
                 object obj = ResourceManager.GetObject("package", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap refresh {
+            get {
+                object obj = ResourceManager.GetObject("refresh", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

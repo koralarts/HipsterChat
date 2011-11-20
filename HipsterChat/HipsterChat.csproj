@@ -115,6 +115,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.ico" />
+    <None Include="Resources\loginBg.png" />
+    <None Include="Resources\close2.png" />
+    <None Include="Resources\close.png" />
+    <None Include="Resources\refresh.png" />
+    <None Include="Resources\mainFrmBg.png" />
     <None Include="Resources\chatbg.png" />
     <None Include="Resources\mainbg.png" />
     <None Include="Resources\package.png" />
