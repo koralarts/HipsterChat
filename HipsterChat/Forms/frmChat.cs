@@ -217,7 +217,7 @@ namespace MiniClient
 		private void OutgoingMessage(agsXMPP.protocol.client.Message msg)
 		{
 			rtfChat.SelectionColor = Color.White;
-			rtfChat.AppendText("Me said: ");
+			rtfChat.AppendText("Me: ");
 			rtfChat.SelectionColor = Color.DarkTurquoise;
 			rtfChat.AppendText(msg.Body);
 			rtfChat.AppendText("\r\n");
@@ -227,7 +227,7 @@ namespace MiniClient
 		public void IncomingMessage(agsXMPP.protocol.client.Message msg)
 		{
 			rtfChat.SelectionColor = Color.Red;
-			rtfChat.AppendText(m_Jid.User + " said: ");
+			rtfChat.AppendText(m_Jid.User + ": ");
 			rtfChat.SelectionColor = Color.DarkTurquoise;
 			rtfChat.AppendText(msg.Body);
 			rtfChat.AppendText("\r\n");
