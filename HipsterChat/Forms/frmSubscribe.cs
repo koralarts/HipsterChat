@@ -130,7 +130,9 @@ namespace MiniClient
 		private void cmdApprove_Click(object sender, System.EventArgs e)
 		{
 			PresenceManager pm = new PresenceManager(_connection);
-			pm.ApproveSubscriptionRequest(_from);			
+			pm.ApproveSubscriptionRequest(_from);
+            _connection.RosterManager.AddRosterItem(_from);
+            _connection.PresenceManager.Subscribe(_from);
 
 			this.Close();
 		}

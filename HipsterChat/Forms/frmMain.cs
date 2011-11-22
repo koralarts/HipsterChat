@@ -495,6 +495,7 @@ namespace MiniClient
             this.cboStatus.Name = "cboStatus";
             this.cboStatus.Size = new System.Drawing.Size(358, 21);
             this.cboStatus.TabIndex = 14;
+            this.cboStatus.SelectedValueChanged += new System.EventHandler(this.cboStatus_SelectedValueChanged);
             // 
             // contactListPanel
             // 
@@ -655,9 +656,7 @@ namespace MiniClient
 		private void XmppCon_OnReadXml(object sender, string xml)
 		{			
 			if (InvokeRequired)
-			{	
-				// Windows Forms are not Thread Safe, we need to invoke this :(
-				// We're not in the UI thread, so we need to call BeginInvoke				
+			{					
 				BeginInvoke(new XmlHandler(XmppCon_OnReadXml), new object[]{sender, xml});
 				return;
 			}
@@ -666,9 +665,7 @@ namespace MiniClient
 		private void XmppCon_OnWriteXml(object sender, string xml)
 		{
 			if (InvokeRequired)
-			{	
-				// Windows Forms are not Thread Safe, we need to invoke this :(
-				// We're not in the UI thread, so we need to call BeginInvoke				
+			{					
 				BeginInvoke(new XmlHandler(XmppCon_OnWriteXml), new object[]{sender, xml});
 				return;
 			}
@@ -678,8 +675,6 @@ namespace MiniClient
 		{
 			if (InvokeRequired)
 			{	
-				// Windows Forms are not Thread Safe, we need to invoke this :(
-				// We're not in the UI thread, so we need to call BeginInvoke				
 				BeginInvoke(new ObjectHandler(XmppCon_OnRosterStart), new object[]{this});
 				return;
 			}
@@ -690,24 +685,15 @@ namespace MiniClient
 		private void XmppCon_OnRosterEnd(object sender)
 		{
 			if (InvokeRequired)
-			{	
-				// Windows Forms are not Thread Safe, we need to invoke this :(
-				// We're not in the UI thread, so we need to call BeginInvoke				
+			{					
 				BeginInvoke(new ObjectHandler(XmppCon_OnRosterEnd), new object[]{this});
 				return;
 			}
 			// enable redraw again
             rosterControl.EndUpdate();
             rosterControl.ExpandAll();
-
-            
-            //// Send our Online Presence now, this is done in the cboStatus SelectionChanges event
-            //// after the next line
-            //cboStatus.SelectedIndex = 5;
-			// since 0.97 we don't need this anymore ==> AutoPresence property
             
             cboStatus.Text = "online";
-            this.cboStatus.SelectedValueChanged += new System.EventHandler(this.cboStatus_SelectedValueChanged);
 		}
 		
 		private void XmppCon_OnRosterItem(object sender, agsXMPP.protocol.iq.roster.RosterItem item)
@@ -1000,9 +986,7 @@ namespace MiniClient
 		private void ClientSocket_OnReceive(object sender, byte[] data, int count)
 		{
 			if (InvokeRequired)
-			{	
-				// Windows Forms are not Thread Safe, we need to invoke this :(
-				// We're not in the UI thread, so we need to call BeginInvoke				
+			{					
 				BeginInvoke(new agsXMPP.net.ClientSocket.OnSocketDataHandler(ClientSocket_OnReceive), new object[]{sender, data, count});
 				return;
 			}
@@ -1011,9 +995,7 @@ namespace MiniClient
 		private void ClientSocket_OnSend(object sender, byte[] data, int count)
 		{
 			if (InvokeRequired)
-			{	
-				// Windows Forms are not Thread Safe, we need to invoke this :(
-				// We're not in the UI thread, so we need to call BeginInvoke				
+			{				
 				BeginInvoke(new agsXMPP.net.ClientSocket.OnSocketDataHandler(ClientSocket_OnSend), new object[]{sender, data, count});
 				return;
 			}
