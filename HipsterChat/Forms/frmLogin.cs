@@ -135,7 +135,7 @@ namespace MiniClient
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.BackgroundImage = global::MiniClient.Properties.Resources.loginBg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(271, 160);
+            this.ClientSize = new System.Drawing.Size(271, 161);
             this.ControlBox = false;
             this.Controls.Add(this.chkRegister);
             this.Controls.Add(this.txtPassword);
@@ -143,7 +143,6 @@ namespace MiniClient
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdLogin);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

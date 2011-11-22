@@ -1238,12 +1238,6 @@ namespace MiniClient
             this.Close();
         }
 
-        private void toolStripButtonAdd_Click(object sender, EventArgs e)
-        {
-            frmAddRoster f = new frmAddRoster(XmppCon);
-            f.Show();    
-        }
-
         private void cboStatus_SelectedValueChanged(object sender, EventArgs e)
         {
             if (XmppCon != null && XmppCon.Authenticated)
@@ -1374,7 +1368,7 @@ namespace MiniClient
         private void addContactToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmAddRoster f = new frmAddRoster(XmppCon);
-            f.Show();   
+            f.ShowDialog();   
         }
 
         private void searchContactToolStripMenuItem_Click(object sender, EventArgs e)

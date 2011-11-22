@@ -115,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.ico" />
+    <None Include="Resources\addBg.png" />
     <None Include="Resources\loginBg.png" />
     <None Include="Resources\close2.png" />
     <None Include="Resources\close.png" />

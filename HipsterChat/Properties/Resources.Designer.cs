@@ -60,6 +60,13 @@ namespace MiniClient.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap addBg {
+            get {
+                object obj = ResourceManager.GetObject("addBg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap chatbg {
             get {
                 object obj = ResourceManager.GetObject("chatbg", resourceCulture);
