@@ -210,10 +210,6 @@ namespace MiniClient
 			}
 		}
 
-		
-
-		
-
         public String getServerName() {
             string fileName = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             fileName += @"\chatservers.xml";
