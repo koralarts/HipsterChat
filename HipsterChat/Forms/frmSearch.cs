@@ -11,7 +11,7 @@ using agsXMPP.protocol;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.iq.search;
 
-namespace MiniClient
+namespace HipsterClient
 {
     public partial class frmSearch : Form
     {

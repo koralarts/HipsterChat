@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using agsXMPP;
 using agsXMPP.protocol.client;
 
-namespace MiniClient
+namespace HipsterClient
 {
 	/// <summary>
 	/// Zusammenfassung für frmSubscribe.

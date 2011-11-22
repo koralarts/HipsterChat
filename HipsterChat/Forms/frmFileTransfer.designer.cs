@@ -6,7 +6,7 @@ using agsXMPP.protocol.client;
 //using System.Net;
 using System.Net.Sockets;
 
-namespace MiniClient
+namespace HipsterClient
 {
     partial class frmFileTransfer
     {

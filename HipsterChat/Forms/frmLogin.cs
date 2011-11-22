@@ -11,7 +11,7 @@ using agsXMPP.Xml.Dom;
 using agsXMPP.protocol.iq.disco;
 
 
-namespace MiniClient
+namespace HipsterClient
 {
 	/// <summary>
 	/// Summary for frmLogin.
@@ -133,7 +133,7 @@ namespace MiniClient
             // 
             this.AcceptButton = this.cmdLogin;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.BackgroundImage = global::MiniClient.Properties.Resources.loginBg;
+            this.BackgroundImage = global::HipsterClient.Properties.Resources.loginBg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(271, 161);
             this.ControlBox = false;

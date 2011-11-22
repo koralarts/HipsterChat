@@ -13,7 +13,7 @@ using System.Diagnostics;
 using agsXMPP;
 using agsXMPP.net;
 
-namespace MiniClient
+namespace HipsterClient
 {
 
     /// <summary>

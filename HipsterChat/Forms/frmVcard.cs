@@ -9,7 +9,7 @@ using agsXMPP.protocol;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.iq.vcard;
 
-namespace MiniClient
+namespace HipsterClient
 {
 	/// <summary>
 	/// Zusammenfassung für frmVcard.
