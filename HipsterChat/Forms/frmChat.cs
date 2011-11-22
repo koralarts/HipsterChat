@@ -49,7 +49,10 @@ namespace MiniClient
 			InitializeComponent();
 			
 			this.Text = "Chat with " + nickname;
+            this.chatWithLabel.Text = "Chatting with: " + m_Jid.User;
             Util.ChatForms.Add(m_Jid.Bare.ToLower(), this);
+            this.rtfSend.Select();
+
 
 			// Setup new Message Callback
             con.MessageGrabber.Add(jid, new BareJidComparer(), new MessageCB(MessageCallback), null);
@@ -64,8 +67,9 @@ namespace MiniClient
             InitializeComponent();
 
             this.Text = "Chat with " + _nickname;
-            this.chatWithLabel.Text = "Chatting with: " + _nickname;
+            this.chatWithLabel.Text = "Chatting with: " + m_Jid.User;
             Util.ChatForms.Add(m_Jid.Bare.ToLower(), this);
+            this.rtfSend.Select();
 
             // Setup new Message Callback
             if (privateChat)
@@ -148,6 +152,7 @@ namespace MiniClient
             this.rtfSend.Name = "rtfSend";
             this.rtfSend.Size = new System.Drawing.Size(223, 52);
             this.rtfSend.TabIndex = 12;
+            this.rtfSend.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtfSend_KeyDown);
             // 
             // panel1
             // 
@@ -205,6 +210,7 @@ namespace MiniClient
             this.ResumeLayout(false);
             this.PerformLayout();
             this.FormBorderStyle = FormBorderStyle.None;
+
 		}
 		#endregion
 
@@ -215,40 +221,28 @@ namespace MiniClient
 			rtfChat.SelectionColor = Color.DarkTurquoise;
 			rtfChat.AppendText(msg.Body);
 			rtfChat.AppendText("\r\n");
+            rtfChat.ScrollToCaret();
 		}
 
 		public void IncomingMessage(agsXMPP.protocol.client.Message msg)
 		{
 			rtfChat.SelectionColor = Color.Red;
-			rtfChat.AppendText(_nickname + " said: ");
+			rtfChat.AppendText(m_Jid.User + " said: ");
 			rtfChat.SelectionColor = Color.DarkTurquoise;
 			rtfChat.AppendText(msg.Body);
 			rtfChat.AppendText("\r\n");
+            rtfChat.ScrollToCaret();
 		}
 
 		private void cmdSend_Click(object sender, System.EventArgs e)
 		{
-			agsXMPP.protocol.client.Message msg = new agsXMPP.protocol.client.Message();
-
-			msg.Type	= MessageType.chat;
-			msg.To		= m_Jid;
-			msg.Body	= rtfSend.Text;
-
-            if (msg.Body != null)
-            {
-                _connection.Send(msg);
-                OutgoingMessage(msg);
-            }
-
-			rtfSend.Text = "";
+            sendText();
 		}
 
 		private void MessageCallback(object sender, agsXMPP.protocol.client.Message msg, object data)
 		{
             if (InvokeRequired)
-            {
-                // Windows Forms are not Thread Safe, we need to invoke this :(
-                // We're not in the UI thread, so we need to call BeginInvoke				
+            {			
                 BeginInvoke(new MessageCB(MessageCallback), new object[] { sender, msg, data });
                 return;
             }
@@ -269,6 +263,41 @@ namespace MiniClient
                 ReleaseCapture();
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
+        }
+
+        private void rtfSend_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && e.Modifiers != Keys.Shift)
+            {
+                sendText();
+            }
+            else if (e.KeyCode == Keys.Enter && e.Modifiers == Keys.Shift)
+            {
+                rtfSend.AppendText("\r\n");
+            }
+            else
+            {
+                return;
+            }
+            e.SuppressKeyPress = true;
+        }
+
+        private void sendText()
+        {
+            agsXMPP.protocol.client.Message msg = new agsXMPP.protocol.client.Message();
+
+            msg.Type = MessageType.chat;
+            msg.To = m_Jid;
+            msg.Body = rtfSend.Text;
+
+            if (msg.Body != null)
+            {
+                _connection.Send(msg);
+                OutgoingMessage(msg);
+            }
+
+            rtfSend.Text = "";
+            rtfSend.Select();
         }
 	}
 }

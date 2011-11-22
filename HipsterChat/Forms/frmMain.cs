@@ -713,9 +713,7 @@ namespace MiniClient
 		private void XmppCon_OnRosterItem(object sender, agsXMPP.protocol.iq.roster.RosterItem item)
 		{
 			if (InvokeRequired)
-			{	
-				// Windows Forms are not Thread Safe, we need to invoke this :(
-				// We're not in the UI thread, so we need to call BeginInvoke				
+			{				
 				BeginInvoke(new agsXMPP.XmppClientConnection.RosterHandler(XmppCon_OnRosterItem), new object[]{this, item});
 				return;
 			}
@@ -727,7 +725,8 @@ namespace MiniClient
 			else
 			{                
                 rosterControl.RemoveRosterItem(item);
-			}			
+			}
+		
 		}
 		
 		private void XmppCon_OnAgentStart(object sender)
@@ -748,9 +747,7 @@ namespace MiniClient
 		private void XmppCon_OnLogin(object sender)
 		{
             if (InvokeRequired)
-            {
-                // Windows Forms are not Thread Safe, we need to invoke this :(
-                // We're not in the UI thread, so we need to call BeginInvoke				
+            {			
                 BeginInvoke(new ObjectHandler(XmppCon_OnLogin), new object[] { sender});
                 return;
             }

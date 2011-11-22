@@ -151,6 +151,7 @@ namespace MiniClient
             this.ResumeLayout(false);
             this.PerformLayout();
             this.FormBorderStyle = FormBorderStyle.None;
+            this.BackColor = Color.White;
 		}
 		#endregion
 
@@ -161,10 +162,8 @@ namespace MiniClient
 
 		private void cmdLogin_Click(object sender, System.EventArgs e)
 		{
-			Jid jid = new Jid(txtJid.Text);
-
             _connection.Server                      = getServerName();
-            _connection.Username                    =txtJid.Text;
+            _connection.Username                    = txtJid.Text;
 			_connection.Password		            = txtPassword.Text;
             _connection.Resource                    = "HipsterChat";
             _connection.Priority                    = 10;
@@ -175,39 +174,19 @@ namespace MiniClient
 
             //_connection.SocketConnectionType    = agsXMPP.net.SocketConnectionType.Bosh;
             //_connection.ConnectServer = "http://vm-2k:8080/http-bind/";            
-			
 
             if (chkRegister.Checked)                
                 _connection.RegisterAccount = true;            
             else
                 _connection.RegisterAccount = false;
 
-
             // Caps
             _connection.EnableCapabilities = true;
             _connection.ClientVersion = "1.0";
             _connection.Capabilities.Node = "http://www.ag-software.de/miniclient/caps";
-            
 
-            // overwrite some settings for debugging
-            //_connection.UseStartTLS     = false;
-            //_connection.UseSSL          = false;
-
-            // overwrite some settings for Polling Test
-            //_connection.SocketConnectionType	      = agsXMPP.net.SocketConnectionType.HttpPolling;
-            //_connection.UseCompression              = false;
-            //_connection.UseStartTLS	              = false;
-            //_connection.UseSSL                      = false;
-            //_connection.AutoResolveConnectServer    = false;
-            //_connection.ConnectServer               = "http://vm-2000:5280/http-poll";
-
-            
             SetDiscoInfo();
-            
-			this.DialogResult = DialogResult.OK;
-			
-		
-			
+			this.DialogResult = DialogResult.OK;			
 			this.Close();
 		}
 
