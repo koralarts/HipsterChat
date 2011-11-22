@@ -169,36 +169,24 @@ namespace MiniClient
             _connection.Port                        = 5222;
             _connection.UseSSL                      = false;
             _connection.AutoResolveConnectServer    = true;
-            _connection.UseCompression              = false;
-
-            //_connection.SocketConnectionType    = agsXMPP.net.SocketConnectionType.Bosh;
-            //_connection.ConnectServer = "http://vm-2k:8080/http-bind/";            
+            _connection.UseCompression              = false;   
 
             if (chkRegister.Checked)                
                 _connection.RegisterAccount = true;            
             else
                 _connection.RegisterAccount = false;
-
-            // Caps
-            _connection.EnableCapabilities = true;
-            _connection.ClientVersion = "1.0";
-            _connection.Capabilities.Node = "http://www.ag-software.de/miniclient/caps";
-
+            
             SetDiscoInfo();
-			this.DialogResult = DialogResult.OK;			
+			this.DialogResult = DialogResult.OK;
 			this.Close();
 		}
 
         private void SetDiscoInfo()
         {
-            _connection.DiscoInfo.AddIdentity(new DiscoIdentity("pc", "MiniClient", "client"));
-
+            _connection.DiscoInfo.AddIdentity(new DiscoIdentity("pc", "HipsterChat", "client"));
             _connection.DiscoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.DISCO_INFO));
             _connection.DiscoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.DISCO_ITEMS));
             _connection.DiscoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC));
-            
-            // for testing to bypass disco caches
-            //_connection.DiscoInfo.AddFeature(new DiscoFeature(Guid.NewGuid().ToString())); 
         }
 
 		private string SettingsFilename
@@ -215,7 +203,7 @@ namespace MiniClient
             fileName += @"\chatservers.xml";
             Document doc = new Document();
             doc.LoadFile(fileName);
-            return doc.RootElement.SelectSingleElement("Server").Value;
+            return doc.RootElement.SelectSingleElement("Login").Value;
         }
 
 	}

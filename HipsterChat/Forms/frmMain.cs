@@ -883,7 +883,7 @@ namespace MiniClient
                                 iq.SwitchDirection();
                                 iq.Type = IqType.result;
 
-                                version.Name = "MiniClient";
+                                version.Name = "HipsterChat";
                                 version.Ver = "0.5";
                                 version.Os = Environment.OSVersion.ToString();
 
