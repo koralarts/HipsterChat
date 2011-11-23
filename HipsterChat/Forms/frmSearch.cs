@@ -408,11 +408,6 @@ namespace MiniClient
                         frmAddRoster frmAdd = new frmAddRoster(jid, m_XmppCon);
                         frmAdd.Show();
                     }
-                    else if (sender == tsiVcard)
-                    {
-                        frmVcard frmCard = new frmVcard(jid, m_XmppCon);
-                        frmCard.Show();
-                    }
                 }
             }
 

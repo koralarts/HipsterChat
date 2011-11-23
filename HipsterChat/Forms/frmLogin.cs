@@ -80,7 +80,7 @@ namespace MiniClient
             this.cmdLogin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateGray;
             this.cmdLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdLogin.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.cmdLogin.Location = new System.Drawing.Point(138, 120);
+            this.cmdLogin.Location = new System.Drawing.Point(44, 120);
             this.cmdLogin.Name = "cmdLogin";
             this.cmdLogin.Size = new System.Drawing.Size(88, 24);
             this.cmdLogin.TabIndex = 6;
@@ -95,7 +95,7 @@ namespace MiniClient
             this.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateGray;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.cmdCancel.Location = new System.Drawing.Point(44, 120);
+            this.cmdCancel.Location = new System.Drawing.Point(138, 120);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(88, 24);
             this.cmdCancel.TabIndex = 7;
@@ -132,6 +132,7 @@ namespace MiniClient
             // 
             this.AcceptButton = this.cmdLogin;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = global::MiniClient.Properties.Resources.loginBg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(271, 161);
@@ -142,14 +143,14 @@ namespace MiniClient
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdLogin);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();
-            this.FormBorderStyle = FormBorderStyle.None;
-            this.BackColor = Color.Black;
+
 		}
 		#endregion
 

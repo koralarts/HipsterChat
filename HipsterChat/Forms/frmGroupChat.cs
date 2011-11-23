@@ -31,7 +31,6 @@ namespace MiniClient
         public frmGroupChat(XmppClientConnection xmppCon, Jid roomJid, string Nickname)
         {
             InitializeComponent();
-            this.FormBorderStyle = FormBorderStyle.None;
             this.rtfSend.Select();
             m_RoomJid = roomJid;
             m_XmppCon = xmppCon;

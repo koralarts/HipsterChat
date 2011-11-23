@@ -314,6 +314,7 @@ namespace MiniClient
             this.Controls.Add(this.groupChatServerLabel);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.splitContainer1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmGroupChat";
             this.Text = "Group Chat";

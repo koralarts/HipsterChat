@@ -111,13 +111,12 @@ namespace MiniClient
             this.Controls.Add(this.lblFrom);
             this.Controls.Add(this.cmdRefuse);
             this.Controls.Add(this.cmdApprove);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmSubscribe";
             this.Text = "Add Request";
             this.ResumeLayout(false);
-            this.FormBorderStyle = FormBorderStyle.None;
 
 		}
 		#endregion

@@ -118,10 +118,10 @@ namespace MiniClient
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // frmAddRoster
-            //
+            // 
             this.AcceptButton = this.cmdAdd;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.BackColor = Color.Black;
+            this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = global::MiniClient.Properties.Resources.addBg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(272, 161);
@@ -131,14 +131,14 @@ namespace MiniClient
             this.Controls.Add(this.txtJid);
             this.Controls.Add(this.label2);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
-          //  this.MinimizeBox = false;
             this.Name = "frmAddRoster";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add Contact";
             this.ResumeLayout(false);
             this.PerformLayout();
-            this.FormBorderStyle = FormBorderStyle.None;
+
 		}
 		#endregion
 

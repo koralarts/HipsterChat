@@ -15,9 +15,8 @@ namespace MiniClient
             InitializeComponent();
         }
 
-        public frmInputBox(string Prompt, string Title, string Default) : this()
+        public frmInputBox(string Title, string Default) : this()
         {
-            this.lblMessage.Text = Prompt;
             this.Text = Title;
             this.txtInput.Text = Default;
         }
@@ -39,6 +38,5 @@ namespace MiniClient
         {
             get { return txtInput.Text; }
         }
-       
     }
 }

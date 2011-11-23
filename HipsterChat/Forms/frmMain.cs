@@ -47,7 +47,6 @@ namespace MiniClient
         private ContextMenuStrip contextMenuGC;        
         private ContextMenuStrip contextMenuStripRoster;
         private ToolStripMenuItem chatToolStripMenuItem;
-        private ToolStripMenuItem vcardToolStripMenuItem;
         private ToolStripMenuItem deleteToolStripMenuItem;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
@@ -240,7 +239,6 @@ namespace MiniClient
             this.joinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripRoster = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.chatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.vcardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -282,6 +280,8 @@ namespace MiniClient
             // 
             // joinToolStripMenuItem
             // 
+            this.joinToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
+            this.joinToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
             this.joinToolStripMenuItem.Name = "joinToolStripMenuItem";
             this.joinToolStripMenuItem.Size = new System.Drawing.Size(95, 22);
             this.joinToolStripMenuItem.Text = "Join";
@@ -292,7 +292,6 @@ namespace MiniClient
             // 
             this.contextMenuStripRoster.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.chatToolStripMenuItem,
-            this.vcardToolStripMenuItem,
             this.deleteToolStripMenuItem,
             this.sendFileToolStripMenuItem});
             this.contextMenuStripRoster.Name = "contextMenuStripRoster";
@@ -300,6 +299,8 @@ namespace MiniClient
             // 
             // chatToolStripMenuItem
             // 
+            this.chatToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
+            this.chatToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
             this.chatToolStripMenuItem.Image = global::MiniClient.Properties.Resources.comment;
             this.chatToolStripMenuItem.Name = "chatToolStripMenuItem";
             this.chatToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
@@ -307,17 +308,10 @@ namespace MiniClient
             this.chatToolStripMenuItem.ToolTipText = "Begin Chat with Contact";
             this.chatToolStripMenuItem.Click += new System.EventHandler(this.chatToolStripMenuItem_Click);
             // 
-            // vcardToolStripMenuItem
-            // 
-            this.vcardToolStripMenuItem.Image = global::MiniClient.Properties.Resources.vcard;
-            this.vcardToolStripMenuItem.Name = "vcardToolStripMenuItem";
-            this.vcardToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.vcardToolStripMenuItem.Text = "View Contact Info";
-            this.vcardToolStripMenuItem.ToolTipText = "View Contact Info";
-            this.vcardToolStripMenuItem.Click += new System.EventHandler(this.vcardToolStripMenuItem_Click);
-            // 
             // deleteToolStripMenuItem
             // 
+            this.deleteToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
+            this.deleteToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
             this.deleteToolStripMenuItem.Image = global::MiniClient.Properties.Resources.user_delete;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
@@ -327,6 +321,8 @@ namespace MiniClient
             // 
             // sendFileToolStripMenuItem
             // 
+            this.sendFileToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
+            this.sendFileToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
             this.sendFileToolStripMenuItem.Image = global::MiniClient.Properties.Resources.package;
             this.sendFileToolStripMenuItem.Name = "sendFileToolStripMenuItem";
             this.sendFileToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
@@ -367,7 +363,8 @@ namespace MiniClient
             this.connectToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
             this.connectToolStripMenuItem.Image = global::MiniClient.Properties.Resources.connect;
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.connectToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.C)));
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.connectToolStripMenuItem.Text = "Connect";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
             // 
@@ -378,14 +375,15 @@ namespace MiniClient
             this.disconnectToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
             this.disconnectToolStripMenuItem.Image = global::MiniClient.Properties.Resources.disconnect;
             this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
-            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.disconnectToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D)));
+            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.disconnectToolStripMenuItem.Text = "Disconnect";
             this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.disconnectToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(151, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(176, 6);
             // 
             // addContactToolStripMenuItem
             // 
@@ -394,7 +392,8 @@ namespace MiniClient
             this.addContactToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
             this.addContactToolStripMenuItem.Image = global::MiniClient.Properties.Resources.user_add;
             this.addContactToolStripMenuItem.Name = "addContactToolStripMenuItem";
-            this.addContactToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.addContactToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.A)));
+            this.addContactToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.addContactToolStripMenuItem.Text = "Add Contact";
             this.addContactToolStripMenuItem.Click += new System.EventHandler(this.addContactToolStripMenuItem_Click);
             // 
@@ -405,7 +404,7 @@ namespace MiniClient
             this.searchContactToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
             this.searchContactToolStripMenuItem.Image = global::MiniClient.Properties.Resources.zoom;
             this.searchContactToolStripMenuItem.Name = "searchContactToolStripMenuItem";
-            this.searchContactToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.searchContactToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.searchContactToolStripMenuItem.Text = "Search Contact";
             this.searchContactToolStripMenuItem.Click += new System.EventHandler(this.searchContactToolStripMenuItem_Click);
             // 
@@ -414,7 +413,7 @@ namespace MiniClient
             this.toolStripSeparator2.BackColor = System.Drawing.Color.Azure;
             this.toolStripSeparator2.ForeColor = System.Drawing.Color.DarkTurquoise;
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(151, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(176, 6);
             // 
             // exitToolStripMenuItem
             // 
@@ -422,7 +421,7 @@ namespace MiniClient
             this.exitToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
             this.exitToolStripMenuItem.Image = global::MiniClient.Properties.Resources.door_in;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -614,6 +613,7 @@ namespace MiniClient
             this.treeGC.Name = "treeGC";
             this.treeGC.Size = new System.Drawing.Size(358, 368);
             this.treeGC.TabIndex = 0;
+            this.treeGC.DoubleClick += new System.EventHandler(this.treeGC_DoubleClick);
             // 
             // frmMain
             // 
@@ -630,6 +630,7 @@ namespace MiniClient
             this.Controls.Add(this.statusBar1);
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(9999999, 9999999);
             this.MinimumSize = new System.Drawing.Size(363, 464);
@@ -644,7 +645,7 @@ namespace MiniClient
             this.groupChatPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
-            this.FormBorderStyle = FormBorderStyle.None;
+
 		}
 		#endregion
 
@@ -1181,23 +1182,16 @@ namespace MiniClient
             }
         }
 
-        private void vcardToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            RosterNode node = rosterControl.SelectedItem();
-            if (node != null)
-            {
-                frmVcard f = new frmVcard(node.RosterItem.Jid, XmppCon);
-                f.Show();
-            }
-        }
-
         private void rosterControl_SelectionChanged(object sender, EventArgs e)
         {
             RosterNode node = rosterControl.SelectedItem();
             if (node != null)
             {
                 if (node.NodeType == RosterNodeType.RosterNode)
+                {
                     rosterControl.ContextMenuStrip = contextMenuStripRoster;
+                    node.TreeView.DoubleClick += new System.EventHandler(this.rosterStartChat_mouseDoubleClick);
+                }
                 else if (node.NodeType == RosterNodeType.GroupNode)
                     rosterControl.ContextMenuStrip = null;    // Add Group context menu here
                 else if (node.NodeType == RosterNodeType.RootNode)
@@ -1256,15 +1250,7 @@ namespace MiniClient
             TreeNode node = this.treeGC.SelectedNode;
             if (node != null && node.Level == 1)
             {
-                // Ask for the Nickname for this GroupChat
-                frmInputBox input = new frmInputBox("Enter your Nickname for the chatroom", "Nickname", "Nickname");
-                if (input.ShowDialog() == DialogResult.OK)
-                {
-                    Jid jid = new Jid((string)node.Tag);
-                    string nickname = input.Result;
-                    frmGroupChat gc = new frmGroupChat(this.XmppCon, jid, nickname);
-                    gc.Show();
-                }
+                joinChatRoom(node);
             }
         }             
 
@@ -1410,5 +1396,43 @@ namespace MiniClient
         {
             this.closeButton.BackgroundImage = ((System.Drawing.Image)(Properties.Resources.close));
         }
+
+        private void rosterStartChat_mouseDoubleClick(object sender, EventArgs e)
+        {
+            RosterNode node = rosterControl.SelectedItem();
+            if (node.NodeType == RosterNodeType.RosterNode && node != null)
+            {
+                if (!Util.ChatForms.ContainsKey(node.RosterItem.Jid.ToString()))
+                {
+                    frmChat f = new frmChat(node.RosterItem.Jid, XmppCon, node.Text);
+                    f.Show();
+                }
+            }	
+        }
+
+        private void treeGC_DoubleClick(object sender, EventArgs e)
+        {
+            TreeNode node = treeGC.SelectedNode;
+            if (node == null)
+                return;
+            else if (node.Level == 0)
+                FindChatRooms();
+            else if (node.Level != 0)
+                joinChatRoom(node);
+        }
+
+        private void joinChatRoom(TreeNode node)
+        {
+            // Ask for the Nickname for this GroupChat
+            frmInputBox input = new frmInputBox("Nickname", "Nickname");
+            if (input.ShowDialog() == DialogResult.OK)
+            {
+                Jid jid = new Jid((string)node.Tag);
+                string nickname = input.Result;
+                frmGroupChat gc = new frmGroupChat(this.XmppCon, jid, nickname);
+                gc.Show();
+            }
+        }
+
     }
 }

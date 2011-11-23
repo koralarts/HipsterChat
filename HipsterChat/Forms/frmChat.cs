@@ -197,6 +197,7 @@ namespace MiniClient
             // frmChat
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = global::MiniClient.Properties.Resources.chatbg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(500, 350);
@@ -206,6 +207,7 @@ namespace MiniClient
             this.Controls.Add(this.cmdSend1);
             this.Controls.Add(this.rtfChat);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmChat";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmChat_MouseDown);
@@ -213,7 +215,6 @@ namespace MiniClient
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-            this.FormBorderStyle = FormBorderStyle.None;
 
 		}
 		#endregion
