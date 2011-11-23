@@ -116,13 +116,6 @@ namespace agsXMPP.ui.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap mainbg {
-            get {
-                object obj = ResourceManager.GetObject("mainbg", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap offline {
             get {
                 object obj = ResourceManager.GetObject("offline", resourceCulture);

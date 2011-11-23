@@ -31,7 +31,6 @@ namespace MiniClient
 		{			
 			InitializeComponent();
 
-		
 			this.DialogResult = DialogResult.Cancel;
 			_connection = con;
 		}
@@ -150,7 +149,7 @@ namespace MiniClient
             this.ResumeLayout(false);
             this.PerformLayout();
             this.FormBorderStyle = FormBorderStyle.None;
-            this.BackColor = Color.White;
+            this.BackColor = Color.Black;
 		}
 		#endregion
 
@@ -188,15 +187,6 @@ namespace MiniClient
             _connection.DiscoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.DISCO_ITEMS));
             _connection.DiscoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC));
         }
-
-		private string SettingsFilename
-		{
-			get
-			{
-				string path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-				return path + @"\Settings.xml";
-			}
-		}
 
         public String getServerName() {
             string fileName = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);

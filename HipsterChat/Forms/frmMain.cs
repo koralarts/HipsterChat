@@ -152,7 +152,14 @@ namespace MiniClient
             discoManager = new DiscoManager(XmppCon);
 
             agsXMPP.Factory.ElementFactory.AddElementType("Login", null, typeof(Settings.Login));
-            LoadChatServers();            
+            LoadChatServers();
+
+            frmLogin f = new frmLogin(XmppCon);
+
+            if (f.ShowDialog() == DialogResult.OK)
+            {
+                XmppCon.Open();
+            }
 		}
 
         void XmppCon_OnStreamError(object sender, Element e)
@@ -163,9 +170,7 @@ namespace MiniClient
         private void XmppCon_OnSocketError(object sender, Exception ex)
         {
             if (InvokeRequired)
-            {
-                // Windows Forms are not Thread Safe, we need to invoke this :(
-                // We're not in the UI thread, so we need to call BeginInvoke				
+            {			
                 BeginInvoke(new ErrorHandler(XmppCon_OnSocketError), new object[] { sender, ex });
                 return;
             }
@@ -230,6 +235,7 @@ namespace MiniClient
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.contextMenuGC = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.joinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripRoster = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -624,6 +630,7 @@ namespace MiniClient
             this.Controls.Add(this.statusBar1);
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(9999999, 9999999);
             this.MinimumSize = new System.Drawing.Size(363, 464);
             this.Name = "frmMain";

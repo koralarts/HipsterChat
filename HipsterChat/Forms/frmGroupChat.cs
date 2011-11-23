@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 using agsXMPP;
 using agsXMPP.Collections;
@@ -16,13 +17,26 @@ namespace MiniClient
 {
     public partial class frmGroupChat : Form
     {
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+
+        [DllImportAttribute("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd,
+        int Msg, int wParam, int lParam);
+
+        [DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
+
         #region << Constructors >>        
         public frmGroupChat(XmppClientConnection xmppCon, Jid roomJid, string Nickname)
         {
-            InitializeComponent();   
+            InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.rtfSend.Select();
             m_RoomJid = roomJid;
             m_XmppCon = xmppCon;
             m_Nickname = Nickname;
+            this.groupChatServerLabel.Text = "Room Name: " + m_RoomJid.User;
 
             Util.GroupChatForms.Add(roomJid.Bare.ToLower(), this);
             
@@ -71,9 +85,7 @@ namespace MiniClient
         private void MessageCallback(object sender, agsXMPP.protocol.client.Message msg, object data)
         {
             if (InvokeRequired)
-            {
-                // Windows Forms are not Thread Safe, we need to invoke this :(
-                // We're not in the UI thread, so we need to call BeginInvoke				
+            {				
                 BeginInvoke(new MessageCB(MessageCallback), new object[] { sender, msg, data });
                 return;
             }
@@ -91,9 +103,7 @@ namespace MiniClient
         private void PresenceCallback(object sender, agsXMPP.protocol.client.Presence pres, object data)
         {
             if (InvokeRequired)
-            {
-                // Windows Forms are not Thread Safe, we need to invoke this :(
-                // We're not in the UI thread, so we need to call BeginInvoke				
+            {				
                 BeginInvoke(new PresenceCB(PresenceCallback), new object[] { sender, pres, data });
                 return;
             }
@@ -165,7 +175,7 @@ namespace MiniClient
 
                 rtfChat.SelectionColor = Color.DarkGreen;
                 rtfChat.AppendText(msg.From.Resource + " changed subject: ");
-                rtfChat.SelectionColor = Color.Black;                
+                rtfChat.SelectionColor = Color.DarkTurquoise;                
                 rtfChat.AppendText(msg.Subject);
                 rtfChat.AppendText("\r\n");
             }
@@ -176,25 +186,18 @@ namespace MiniClient
 
                 rtfChat.SelectionColor = Color.Red;
                 rtfChat.AppendText(msg.From.Resource + " said: ");
-                rtfChat.SelectionColor = Color.Black;
+                rtfChat.SelectionColor = Color.DarkTurquoise;
                 rtfChat.AppendText(msg.Body);
                 rtfChat.AppendText("\r\n");
             }
+            rtfChat.ScrollToCaret();
         }
 
         private void cmdSend_Click(object sender, EventArgs e)
         {
             if (rtfSend.Text.Length > 0)
             {
-                agsXMPP.protocol.client.Message msg = new agsXMPP.protocol.client.Message();
-
-                msg.Type = MessageType.groupchat;
-                msg.To = m_RoomJid;
-                msg.Body = rtfSend.Text;
-
-                m_XmppCon.Send(msg);
-
-                rtfSend.Text = "";
+                sendText();
             }
         }
 
@@ -214,6 +217,60 @@ namespace MiniClient
             msg.Subject = txtSubject.Text;
 
             m_XmppCon.Send(msg);
+        }
+
+        private void rtfSend_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && e.Modifiers != Keys.Shift)
+            {
+                sendText();
+            }
+            else if (e.KeyCode == Keys.Enter && e.Modifiers == Keys.Shift)
+            {
+                rtfSend.AppendText("\r\n");
+            }
+            else
+            {
+                return;
+            }
+            e.SuppressKeyPress = true;
+        }
+
+        private void sendText()
+        {
+            agsXMPP.protocol.client.Message msg = new agsXMPP.protocol.client.Message();
+
+            msg.Type = MessageType.groupchat;
+            msg.To = m_RoomJid;
+            msg.Body = rtfSend.Text;
+
+            m_XmppCon.Send(msg);
+
+            rtfSend.Text = "";
+        }
+
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void closeButton_MouseEnter(object sender, EventArgs e)
+        {
+            this.closeButton.Image = ((System.Drawing.Image)(Properties.Resources.close2));
+        }
+
+        private void closeButton_MouseLeave(object sender, EventArgs e)
+        {
+            this.closeButton.Image = ((System.Drawing.Image)(Properties.Resources.close));
+        }
+
+        private void frmGroupChat_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
         }
     }
 }

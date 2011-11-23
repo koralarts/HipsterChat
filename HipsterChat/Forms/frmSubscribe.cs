@@ -15,8 +15,7 @@ namespace MiniClient
 	public class frmSubscribe : System.Windows.Forms.Form
 	{
 		private System.Windows.Forms.Button cmdApprove;
-		private System.Windows.Forms.Button cmdRefuse;
-		private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button cmdRefuse;
 		private System.Windows.Forms.Label lblFrom;
 		/// <summary>
 		/// Erforderliche Designervariable.
@@ -58,63 +57,67 @@ namespace MiniClient
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.cmdApprove = new System.Windows.Forms.Button();
-			this.cmdRefuse = new System.Windows.Forms.Button();
-			this.label1 = new System.Windows.Forms.Label();
-			this.lblFrom = new System.Windows.Forms.Label();
-			this.SuspendLayout();
-			// 
-			// cmdApprove
-			// 
-			this.cmdApprove.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.cmdApprove.Location = new System.Drawing.Point(168, 56);
-			this.cmdApprove.Name = "cmdApprove";
-			this.cmdApprove.Size = new System.Drawing.Size(72, 24);
-			this.cmdApprove.TabIndex = 0;
-			this.cmdApprove.Text = "Approve";
-			this.cmdApprove.Click += new System.EventHandler(this.cmdApprove_Click);
-			// 
-			// cmdRefuse
-			// 
-			this.cmdRefuse.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.cmdRefuse.Location = new System.Drawing.Point(56, 56);
-			this.cmdRefuse.Name = "cmdRefuse";
-			this.cmdRefuse.Size = new System.Drawing.Size(72, 24);
-			this.cmdRefuse.TabIndex = 1;
-			this.cmdRefuse.Text = "Refuse";
-			this.cmdRefuse.Click += new System.EventHandler(this.cmdRefuse_Click);
-			// 
-			// label1
-			// 
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.label1.Location = new System.Drawing.Point(8, 16);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(48, 16);
-			this.label1.TabIndex = 2;
-			this.label1.Text = "From:";
-			// 
-			// lblFrom
-			// 
-			this.lblFrom.Location = new System.Drawing.Point(56, 16);
-			this.lblFrom.Name = "lblFrom";
-			this.lblFrom.Size = new System.Drawing.Size(224, 32);
-			this.lblFrom.TabIndex = 3;
-			this.lblFrom.Text = "jid";
-			// 
-			// frmSubscribe
-			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(292, 88);
-			this.Controls.Add(this.lblFrom);
-			this.Controls.Add(this.label1);
-			this.Controls.Add(this.cmdRefuse);
-			this.Controls.Add(this.cmdApprove);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-			this.MaximizeBox = false;
-			this.MinimizeBox = false;
-			this.Name = "frmSubscribe";
-			this.Text = "Subscription Request";
-			this.ResumeLayout(false);
+            this.cmdApprove = new System.Windows.Forms.Button();
+            this.cmdRefuse = new System.Windows.Forms.Button();
+            this.lblFrom = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // cmdApprove
+            // 
+            this.cmdApprove.BackColor = System.Drawing.Color.Transparent;
+            this.cmdApprove.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkCyan;
+            this.cmdApprove.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateGray;
+            this.cmdApprove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdApprove.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.cmdApprove.Location = new System.Drawing.Point(55, 97);
+            this.cmdApprove.Name = "cmdApprove";
+            this.cmdApprove.Size = new System.Drawing.Size(72, 24);
+            this.cmdApprove.TabIndex = 0;
+            this.cmdApprove.Text = "Accept";
+            this.cmdApprove.UseVisualStyleBackColor = false;
+            this.cmdApprove.Click += new System.EventHandler(this.cmdApprove_Click);
+            // 
+            // cmdRefuse
+            // 
+            this.cmdRefuse.BackColor = System.Drawing.Color.Transparent;
+            this.cmdRefuse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkCyan;
+            this.cmdRefuse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSlateGray;
+            this.cmdRefuse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdRefuse.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.cmdRefuse.Location = new System.Drawing.Point(133, 97);
+            this.cmdRefuse.Name = "cmdRefuse";
+            this.cmdRefuse.Size = new System.Drawing.Size(72, 24);
+            this.cmdRefuse.TabIndex = 1;
+            this.cmdRefuse.Text = "Decline";
+            this.cmdRefuse.UseVisualStyleBackColor = false;
+            this.cmdRefuse.Click += new System.EventHandler(this.cmdRefuse_Click);
+            // 
+            // lblFrom
+            // 
+            this.lblFrom.BackColor = System.Drawing.Color.Transparent;
+            this.lblFrom.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.lblFrom.Location = new System.Drawing.Point(83, 62);
+            this.lblFrom.Name = "lblFrom";
+            this.lblFrom.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
+            this.lblFrom.Size = new System.Drawing.Size(166, 32);
+            this.lblFrom.TabIndex = 3;
+            this.lblFrom.Text = "jid";
+            // 
+            // frmSubscribe
+            // 
+            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.BackgroundImage = global::MiniClient.Properties.Resources.addReqBg;
+            this.ClientSize = new System.Drawing.Size(261, 150);
+            this.Controls.Add(this.lblFrom);
+            this.Controls.Add(this.cmdRefuse);
+            this.Controls.Add(this.cmdApprove);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "frmSubscribe";
+            this.Text = "Add Request";
+            this.ResumeLayout(false);
+            this.FormBorderStyle = FormBorderStyle.None;
 
 		}
 		#endregion
@@ -131,7 +134,6 @@ namespace MiniClient
 		{
 			PresenceManager pm = new PresenceManager(_connection);
 			pm.ApproveSubscriptionRequest(_from);
-            _connection.RosterManager.AddRosterItem(_from);
             _connection.PresenceManager.Subscribe(_from);
 
 			this.Close();
