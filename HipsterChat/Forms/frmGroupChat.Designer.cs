@@ -19,13 +19,13 @@ namespace HipsterChat
             }
             base.Dispose(disposing);
 
-            Util.GroupChatForms.Remove(m_RoomJid.Bare.ToLower());
+            Util.GroupChatForms.Remove(_roomJid.Bare.ToLower());
             
             // Remove the Message Callback in the MessageGrabber
-            m_XmppCon.MessageGrabber.Remove(m_RoomJid);
+           _xmppCon.MessageGrabber.Remove(_roomJid);
 
             // Remove the Presence Callback in the MessageGrabber
-            m_XmppCon.PresenceGrabber.Remove(m_RoomJid);
+            _xmppCon.PresenceGrabber.Remove(_roomJid);
         }
 
         #region Windows Form Designer generated code

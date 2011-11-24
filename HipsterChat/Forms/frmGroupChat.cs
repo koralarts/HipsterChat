@@ -17,6 +17,39 @@ namespace HipsterChat
 {
     public partial class frmGroupChat : Form
     {
+        #region << Constructors >>        
+        public frmGroupChat(XmppClientConnection xmppCon, Jid roomJid)
+        {
+            InitializeComponent();
+            this.rtfSend.Select();
+            _roomJid = roomJid;
+            _xmppCon = xmppCon;
+            this.groupChatServerLabel.Text = "Room Name: " + _roomJid.User;
+            frmInputBox input = new frmInputBox("Nickname", "Nickname");
+
+            if (!Util.GroupChatForms.Contains(roomJid.Bare) && input.ShowDialog() == DialogResult.OK)
+            {
+                _nickname = input.Result;
+                Util.GroupChatForms.Add(roomJid.Bare.ToLower(), this);
+                this.Show();
+            }
+            else
+            {
+                return;
+            }
+            
+            // Setup new Message Callback
+            _xmppCon.MessageGrabber.Add(roomJid, new BareJidComparer(), new MessageCB(MessageCallback), null);
+            
+            // Setup new Presence Callback
+            _xmppCon.PresenceGrabber.Add(roomJid, new BareJidComparer(), new PresenceCB(PresenceCallback), null);
+        }
+        #endregion
+
+        private Jid                     _roomJid;
+        private XmppClientConnection    _xmppCon;
+        private string                  _nickname;
+
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
 
@@ -27,51 +60,27 @@ namespace HipsterChat
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
 
-        #region << Constructors >>        
-        public frmGroupChat(XmppClientConnection xmppCon, Jid roomJid, string Nickname)
-        {
-            InitializeComponent();
-            this.rtfSend.Select();
-            m_RoomJid = roomJid;
-            m_XmppCon = xmppCon;
-            m_Nickname = Nickname;
-            this.groupChatServerLabel.Text = "Room Name: " + m_RoomJid.User;
-
-            Util.GroupChatForms.Add(roomJid.Bare.ToLower(), this);
-            
-            // Setup new Message Callback
-            m_XmppCon.MessageGrabber.Add(roomJid, new BareJidComparer(), new MessageCB(MessageCallback), null);
-            
-            // Setup new Presence Callback
-            m_XmppCon.PresenceGrabber.Add(roomJid, new BareJidComparer(), new PresenceCB(PresenceCallback), null);
-        }
-        #endregion
-
-        private Jid                     m_RoomJid;
-        private XmppClientConnection    m_XmppCon;
-        private string                  m_Nickname;
-
         private void frmGroupChat_Load(object sender, EventArgs e)
         {
-            if (m_RoomJid != null)
+            if (_roomJid != null)
             {
                 Presence pres = new Presence();
 
-                Jid to = new Jid(m_RoomJid.ToString());
-                to.Resource = m_Nickname;
+                Jid to = new Jid(_roomJid.ToString());
+                to.Resource = _nickname;
                 pres.To = to;
-                m_XmppCon.Send(pres);
+                _xmppCon.Send(pres);
             }
         }
 
         private void frmGroupChat_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (m_RoomJid != null)
+            if (_roomJid != null)
             {
                 Presence pres = new Presence();
-                pres.To = m_RoomJid;
+                pres.To = _roomJid;
                 pres.Type = PresenceType.unavailable;
-                m_XmppCon.Send(pres);
+                _xmppCon.Send(pres);
             }
         }
        
@@ -180,7 +189,7 @@ namespace HipsterChat
             }
             else
             {
-                if (msg.Body == null)
+                if (msg.Body == null || msg.Body == "")
                     return;
 
                 rtfChat.SelectionColor = Color.Red;
@@ -212,10 +221,11 @@ namespace HipsterChat
             agsXMPP.protocol.client.Message msg = new agsXMPP.protocol.client.Message();
 
             msg.Type = MessageType.groupchat;
-            msg.To = m_RoomJid;
+            msg.To = _roomJid;
             msg.Subject = txtSubject.Text;
 
-            m_XmppCon.Send(msg);
+            _xmppCon.Send(msg);
+            rtfSend.Select();
         }
 
         private void rtfSend_KeyDown(object sender, KeyEventArgs e)
@@ -240,12 +250,13 @@ namespace HipsterChat
             agsXMPP.protocol.client.Message msg = new agsXMPP.protocol.client.Message();
 
             msg.Type = MessageType.groupchat;
-            msg.To = m_RoomJid;
+            msg.To = _roomJid;
             msg.Body = rtfSend.Text;
 
-            m_XmppCon.Send(msg);
+            _xmppCon.Send(msg);
 
-            rtfSend.Text = "";
+            rtfSend.Clear();
+            rtfSend.Select();
         }
 
         private void closeButton_Click(object sender, EventArgs e)

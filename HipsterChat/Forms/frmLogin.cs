@@ -25,14 +25,14 @@ namespace HipsterChat
         private System.ComponentModel.Container components = null;
         private CheckBox chkRegister;
 
-		private XmppClientConnection _connection;
+		private XmppClientConnection _xmppCon;
 
 		public frmLogin(XmppClientConnection con)
 		{			
 			InitializeComponent();
 
 			this.DialogResult = DialogResult.Cancel;
-			_connection = con;
+			_xmppCon = con;
 		}
 
 		/// <summary>
@@ -57,6 +57,7 @@ namespace HipsterChat
 		/// </summary>
 		private void InitializeComponent()
 		{
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
             this.txtJid = new System.Windows.Forms.TextBox();
             this.cmdLogin = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
@@ -72,6 +73,7 @@ namespace HipsterChat
             this.txtJid.Name = "txtJid";
             this.txtJid.Size = new System.Drawing.Size(142, 20);
             this.txtJid.TabIndex = 0;
+            this.txtJid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmLogin_KeyDown);
             // 
             // cmdLogin
             // 
@@ -112,6 +114,7 @@ namespace HipsterChat
             this.txtPassword.PasswordChar = ' ';
             this.txtPassword.Size = new System.Drawing.Size(142, 20);
             this.txtPassword.TabIndex = 1;
+            this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmLogin_KeyDown);
             // 
             // chkRegister
             // 
@@ -144,10 +147,12 @@ namespace HipsterChat
             this.Controls.Add(this.cmdLogin);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Login";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmLogin_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -161,20 +166,20 @@ namespace HipsterChat
 
 		private void cmdLogin_Click(object sender, System.EventArgs e)
 		{
-            _connection.Server                      = getServerName();
-            _connection.Username                    = txtJid.Text;
-			_connection.Password		            = txtPassword.Text;
-            _connection.Resource                    = "HipsterChat";
-            _connection.Priority                    = 10;
-            _connection.Port                        = 5222;
-            _connection.UseSSL                      = false;
-            _connection.AutoResolveConnectServer    = true;
-            _connection.UseCompression              = false;   
+            _xmppCon.Server                      = getServerName();
+            _xmppCon.Username                    = txtJid.Text;
+			_xmppCon.Password		            = txtPassword.Text;
+            _xmppCon.Resource                    = "HipsterChat";
+            _xmppCon.Priority                    = 10;
+            _xmppCon.Port                        = 5222;
+            _xmppCon.UseSSL                      = false;
+            _xmppCon.AutoResolveConnectServer    = true;
+            _xmppCon.UseCompression              = false;   
 
             if (chkRegister.Checked)                
-                _connection.RegisterAccount = true;            
+                _xmppCon.RegisterAccount = true;            
             else
-                _connection.RegisterAccount = false;
+                _xmppCon.RegisterAccount = false;
             
             SetDiscoInfo();
 			this.DialogResult = DialogResult.OK;
@@ -183,10 +188,10 @@ namespace HipsterChat
 
         private void SetDiscoInfo()
         {
-            _connection.DiscoInfo.AddIdentity(new DiscoIdentity("pc", "HipsterChat", "client"));
-            _connection.DiscoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.DISCO_INFO));
-            _connection.DiscoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.DISCO_ITEMS));
-            _connection.DiscoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC));
+            _xmppCon.DiscoInfo.AddIdentity(new DiscoIdentity("pc", "HipsterChat", "client"));
+            _xmppCon.DiscoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.DISCO_INFO));
+            _xmppCon.DiscoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.DISCO_ITEMS));
+            _xmppCon.DiscoInfo.AddFeature(new DiscoFeature(agsXMPP.Uri.MUC));
         }
 
         public String getServerName() {
@@ -195,6 +200,14 @@ namespace HipsterChat
             Document doc = new Document();
             doc.LoadFile(fileName);
             return doc.RootElement.SelectSingleElement("Login").Value;
+        }
+
+        private void frmLogin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.DialogResult = DialogResult.Cancel;
+            }
         }
 
 	}

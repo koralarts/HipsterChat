@@ -200,13 +200,6 @@ namespace HipsterChat.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap vcard {
-            get {
-                object obj = ResourceManager.GetObject("vcard", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap zoom {
             get {
                 object obj = ResourceManager.GetObject("zoom", resourceCulture);

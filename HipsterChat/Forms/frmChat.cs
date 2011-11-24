@@ -61,7 +61,7 @@ namespace HipsterChat
 
             InitializeComponent();
 
-            this.Text = "Chat with " + _nickname;
+            this.Text = "Chat with " + m_Jid.User;
             this.chatWithLabel.Text = "Chatting with: " + m_Jid.User;
             Util.ChatForms.Add(m_Jid.Bare.ToLower(), this);
             this.rtfSend.Select();
@@ -268,7 +268,11 @@ namespace HipsterChat
 
         private void rtfSend_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter && e.Modifiers != Keys.Shift)
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+            else if (e.KeyCode == Keys.Enter && e.Modifiers != Keys.Shift)
             {
                 sendText();
             }
@@ -291,13 +295,13 @@ namespace HipsterChat
             msg.To = m_Jid;
             msg.Body = rtfSend.Text;
 
-            if (msg.Body != null)
+            if (msg.Body != null && msg.Body.Length > 0)
             {
                 _connection.Send(msg);
                 OutgoingMessage(msg);
             }
 
-            rtfSend.Text = "";
+            rtfSend.Clear();
             rtfSend.Select();
         }
     }

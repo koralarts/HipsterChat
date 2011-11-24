@@ -43,7 +43,6 @@ namespace HipsterChat
     {
         private System.ComponentModel.IContainer components;
 
-
         private ContextMenuStrip contextMenuGC;
         private ContextMenuStrip contextMenuStripRoster;
         private ToolStripMenuItem chatToolStripMenuItem;
@@ -85,6 +84,7 @@ namespace HipsterChat
         //private DiscoHelper discoHelper;
         DiscoManager discoManager;
 
+        // Needed for the ability to move the window by dragging
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
 
@@ -185,7 +185,7 @@ namespace HipsterChat
 
 
             //args.Auto = false;
-            //args.Mechanism = agsXMPP.protocol.sasl.Mechanism.GetMechanismName(agsXMPP.protocol.sasl.MechanismType.ANONYMOUS);
+            args.Mechanism = agsXMPP.protocol.sasl.Mechanism.GetMechanismName(agsXMPP.protocol.sasl.MechanismType.CRAM_MD5);
         }
 
         private void LoadChatServers()
@@ -624,7 +624,6 @@ namespace HipsterChat
             this.groupChatPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
         #endregion
 
@@ -698,23 +697,20 @@ namespace HipsterChat
             else
             {
                 rosterControl.RemoveRosterItem(item);
-            }
 
+            }
         }
 
         private void XmppCon_OnAgentStart(object sender)
         {
-
         }
 
         private void XmppCon_OnAgentEnd(object sender)
         {
-
         }
 
         private void XmppCon_OnAgentItem(object sender, agsXMPP.protocol.iq.agent.Agent agent)
         {
-
         }
 
         private void XmppCon_OnLogin(object sender)
@@ -956,12 +952,10 @@ namespace HipsterChat
             statusBar1.Text = "OffLine";
             this.Text = "HipsterChat - Offline";
             rosterControl.Clear();
-
         }
 
         private void XmppCon_OnError(object sender, Exception ex)
         {
-
         }
         #endregion
 
@@ -1008,9 +1002,9 @@ namespace HipsterChat
         {
             //DiscoItemsIq discoIq = new DiscoItemsIq(IqType.get);
             ////TreeNode node = treeGC.SelectedNode;
-            ////discoIq.To = new Jid(this.XmppCon.Server);
+            ////discoIq.To = new Jid(this._xmppCon.Server);
             //discoIq.To = new Jid("amessage.info");
-            //this.XmppCon.IqGrabber.SendIq(discoIq, new IqCB(OnGetDiscovery), null);
+            //this._xmppCon.IqGrabber.SendIq(discoIq, new IqCB(OnGetDiscovery), null);
         }
 
         /// <summary>
@@ -1222,10 +1216,6 @@ namespace HipsterChat
 
         private void joinToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Join a ChatRoom
-            if (XmppCon.XmppConnectionState == XmppConnectionState.Disconnected)
-                return;
-
             TreeNode node = this.treeGC.SelectedNode;
             if (node != null && node.Level == 1)
             {
@@ -1243,9 +1233,6 @@ namespace HipsterChat
 
         private void toolStripButtonFindPart_Click(object sender, EventArgs e)
         {
-            if (XmppCon.XmppConnectionState == XmppConnectionState.Disconnected)
-                return;
-
             FindParticipants();
         }
 
@@ -1331,17 +1318,11 @@ namespace HipsterChat
 
         private void serverRefreshButton_Click(object sender, EventArgs e)
         {
-            if (XmppCon.XmppConnectionState == XmppConnectionState.Disconnected)
-                return;
-
             FindChatRooms();
         }
 
         private void findParticipantsButton_Click(object sender, EventArgs e)
         {
-            if (XmppCon.XmppConnectionState == XmppConnectionState.Disconnected)
-                return;
-
             FindParticipants();
         }
 
@@ -1383,22 +1364,17 @@ namespace HipsterChat
             if (node == null)
                 return;
             else if (node.Level == 0)
+            {
                 FindChatRooms();
+            }
             else if (node.Level != 0)
                 joinChatRoom(node);
         }
 
         private void joinChatRoom(TreeNode node)
         {
-            // Ask for the Nickname for this GroupChat
-            frmInputBox input = new frmInputBox("Nickname", "Nickname");
-            if (input.ShowDialog() == DialogResult.OK)
-            {
-                Jid jid = new Jid((string)node.Tag);
-                string nickname = input.Result;
-                frmGroupChat gc = new frmGroupChat(this.XmppCon, jid, nickname);
-                gc.Show();
-            }
+            Jid jid = new Jid((string)node.Tag);
+            frmGroupChat gc = new frmGroupChat(this.XmppCon, jid);
         }
 
     }
