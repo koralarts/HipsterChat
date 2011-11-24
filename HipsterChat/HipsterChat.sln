@@ -8,6 +8,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "agsXMPP.ui.2005", "dependen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component", "dependencies\Component\Component.csproj", "{256D6B55-E66C-4812-8E7B-F701A298533F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{602E52A8-4A69-4808-8538-D8D5EF29B6B6}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\..\..\..\Desktop\HipsterChat.vsd = ..\..\..\..\..\..\..\Desktop\HipsterChat.vsd
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

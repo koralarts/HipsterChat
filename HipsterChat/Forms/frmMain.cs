@@ -82,7 +82,6 @@ namespace HipsterClient
         private Panel groupChatPanel;
         private TreeView treeGC;
         private Button serverRefreshButton;
-        private Button findParticipantsButton;
         //private DiscoHelper discoHelper;
         DiscoManager discoManager;
 
@@ -260,7 +259,6 @@ namespace HipsterClient
             this.toolStripButtonFindRooms = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonFindPart = new System.Windows.Forms.ToolStripButton();
             this.groupChatPanel = new System.Windows.Forms.Panel();
-            this.findParticipantsButton = new System.Windows.Forms.Button();
             this.serverRefreshButton = new System.Windows.Forms.Button();
             this.treeGC = new System.Windows.Forms.TreeView();
             this.contextMenuGC.SuspendLayout();
@@ -298,7 +296,6 @@ namespace HipsterClient
             // 
             // chatToolStripMenuItem
             // 
-
             this.chatToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.chatToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
             this.chatToolStripMenuItem.Image = global::HipsterClient.Properties.Resources.comment;
@@ -406,7 +403,6 @@ namespace HipsterClient
             this.searchContactToolStripMenuItem.Name = "searchContactToolStripMenuItem";
             this.searchContactToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.searchContactToolStripMenuItem.Text = "Search Contact";
-            this.searchContactToolStripMenuItem.Click += new System.EventHandler(this.searchContactToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -561,7 +557,6 @@ namespace HipsterClient
             // groupChatPanel
             // 
             this.groupChatPanel.BackColor = System.Drawing.Color.Transparent;
-            this.groupChatPanel.Controls.Add(this.findParticipantsButton);
             this.groupChatPanel.Controls.Add(this.serverRefreshButton);
             this.groupChatPanel.Controls.Add(this.treeGC);
             this.groupChatPanel.Cursor = System.Windows.Forms.Cursors.Arrow;
@@ -569,22 +564,6 @@ namespace HipsterClient
             this.groupChatPanel.Name = "groupChatPanel";
             this.groupChatPanel.Size = new System.Drawing.Size(358, 368);
             this.groupChatPanel.TabIndex = 16;
-            // 
-            // findParticipantsButton
-            // 
-            this.findParticipantsButton.BackgroundImage = global::HipsterClient.Properties.Resources.zoom;
-            this.findParticipantsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.findParticipantsButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.findParticipantsButton.FlatAppearance.BorderSize = 0;
-            this.findParticipantsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.findParticipantsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.findParticipantsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.findParticipantsButton.Location = new System.Drawing.Point(308, 5);
-            this.findParticipantsButton.Name = "findParticipantsButton";
-            this.findParticipantsButton.Size = new System.Drawing.Size(23, 23);
-            this.findParticipantsButton.TabIndex = 2;
-            this.findParticipantsButton.UseVisualStyleBackColor = true;
-            this.findParticipantsButton.Click += new System.EventHandler(this.findParticipantsButton_Click);
             // 
             // serverRefreshButton
             // 
@@ -1329,12 +1308,6 @@ namespace HipsterClient
         }
         #endregion
 
-        private void toolStripButtonSearch_Click(object sender, EventArgs e)
-        {
-            frmSearch fSearch = new frmSearch(this.XmppCon);
-            fSearch.Show();
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -1344,12 +1317,6 @@ namespace HipsterClient
         {
             frmAddContact f = new frmAddContact(XmppCon);
             f.ShowDialog();
-        }
-
-        private void searchContactToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmSearch fSearch = new frmSearch(this.XmppCon);
-            fSearch.Show();
         }
 
         private void contactsButton_Click(object sender, EventArgs e)
