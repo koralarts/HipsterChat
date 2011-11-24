@@ -408,11 +408,6 @@ namespace HipsterClient
                         frmAddContact frmAdd = new frmAddContact(jid, m_XmppCon);
                         frmAdd.Show();
                     }
-                    else if (sender == tsiVcard)
-                    {
-                        frmVcard frmCard = new frmVcard(jid, m_XmppCon);
-                        frmCard.Show();
-                    }
                 }
             }
 

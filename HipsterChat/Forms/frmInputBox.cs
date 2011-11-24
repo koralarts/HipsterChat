@@ -15,9 +15,8 @@ namespace HipsterClient
             InitializeComponent();
         }
 
-        public frmInputBox(string Prompt, string Title, string Default) : this()
+        public frmInputBox(string Title, string Default) : this()
         {
-            this.lblMessage.Text = Prompt;
             this.Text = Title;
             this.txtInput.Text = Default;
         }
@@ -39,6 +38,5 @@ namespace HipsterClient
         {
             get { return txtInput.Text; }
         }
-       
     }
 }

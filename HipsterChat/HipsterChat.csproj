@@ -115,6 +115,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.ico" />
+    <None Include="Resources\groupChatBg.PNG" />
+    <None Include="Resources\addReqBg.png" />
     <None Include="Resources\addBg.png" />
     <None Include="Resources\loginBg.png" />
     <None Include="Resources\close2.png" />
@@ -139,7 +141,7 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Forms\frmAddRoster.cs">
+    <Compile Include="Forms\frmAddContact.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmChat.cs">
@@ -172,9 +174,6 @@
     <Compile Include="Forms\frmSubscribe.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmVcard.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\frmXData.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -196,9 +195,8 @@
     <Compile Include="Util.cs">
       <SubType>Code</SubType>
     </Compile>
-    <EmbeddedResource Include="Forms\frmAddRoster.resx">
-      <DependentUpon>frmAddRoster.cs</DependentUpon>
-      <SubType>Designer</SubType>
+    <EmbeddedResource Include="Forms\frmAddContact.resx">
+      <DependentUpon>frmAddContact.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmChat.resx">
       <DependentUpon>frmChat.cs</DependentUpon>
@@ -226,10 +224,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmSubscribe.resx">
       <DependentUpon>frmSubscribe.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmVcard.resx">
-      <DependentUpon>frmVcard.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmXData.resx">

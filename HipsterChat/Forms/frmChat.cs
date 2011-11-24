@@ -97,10 +97,11 @@ namespace HipsterClient
             _connection = null;
         }
 
-        #region Form-Designer Code
-
-        private void InitializeComponent()
-        {
+		#region Form-Designer Code
+		
+		private void InitializeComponent()
+		{
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmChat));
             this.rtfChat = new System.Windows.Forms.RichTextBox();
             this.cmdSend1 = new System.Windows.Forms.Button();
             this.rtfSend = new System.Windows.Forms.TextBox();
@@ -141,11 +142,12 @@ namespace HipsterClient
             // 
             this.rtfSend.BackColor = System.Drawing.Color.Black;
             this.rtfSend.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtfSend.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtfSend.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.rtfSend.Location = new System.Drawing.Point(2, 2);
+            this.rtfSend.Location = new System.Drawing.Point(1, 1);
             this.rtfSend.Multiline = true;
             this.rtfSend.Name = "rtfSend";
-            this.rtfSend.Size = new System.Drawing.Size(223, 52);
+            this.rtfSend.Size = new System.Drawing.Size(225, 54);
             this.rtfSend.TabIndex = 12;
             this.rtfSend.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtfSend_KeyDown);
             // 
@@ -157,6 +159,7 @@ namespace HipsterClient
             this.panel1.ForeColor = System.Drawing.Color.DarkTurquoise;
             this.panel1.Location = new System.Drawing.Point(253, 271);
             this.panel1.Name = "panel1";
+            this.panel1.Padding = new System.Windows.Forms.Padding(1);
             this.panel1.Size = new System.Drawing.Size(229, 58);
             this.panel1.TabIndex = 13;
             // 
@@ -190,6 +193,8 @@ namespace HipsterClient
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.BackgroundImage = global::HipsterClient.Properties.Resources.chatbg;
+            this.BackColor = System.Drawing.Color.Black;
+            this.BackgroundImage = global::HipsterClient.Properties.Resources.chatbg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(500, 350);
             this.Controls.Add(this.chatWithLabel);
@@ -198,13 +203,14 @@ namespace HipsterClient
             this.Controls.Add(this.cmdSend1);
             this.Controls.Add(this.rtfChat);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmChat";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmChat_MouseDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-            this.FormBorderStyle = FormBorderStyle.None;
 
         }
         #endregion

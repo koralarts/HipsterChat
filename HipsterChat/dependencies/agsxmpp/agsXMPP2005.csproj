@@ -716,7 +716,6 @@
     <Compile Include="XmppConnection.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Content Include="changelog.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="key.snk" />

@@ -67,6 +67,13 @@ namespace HipsterClient.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap addReqBg {
+            get {
+                object obj = ResourceManager.GetObject("addReqBg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap chatbg {
             get {
                 object obj = ResourceManager.GetObject("chatbg", resourceCulture);
@@ -126,6 +133,13 @@ namespace HipsterClient.Properties {
         internal static System.Drawing.Bitmap group {
             get {
                 object obj = ResourceManager.GetObject("group", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap groupChatBg {
+            get {
+                object obj = ResourceManager.GetObject("groupChatBg", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
