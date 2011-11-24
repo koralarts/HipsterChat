@@ -81,7 +81,6 @@ namespace HipsterClient
         private Panel groupChatPanel;
         private TreeView treeGC;
         private Button serverRefreshButton;
-        private Button findParticipantsButton;
         //private DiscoHelper discoHelper;
         DiscoManager discoManager;
 
@@ -260,7 +259,6 @@ namespace HipsterClient
             this.toolStripButtonFindRooms = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonFindPart = new System.Windows.Forms.ToolStripButton();
             this.groupChatPanel = new System.Windows.Forms.Panel();
-            this.findParticipantsButton = new System.Windows.Forms.Button();
             this.serverRefreshButton = new System.Windows.Forms.Button();
             this.treeGC = new System.Windows.Forms.TreeView();
             this.contextMenuGC.SuspendLayout();
@@ -298,7 +296,6 @@ namespace HipsterClient
             // 
             // chatToolStripMenuItem
             // 
-
             this.chatToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.chatToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
             this.chatToolStripMenuItem.Image = global::HipsterClient.Properties.Resources.comment;
@@ -561,7 +558,6 @@ namespace HipsterClient
             // groupChatPanel
             // 
             this.groupChatPanel.BackColor = System.Drawing.Color.Transparent;
-            this.groupChatPanel.Controls.Add(this.findParticipantsButton);
             this.groupChatPanel.Controls.Add(this.serverRefreshButton);
             this.groupChatPanel.Controls.Add(this.treeGC);
             this.groupChatPanel.Cursor = System.Windows.Forms.Cursors.Arrow;
@@ -569,22 +565,6 @@ namespace HipsterClient
             this.groupChatPanel.Name = "groupChatPanel";
             this.groupChatPanel.Size = new System.Drawing.Size(358, 368);
             this.groupChatPanel.TabIndex = 16;
-            // 
-            // findParticipantsButton
-            // 
-            this.findParticipantsButton.BackgroundImage = global::HipsterClient.Properties.Resources.zoom;
-            this.findParticipantsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.findParticipantsButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.findParticipantsButton.FlatAppearance.BorderSize = 0;
-            this.findParticipantsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.findParticipantsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.findParticipantsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.findParticipantsButton.Location = new System.Drawing.Point(308, 5);
-            this.findParticipantsButton.Name = "findParticipantsButton";
-            this.findParticipantsButton.Size = new System.Drawing.Size(23, 23);
-            this.findParticipantsButton.TabIndex = 2;
-            this.findParticipantsButton.UseVisualStyleBackColor = true;
-            this.findParticipantsButton.Click += new System.EventHandler(this.findParticipantsButton_Click);
             // 
             // serverRefreshButton
             // 
@@ -645,6 +625,7 @@ namespace HipsterClient
             this.groupChatPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
         #endregion
 
@@ -748,7 +729,7 @@ namespace HipsterClient
             contactListPanel.Enabled = true;
             contactsButton.Enabled = true;
             groupChatButton.Enabled = true;
-            statusBar1.Text = "Online";
+            statusBar1.Text = "Online - " + XmppCon.MyJID.Bare.ToString();
             this.Text = "HipsterChat - Online";
 
             DiscoServer();
@@ -970,7 +951,7 @@ namespace HipsterClient
             cboStatus.SelectedValueChanged -= new System.EventHandler(this.cboStatus_SelectedValueChanged);
 
             cboStatus.Text = "offline";
-            statusBar1.Text = "OffLine";
+            statusBar1.Text = "Offline";
             this.Text = "HipsterChat - Offline";
             rosterControl.Clear();
         }
