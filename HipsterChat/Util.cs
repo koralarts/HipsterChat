@@ -44,7 +44,7 @@ namespace HipsterClient
             }
             else if (pres.Type == PresenceType.error)
             {
-                // presence error, we dont care in the miniclient here
+                // Don't do anythng here?
             }
             else
             {

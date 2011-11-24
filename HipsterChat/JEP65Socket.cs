@@ -27,7 +27,6 @@ namespace HipsterClient
         private bool m_bTimeout = false;
         private bool m_SocksConnected = false;
         private Socket _socket;
-        //private long                m_ConnectTimeout    = 10000; // 10 seconds is default
 
         private bool m_SyncConnect = false;
 
@@ -62,12 +61,6 @@ namespace HipsterClient
             get { return m_Target; }
             set { m_Target = value; }
         }
-
-        //public long ConnectTimeout
-        //{
-        //    get { return m_ConnectTimeout; }
-        //    set { m_ConnectTimeout = value; }
-        //}
 
         public Socket Socket
         {
@@ -147,7 +140,7 @@ namespace HipsterClient
             Socket listener = (Socket)ar.AsyncState;
             _socket = listener.EndAccept(ar);
 
-            //listener.Shutdown(SocketShutdown.Both);
+            listener.Shutdown(SocketShutdown.Both);
             listener.Close();
 
             m_ReadBuffer = null;
@@ -392,11 +385,8 @@ namespace HipsterClient
 
             m_SocksConnected = false;
 
-            //IPHostEntry ipHostInfo = Dns.Resolve(Address);
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Address);
-            //IPHostEntry ipHostInfo = Dns.GetHostByAddress(Address);
-            //Dns.GetHostEntry
-            IPAddress ipAddress = ipHostInfo.AddressList[0];// IPAddress.Parse(address);
+            IPAddress ipAddress = ipHostInfo.AddressList[0];
             IPEndPoint endPoint = new IPEndPoint(ipAddress, Port);
 
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
