@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using agsXMPP;
 using agsXMPP.protocol.client;
 
-namespace HipsterClient
+namespace HipsterChat
 {
 	/// <summary>
 	/// Summary description for Util.

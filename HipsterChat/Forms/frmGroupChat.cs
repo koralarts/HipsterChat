@@ -13,7 +13,7 @@ using agsXMPP.protocol;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.x.muc;
 
-namespace HipsterClient
+namespace HipsterChat
 {
     public partial class frmGroupChat : Form
     {

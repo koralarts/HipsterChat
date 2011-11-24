@@ -34,7 +34,7 @@ using System.Text;
 
 using agsXMPP.protocol.stream.feature.compression;
 
-namespace HipsterClient
+namespace HipsterChat
 {
     /// <summary>
     /// MainForm
@@ -298,7 +298,7 @@ namespace HipsterClient
             // 
             this.chatToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.chatToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.chatToolStripMenuItem.Image = global::HipsterClient.Properties.Resources.comment;
+            this.chatToolStripMenuItem.Image = global::HipsterChat.Properties.Resources.comment;
             this.chatToolStripMenuItem.Name = "chatToolStripMenuItem";
             this.chatToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.chatToolStripMenuItem.Text = "Chat";
@@ -309,7 +309,7 @@ namespace HipsterClient
             // 
             this.deleteToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.deleteToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.deleteToolStripMenuItem.Image = global::HipsterClient.Properties.Resources.user_delete;
+            this.deleteToolStripMenuItem.Image = global::HipsterChat.Properties.Resources.user_delete;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
@@ -320,7 +320,7 @@ namespace HipsterClient
             // 
             this.sendFileToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.sendFileToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.sendFileToolStripMenuItem.Image = global::HipsterClient.Properties.Resources.package;
+            this.sendFileToolStripMenuItem.Image = global::HipsterChat.Properties.Resources.package;
             this.sendFileToolStripMenuItem.Name = "sendFileToolStripMenuItem";
             this.sendFileToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.sendFileToolStripMenuItem.Text = "Send File";
@@ -358,7 +358,7 @@ namespace HipsterClient
             // 
             this.connectToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.connectToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.connectToolStripMenuItem.Image = global::HipsterClient.Properties.Resources.connect;
+            this.connectToolStripMenuItem.Image = global::HipsterChat.Properties.Resources.connect;
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
             this.connectToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.C)));
             this.connectToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
@@ -370,7 +370,7 @@ namespace HipsterClient
             this.disconnectToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.disconnectToolStripMenuItem.Enabled = false;
             this.disconnectToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.disconnectToolStripMenuItem.Image = global::HipsterClient.Properties.Resources.disconnect;
+            this.disconnectToolStripMenuItem.Image = global::HipsterChat.Properties.Resources.disconnect;
             this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
             this.disconnectToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D)));
             this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
@@ -387,7 +387,7 @@ namespace HipsterClient
             this.addContactToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.addContactToolStripMenuItem.Enabled = false;
             this.addContactToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.addContactToolStripMenuItem.Image = global::HipsterClient.Properties.Resources.user_add;
+            this.addContactToolStripMenuItem.Image = global::HipsterChat.Properties.Resources.user_add;
             this.addContactToolStripMenuItem.Name = "addContactToolStripMenuItem";
             this.addContactToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.A)));
             this.addContactToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
@@ -399,7 +399,7 @@ namespace HipsterClient
             this.searchContactToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.searchContactToolStripMenuItem.Enabled = false;
             this.searchContactToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.searchContactToolStripMenuItem.Image = global::HipsterClient.Properties.Resources.zoom;
+            this.searchContactToolStripMenuItem.Image = global::HipsterChat.Properties.Resources.zoom;
             this.searchContactToolStripMenuItem.Name = "searchContactToolStripMenuItem";
             this.searchContactToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.searchContactToolStripMenuItem.Text = "Search Contact";
@@ -415,7 +415,7 @@ namespace HipsterClient
             // 
             this.exitToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.exitToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.exitToolStripMenuItem.Image = global::HipsterClient.Properties.Resources.door_in;
+            this.exitToolStripMenuItem.Image = global::HipsterChat.Properties.Resources.door_in;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.exitToolStripMenuItem.Text = "Exit";
@@ -435,7 +435,7 @@ namespace HipsterClient
             // closeButton
             // 
             this.closeButton.BackColor = System.Drawing.Color.Transparent;
-            this.closeButton.BackgroundImage = global::HipsterClient.Properties.Resources.close;
+            this.closeButton.BackgroundImage = global::HipsterChat.Properties.Resources.close;
             this.closeButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.closeButton.Cursor = System.Windows.Forms.Cursors.Default;
             this.closeButton.FlatAppearance.BorderSize = 0;
@@ -540,7 +540,7 @@ namespace HipsterClient
             // 
             // toolStripButtonFindRooms
             // 
-            this.toolStripButtonFindRooms.Image = global::HipsterClient.Properties.Resources.comments;
+            this.toolStripButtonFindRooms.Image = global::HipsterChat.Properties.Resources.comments;
             this.toolStripButtonFindRooms.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonFindRooms.Name = "toolStripButtonFindRooms";
             this.toolStripButtonFindRooms.Size = new System.Drawing.Size(90, 22);
@@ -548,7 +548,7 @@ namespace HipsterClient
             // 
             // toolStripButtonFindPart
             // 
-            this.toolStripButtonFindPart.Image = global::HipsterClient.Properties.Resources.group;
+            this.toolStripButtonFindPart.Image = global::HipsterChat.Properties.Resources.group;
             this.toolStripButtonFindPart.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonFindPart.Name = "toolStripButtonFindPart";
             this.toolStripButtonFindPart.Size = new System.Drawing.Size(115, 22);
@@ -567,7 +567,7 @@ namespace HipsterClient
             // 
             // serverRefreshButton
             // 
-            this.serverRefreshButton.BackgroundImage = global::HipsterClient.Properties.Resources.refresh;
+            this.serverRefreshButton.BackgroundImage = global::HipsterChat.Properties.Resources.refresh;
             this.serverRefreshButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.serverRefreshButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.serverRefreshButton.FlatAppearance.BorderSize = 0;
@@ -598,7 +598,7 @@ namespace HipsterClient
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.BackgroundImage = global::HipsterClient.Properties.Resources.mainFrmBg;
+            this.BackgroundImage = global::HipsterChat.Properties.Resources.mainFrmBg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(385, 485);
             this.Controls.Add(this.groupChatPanel);

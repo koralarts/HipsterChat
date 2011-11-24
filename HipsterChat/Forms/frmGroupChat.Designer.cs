@@ -1,4 +1,4 @@
-namespace HipsterClient
+namespace HipsterChat
 {
     partial class frmGroupChat
     {
@@ -74,7 +74,7 @@ namespace HipsterClient
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.Transparent;
-            this.splitContainer1.Panel1.BackgroundImage = global::HipsterClient.Properties.Resources.groupChatBg;
+            this.splitContainer1.Panel1.BackgroundImage = global::HipsterChat.Properties.Resources.groupChatBg;
             this.splitContainer1.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.splitContainer1.Panel1.Controls.Add(this.lvwRoster);
             this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(6, 15, 6, 19);
@@ -146,7 +146,7 @@ namespace HipsterClient
             // splitContainer2.Panel1
             // 
             this.splitContainer2.Panel1.BackColor = System.Drawing.Color.Transparent;
-            this.splitContainer2.Panel1.BackgroundImage = global::HipsterClient.Properties.Resources.groupChatBg;
+            this.splitContainer2.Panel1.BackgroundImage = global::HipsterChat.Properties.Resources.groupChatBg;
             this.splitContainer2.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.splitContainer2.Panel1.Controls.Add(this.tableLayoutPanel2);
             this.splitContainer2.Panel1.ForeColor = System.Drawing.Color.DarkTurquoise;
@@ -234,7 +234,7 @@ namespace HipsterClient
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.BackgroundImage = global::HipsterClient.Properties.Resources.groupChatBg;
+            this.tableLayoutPanel1.BackgroundImage = global::HipsterChat.Properties.Resources.groupChatBg;
             this.tableLayoutPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -285,7 +285,7 @@ namespace HipsterClient
             this.closeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.closeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.closeButton.Image = global::HipsterClient.Properties.Resources.close;
+            this.closeButton.Image = global::HipsterChat.Properties.Resources.close;
             this.closeButton.Location = new System.Drawing.Point(595, 1);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(25, 23);

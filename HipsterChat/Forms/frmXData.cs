@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 using agsXMPP.protocol.x.data;
 
-namespace HipsterClient
+namespace HipsterChat
 {
 	/// <summary>
 	/// Summary description for frmXData.
