@@ -10,7 +10,7 @@ using agsXMPP.protocol;
 using agsXMPP.protocol.client;
 using agsXMPP.Collections;
 
-namespace HipsterClient
+namespace HipsterChat
 {
     public class frmChat : System.Windows.Forms.Form
     {
@@ -192,9 +192,9 @@ namespace HipsterClient
             // frmChat
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.BackgroundImage = global::HipsterClient.Properties.Resources.chatbg;
+            this.BackgroundImage = global::HipsterChat.Properties.Resources.chatbg;
             this.BackColor = System.Drawing.Color.Black;
-            this.BackgroundImage = global::HipsterClient.Properties.Resources.chatbg;
+            this.BackgroundImage = global::HipsterChat.Properties.Resources.chatbg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(500, 350);
             this.Controls.Add(this.chatWithLabel);

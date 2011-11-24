@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using agsXMPP;
 using agsXMPP.protocol.client;
 
-namespace HipsterClient
+namespace HipsterChat
 {
 	/// <summary>
 	/// Zusammenfassung für frmSubscribe.
@@ -106,7 +106,7 @@ namespace HipsterClient
             // frmSubscribe
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.BackgroundImage = global::HipsterClient.Properties.Resources.addReqBg;
+            this.BackgroundImage = global::HipsterChat.Properties.Resources.addReqBg;
             this.ClientSize = new System.Drawing.Size(261, 150);
             this.Controls.Add(this.lblFrom);
             this.Controls.Add(this.cmdRefuse);

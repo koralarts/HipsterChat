@@ -21,7 +21,7 @@ using agsXMPP.protocol.x.data;
 
 using agsXMPP.Xml;
 
-namespace HipsterClient
+namespace HipsterChat
 {
     public partial class frmFileTransfer : Form
     {

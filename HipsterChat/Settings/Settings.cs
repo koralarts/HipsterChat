@@ -3,7 +3,7 @@
 using agsXMPP;
 using agsXMPP.Xml.Dom;
 
-namespace HipsterClient.Settings
+namespace HipsterChat.Settings
 {
     /*   
     This class shows how agsXMPP could also be used read and write custom xml files.

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 using agsXMPP;
 
-namespace HipsterClient
+namespace HipsterChat
 {
 	/// <summary>
 	/// Summary description for femAddRoster.
@@ -122,7 +122,7 @@ namespace HipsterClient
             this.AcceptButton = this.cmdAdd;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.BackColor = Color.Black;
-            this.BackgroundImage = global::HipsterClient.Properties.Resources.addBg;
+            this.BackgroundImage = global::HipsterChat.Properties.Resources.addBg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(272, 161);
             this.ControlBox = false;

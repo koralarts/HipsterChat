@@ -10,7 +10,7 @@
     <ApplicationIcon>App.ico</ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>MiniClient</AssemblyName>
+    <AssemblyName>HipsterChat</AssemblyName>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
@@ -18,7 +18,7 @@
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>HipsterClient</RootNamespace>
+    <RootNamespace>HipsterChat</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
@@ -164,12 +164,6 @@
     <Compile Include="Forms\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmSearch.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmSearch.Designer.cs">
-      <DependentUpon>frmSearch.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\frmSubscribe.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -216,10 +210,6 @@
     <EmbeddedResource Include="Forms\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmSearch.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>frmSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmSubscribe.resx">
       <DependentUpon>frmSubscribe.cs</DependentUpon>
