@@ -55,8 +55,6 @@ namespace HipsterChat
         private ToolStripMenuItem exitToolStripMenuItem;
         private ToolStripMenuItem joinToolStripMenuItem;
 
-        private ToolStripMenuItem sendFileToolStripMenuItem;
-
         delegate void OnMessageDelegate(object sender, agsXMPP.protocol.client.Message msg);
         delegate void OnPresenceDelegate(object sender, Presence pres);
 
@@ -237,7 +235,6 @@ namespace HipsterChat
             this.contextMenuStripRoster = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.chatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sendFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -287,8 +284,7 @@ namespace HipsterChat
             // 
             this.contextMenuStripRoster.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.chatToolStripMenuItem,
-            this.deleteToolStripMenuItem,
-            this.sendFileToolStripMenuItem});
+            this.deleteToolStripMenuItem,});
             this.contextMenuStripRoster.Name = "contextMenuStripRoster";
             this.contextMenuStripRoster.Size = new System.Drawing.Size(169, 92);
             // 
@@ -313,11 +309,6 @@ namespace HipsterChat
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.ToolTipText = "Delete Contact";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
-            // 
-            // sendFileToolStripMenuItem
-            // 
-            this.sendFileToolStripMenuItem.Name = "sendFileToolStripMenuItem";
-            this.sendFileToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
             // menuStrip1
             // 

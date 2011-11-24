@@ -342,16 +342,6 @@ namespace HipsterChat
                 Console.WriteLine(ex.ToString());
             }
         }
-
-        public void SendFile(string filename)
-        {
-            _socket.BeginSendFile(filename, new AsyncCallback(OnFileSend), null);
-        }
-
-        private void OnFileSend(IAsyncResult ar)
-        {
-            _socket.EndSendFile(ar);
-        }
         #endregion
 
         public bool SyncConnect()
