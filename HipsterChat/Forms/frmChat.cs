@@ -20,14 +20,14 @@ namespace MiniClient
 				
 		private System.ComponentModel.Container components = null;
 
-		private XmppClientConnection	_connection;
-        private Jid m_Jid;
+		private XmppClientConnection _xmppCon;
+        private Jid _jid;
         private System.Windows.Forms.RichTextBox rtfChat;
         private Button cmdSend1;
         private TextBox rtfSend;
         private Panel panel1;
         private Button closeButton;
-		private string					_nickname;
+		private string _nickname;
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
         private Label chatWithLabel;
@@ -42,17 +42,16 @@ namespace MiniClient
 		
 		public frmChat(Jid jid, XmppClientConnection con, string nickname)
 		{
-			m_Jid		= jid;
-			_connection = con;
-			_nickname	= nickname;
+			_jid = jid;
+			_xmppCon = con;
+			_nickname = nickname;
 
 			InitializeComponent();
 			
 			this.Text = "Chat with " + nickname;
-            this.chatWithLabel.Text = "Chatting with: " + m_Jid.User;
-            Util.ChatForms.Add(m_Jid.Bare.ToLower(), this);
+            this.chatWithLabel.Text = "Chatting with: " + _jid.User;
+            Util.ChatForms.Add(_jid.Bare.ToLower(), this);
             this.rtfSend.Select();
-
 
 			// Setup new Message Callback
             con.MessageGrabber.Add(jid, new BareJidComparer(), new MessageCB(MessageCallback), null);
@@ -60,15 +59,15 @@ namespace MiniClient
 
         public frmChat(Jid jid, XmppClientConnection con, string nickname, bool privateChat)
         {
-            m_Jid = jid;
-            _connection = con;
+            _jid = jid;
+            _xmppCon = con;
             _nickname = nickname;
 
             InitializeComponent();
 
-            this.Text = "Chat with " + _nickname;
-            this.chatWithLabel.Text = "Chatting with: " + m_Jid.User;
-            Util.ChatForms.Add(m_Jid.Bare.ToLower(), this);
+            this.Text = "Chat with " + _jid.User;
+            this.chatWithLabel.Text = "Chatting with: " + _jid.User;
+            Util.ChatForms.Add(_jid.Bare.ToLower(), this);
             this.rtfSend.Select();
 
             // Setup new Message Callback
@@ -80,8 +79,8 @@ namespace MiniClient
 
 		public Jid Jid
 		{
-			get { return m_Jid; }
-			set { m_Jid = value; }
+			get { return _jid; }
+			set { _jid = value; }
 		}
 		/// <summary>
 		/// 
@@ -97,9 +96,9 @@ namespace MiniClient
 			}
 			base.Dispose( disposing );
 			
-			Util.ChatForms.Remove(m_Jid.Bare.ToLower());
-            _connection.MessageGrabber.Remove(m_Jid);
-			_connection = null;
+			Util.ChatForms.Remove(_jid.Bare.ToLower());
+            _xmppCon.MessageGrabber.Remove(_jid);
+			_xmppCon = null;
 		}
 
 		#region Form-Designer Code
@@ -232,7 +231,7 @@ namespace MiniClient
 		public void IncomingMessage(agsXMPP.protocol.client.Message msg)
 		{
 			rtfChat.SelectionColor = Color.Red;
-			rtfChat.AppendText(m_Jid.User + " said: ");
+			rtfChat.AppendText(_jid.User + " said: ");
 			rtfChat.SelectionColor = Color.DarkTurquoise;
 			rtfChat.AppendText(msg.Body);
 			rtfChat.AppendText("\r\n");
@@ -272,7 +271,11 @@ namespace MiniClient
 
         private void rtfSend_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter && e.Modifiers != Keys.Shift)
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+            else if (e.KeyCode == Keys.Enter && e.Modifiers != Keys.Shift)
             {
                 sendText();
             }
@@ -292,16 +295,16 @@ namespace MiniClient
             agsXMPP.protocol.client.Message msg = new agsXMPP.protocol.client.Message();
 
             msg.Type = MessageType.chat;
-            msg.To = m_Jid;
+            msg.To = _jid;
             msg.Body = rtfSend.Text;
 
-            if (msg.Body != null)
+            if (msg.Body != null && msg.Body.Length > 0)
             {
-                _connection.Send(msg);
+                _xmppCon.Send(msg);
                 OutgoingMessage(msg);
             }
 
-            rtfSend.Text = "";
+            rtfSend.Clear();
             rtfSend.Select();
         }
 	}

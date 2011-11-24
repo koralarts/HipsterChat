@@ -127,7 +127,6 @@
     <None Include="Resources\mainbg.png" />
     <None Include="Resources\package.png" />
     <None Include="Resources\user_delete.png" />
-    <None Include="Resources\vcard.png" />
     <None Include="Resources\user_comment.png" />
     <None Include="Resources\group.png" />
     <None Include="Resources\door_in.png" />

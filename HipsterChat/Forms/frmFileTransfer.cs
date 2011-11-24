@@ -107,8 +107,8 @@ namespace MiniClient
             m_XmppCon = XmppCon;
             
             // disable commadn buttons we don't need for sending a file
-            cmdAccept.Enabled = false;
-            cmdRefuse.Enabled = false;
+            cmdAccept.Visible = false;
+            cmdRefuse.Visible = false;
 
             ChooseFileToSend();            
         }
@@ -524,7 +524,8 @@ namespace MiniClient
             if (m_bytesTransmitted == m_lFileLength)
             {
                 // completed
-                tslTransmitted.Text = "completed";
+                this.status.ForeColor = Color.Red;
+                this.status.Text = "Finished";
                 // Update Progress when complete
                 BeginInvoke(new ObjectHandler(UpdateProgress), new object[] { sender });
             }
@@ -559,9 +560,8 @@ namespace MiniClient
             Console.WriteLine("Percent: " + percent.ToString());
             progress.Value = (int)percent;
 
-            tslRate.Text = GetHRByteRateString();
-            tslTransmitted.Text = HRSize(m_bytesTransmitted);
-            tslRemaining.Text = GetHRRemainingTime();        
+            rate.Text = GetHRByteRateString();
+            time.Text = GetHRRemainingTime();        
         }
 
         void m_s5Sock_OnConnect(object sender)
@@ -807,7 +807,7 @@ namespace MiniClient
             
             TimeSpan ts = TimeSpan.FromSeconds(fRemaingTime);
             
-            return String.Format("{0:00}h {1:00}m {2:00}s",
+            return String.Format("{0:00}:{1:00}:{2:00}",
                                 ts.Hours, ts.Minutes, ts.Seconds);
         }        
         #endregion
@@ -817,6 +817,8 @@ namespace MiniClient
             SendSiIq();
             // Disable the Send button, because we can send this file only once
             cmdSend.Enabled = false;
+            this.cmdSend.Text = "Sending...";
+            this.status.Text = "Sending";
         }
 
         private void txtDescription_TextChanged(object sender, EventArgs e)

@@ -42,8 +42,7 @@ namespace MiniClient
 	public class frmMain : System.Windows.Forms.Form
     {
         private System.ComponentModel.IContainer components;
-        
-        
+
         private ContextMenuStrip contextMenuGC;        
         private ContextMenuStrip contextMenuStripRoster;
         private ToolStripMenuItem chatToolStripMenuItem;
@@ -57,7 +56,6 @@ namespace MiniClient
         private ToolStripMenuItem joinToolStripMenuItem;
 
         private ToolStripMenuItem sendFileToolStripMenuItem;
-        private ImageList ils16;
 
         delegate void OnMessageDelegate(object sender, agsXMPP.protocol.client.Message msg);
 		delegate void OnPresenceDelegate(object sender, Presence pres);
@@ -66,7 +64,7 @@ namespace MiniClient
         const int IMAGE_CHATROOM = 4;
         const int IMAGE_SERVER      = 5;
 
-        private XmppClientConnection XmppCon;
+        private XmppClientConnection _xmppCon;
         private Label statusBar1;
         private Button closeButton;
         private ToolStripSeparator toolStripSeparator1;
@@ -87,6 +85,7 @@ namespace MiniClient
         //private DiscoHelper discoHelper;
         DiscoManager discoManager;
 
+        // Needed for the ability to move the window by dragging
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
 
@@ -97,13 +96,17 @@ namespace MiniClient
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
 
+        /**
+         * frmMain()
+         * 
+         * Description: Main window constructor. Where the XMPP object, and controls are initialized.
+         * @author Karl Castillo
+         */
 		public frmMain()
 		{
             InitializeComponent();
 			treeGC.ContextMenuStrip = contextMenuGC;
             contactListPanel.BringToFront();
-	
-			// initialize Combo Status
 			cboStatus.Items.AddRange( new object[] {"offline",
 													ShowType.away.ToString(),
 													ShowType.xa.ToString(),
@@ -112,72 +115,76 @@ namespace MiniClient
 													"online" });
 			cboStatus.SelectedIndex = 0;
 
-			// initilaize XmppConnection
-            XmppCon = new XmppClientConnection();
+			// Creating XMPP Client
+            _xmppCon = new XmppClientConnection();
             
-            XmppCon.SocketConnectionType = agsXMPP.net.SocketConnectionType.Direct;
+            // Initializing Connection Type
+            _xmppCon.SocketConnectionType = agsXMPP.net.SocketConnectionType.Direct;
 
-			XmppCon.OnReadXml		    += new XmlHandler(XmppCon_OnReadXml);
-			XmppCon.OnWriteXml		    += new XmlHandler(XmppCon_OnWriteXml);
+            // Initializing XML Object Handlers
+			_xmppCon.OnReadXml		    += new XmlHandler(_xmppCon_OnReadXml);
+			_xmppCon.OnWriteXml		    += new XmlHandler(_xmppCon_OnWriteXml);
 			
-			XmppCon.OnRosterStart	    += new ObjectHandler(XmppCon_OnRosterStart);
-			XmppCon.OnRosterEnd		    += new ObjectHandler(XmppCon_OnRosterEnd);
-			XmppCon.OnRosterItem	    += new agsXMPP.XmppClientConnection.RosterHandler(XmppCon_OnRosterItem);
+            // Initializing Contact List Handlers
+			_xmppCon.OnRosterStart	    += new ObjectHandler(_xmppCon_OnRosterStart);
+			_xmppCon.OnRosterEnd		+= new ObjectHandler(_xmppCon_OnRosterEnd);
+			_xmppCon.OnRosterItem	    += new agsXMPP.XmppClientConnection.RosterHandler(_xmppCon_OnRosterItem);
 
-			XmppCon.OnAgentStart	    += new ObjectHandler(XmppCon_OnAgentStart);
-			XmppCon.OnAgentEnd		    += new ObjectHandler(XmppCon_OnAgentEnd);
-			XmppCon.OnAgentItem		    += new agsXMPP.XmppClientConnection.AgentHandler(XmppCon_OnAgentItem);
+            // Initializing Transfer Agent Handlers
+			_xmppCon.OnAgentStart	    += new ObjectHandler(_xmppCon_OnAgentStart);
+			_xmppCon.OnAgentEnd		    += new ObjectHandler(_xmppCon_OnAgentEnd);
+			_xmppCon.OnAgentItem		+= new agsXMPP.XmppClientConnection.AgentHandler(_xmppCon_OnAgentItem);
 
-			XmppCon.OnLogin			    += new ObjectHandler(XmppCon_OnLogin);
-			XmppCon.OnClose			    += new ObjectHandler(XmppCon_OnClose);
-			XmppCon.OnError			    += new ErrorHandler(XmppCon_OnError);
-			XmppCon.OnPresence		    += new PresenceHandler(XmppCon_OnPresence);
-			XmppCon.OnMessage		    += new MessageHandler(XmppCon_OnMessage);
-			XmppCon.OnIq			    += new IqHandler(XmppCon_OnIq);
-			XmppCon.OnAuthError		    += new XmppElementHandler(XmppCon_OnAuthError);
-            XmppCon.OnSocketError += new ErrorHandler(XmppCon_OnSocketError);
-            XmppCon.OnStreamError += new XmppElementHandler(XmppCon_OnStreamError);
+            // Initializing Miscellaneous Object Handlers
+			_xmppCon.OnLogin			+= new ObjectHandler(_xmppCon_OnLogin);
+			_xmppCon.OnClose			+= new ObjectHandler(_xmppCon_OnClose);
+			_xmppCon.OnError			+= new ErrorHandler(_xmppCon_OnError);
+			_xmppCon.OnPresence		    += new PresenceHandler(_xmppCon_OnPresence);
+			_xmppCon.OnMessage		    += new MessageHandler(_xmppCon_OnMessage);
+			_xmppCon.OnIq			    += new IqHandler(_xmppCon_OnIq);
+			_xmppCon.OnAuthError		+= new XmppElementHandler(_xmppCon_OnAuthError);
+            _xmppCon.OnSocketError      += new ErrorHandler(_xmppCon_OnSocketError);
+            _xmppCon.OnStreamError      += new XmppElementHandler(_xmppCon_OnStreamError);
 
-           
-            XmppCon.OnReadSocketData    += new agsXMPP.net.BaseSocket.OnSocketDataHandler(ClientSocket_OnReceive);
-            XmppCon.OnWriteSocketData   += new agsXMPP.net.BaseSocket.OnSocketDataHandler(ClientSocket_OnSend);
-
-            XmppCon.ClientSocket.OnValidateCertificate += new System.Net.Security.RemoteCertificateValidationCallback(ClientSocket_OnValidateCertificate);
+            // Initializing Socket Object Handlers
+            _xmppCon.OnReadSocketData    += new agsXMPP.net.BaseSocket.OnSocketDataHandler(ClientSocket_OnReceive);
+            _xmppCon.OnWriteSocketData   += new agsXMPP.net.BaseSocket.OnSocketDataHandler(ClientSocket_OnSend);
+            _xmppCon.ClientSocket.OnValidateCertificate += new System.Net.Security.RemoteCertificateValidationCallback(ClientSocket_OnValidateCertificate);
             
-						
-			XmppCon.OnXmppConnectionStateChanged		+= new XmppConnectionStateHandler(XmppCon_OnXmppConnectionStateChanged);
-            XmppCon.OnSaslStart                         += new SaslEventHandler(XmppCon_OnSaslStart);
+			// Initializing Status Object Handler		
+			_xmppCon.OnXmppConnectionStateChanged		+= new XmppConnectionStateHandler(_xmppCon_On_xmppConnectionStateChanged);
+            _xmppCon.OnSaslStart                         += new SaslEventHandler(_xmppCon_OnSaslStart);
 
-            discoManager = new DiscoManager(XmppCon);
+            discoManager = new DiscoManager(_xmppCon);
 
             agsXMPP.Factory.ElementFactory.AddElementType("Login", null, typeof(Settings.Login));
             LoadChatServers();
 
-            frmLogin f = new frmLogin(XmppCon);
+            frmLogin f = new frmLogin(_xmppCon);
 
             if (f.ShowDialog() == DialogResult.OK)
             {
-                XmppCon.Open();
+                _xmppCon.Open();
             }
 		}
 
-        void XmppCon_OnStreamError(object sender, Element e)
+        void _xmppCon_OnStreamError(object sender, Element e)
         {
             // Stream errors <stream:error/>
         }       
 
-        private void XmppCon_OnSocketError(object sender, Exception ex)
+        private void _xmppCon_OnSocketError(object sender, Exception ex)
         {
             if (InvokeRequired)
             {			
-                BeginInvoke(new ErrorHandler(XmppCon_OnSocketError), new object[] { sender, ex });
+                BeginInvoke(new ErrorHandler(_xmppCon_OnSocketError), new object[] { sender, ex });
                 return;
             }
 
             MessageBox.Show("Socket Error\r\n" + ex.Message + "\r\n" + ex.InnerException);            
         }           
 
-        private void XmppCon_OnSaslStart(object sender, SaslEventArgs args)
+        private void _xmppCon_OnSaslStart(object sender, SaslEventArgs args)
         {
             // You can define the SASL mechanism here when needed, or implement your own SASL mechanisms
             // for authentication
@@ -187,7 +194,7 @@ namespace MiniClient
 
 
             //args.Auto = false;
-            //args.Mechanism = agsXMPP.protocol.sasl.Mechanism.GetMechanismName(agsXMPP.protocol.sasl.MechanismType.ANONYMOUS);
+            args.Mechanism = agsXMPP.protocol.sasl.Mechanism.GetMechanismName(agsXMPP.protocol.sasl.MechanismType.CRAM_MD5);
         }
 
         private void LoadChatServers()
@@ -660,41 +667,41 @@ namespace MiniClient
 			Application.Run(new frmMain());
 		}
 
-		#region << XmppConnection events >>
-		private void XmppCon_OnReadXml(object sender, string xml)
+		#region << _xmppConnection events >>
+		private void _xmppCon_OnReadXml(object sender, string xml)
 		{			
 			if (InvokeRequired)
 			{					
-				BeginInvoke(new XmlHandler(XmppCon_OnReadXml), new object[]{sender, xml});
+				BeginInvoke(new XmlHandler(_xmppCon_OnReadXml), new object[]{sender, xml});
 				return;
 			}
 		}
 
-		private void XmppCon_OnWriteXml(object sender, string xml)
+		private void _xmppCon_OnWriteXml(object sender, string xml)
 		{
 			if (InvokeRequired)
 			{					
-				BeginInvoke(new XmlHandler(XmppCon_OnWriteXml), new object[]{sender, xml});
+				BeginInvoke(new XmlHandler(_xmppCon_OnWriteXml), new object[]{sender, xml});
 				return;
 			}
 		}
 
-		private void XmppCon_OnRosterStart(object sender)
+		private void _xmppCon_OnRosterStart(object sender)
 		{
 			if (InvokeRequired)
 			{	
-				BeginInvoke(new ObjectHandler(XmppCon_OnRosterStart), new object[]{this});
+				BeginInvoke(new ObjectHandler(_xmppCon_OnRosterStart), new object[]{this});
 				return;
 			}
 			// Disable redraw for faster updating
 			rosterControl.BeginUpdate();
 		}
 		
-		private void XmppCon_OnRosterEnd(object sender)
+		private void _xmppCon_OnRosterEnd(object sender)
 		{
 			if (InvokeRequired)
 			{					
-				BeginInvoke(new ObjectHandler(XmppCon_OnRosterEnd), new object[]{this});
+				BeginInvoke(new ObjectHandler(_xmppCon_OnRosterEnd), new object[]{this});
 				return;
 			}
 			// enable redraw again
@@ -704,11 +711,11 @@ namespace MiniClient
             cboStatus.Text = "online";
 		}
 		
-		private void XmppCon_OnRosterItem(object sender, agsXMPP.protocol.iq.roster.RosterItem item)
+		private void _xmppCon_OnRosterItem(object sender, agsXMPP.protocol.iq.roster.RosterItem item)
 		{
 			if (InvokeRequired)
 			{				
-				BeginInvoke(new agsXMPP.XmppClientConnection.RosterHandler(XmppCon_OnRosterItem), new object[]{this, item});
+				BeginInvoke(new agsXMPP.XmppClientConnection.RosterHandler(_xmppCon_OnRosterItem), new object[]{this, item});
 				return;
 			}
 
@@ -723,26 +730,26 @@ namespace MiniClient
 		
 		}
 		
-		private void XmppCon_OnAgentStart(object sender)
+		private void _xmppCon_OnAgentStart(object sender)
 		{
 
 		}
 
-		private void XmppCon_OnAgentEnd(object sender)
+		private void _xmppCon_OnAgentEnd(object sender)
 		{
 
 		}
 
-		private void XmppCon_OnAgentItem(object sender, agsXMPP.protocol.iq.agent.Agent agent)
+		private void _xmppCon_OnAgentItem(object sender, agsXMPP.protocol.iq.agent.Agent agent)
 		{
 
 		}
 
-		private void XmppCon_OnLogin(object sender)
+		private void _xmppCon_OnLogin(object sender)
 		{
             if (InvokeRequired)
             {			
-                BeginInvoke(new ObjectHandler(XmppCon_OnLogin), new object[] { sender});
+                BeginInvoke(new ObjectHandler(_xmppCon_OnLogin), new object[] { sender});
                 return;
             }
 			connectToolStripMenuItem.Enabled	= false;
@@ -763,18 +770,18 @@ namespace MiniClient
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-		private void XmppCon_OnAuthError(object sender, Element e)
+		private void _xmppCon_OnAuthError(object sender, Element e)
 		{
 			if (InvokeRequired)
 			{	
 				// Windows Forms are not Thread Safe, we need to invoke this :(
 				// We're not in the UI thread, so we need to call BeginInvoke				
-				BeginInvoke(new XmppElementHandler(XmppCon_OnAuthError), new object[]{sender, e});
+				BeginInvoke(new XmppElementHandler(_xmppCon_OnAuthError), new object[]{sender, e});
 				return;
 			}
 			
-			if (XmppCon.XmppConnectionState != XmppConnectionState.Disconnected)
-                XmppCon.Close();
+			if (_xmppCon.XmppConnectionState != XmppConnectionState.Disconnected)
+                _xmppCon.Close();
 
 			MessageBox.Show("Authentication Error!\r\nWrong password or username.", 
 				"Error", 
@@ -789,19 +796,19 @@ namespace MiniClient
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="pres"></param>
-		private void XmppCon_OnPresence(object sender, Presence pres)
+		private void _xmppCon_OnPresence(object sender, Presence pres)
 		{
 			if (InvokeRequired)
 			{	
 				// Windows Forms are not Thread Safe, we need to invoke this :(
 				// We're not in the UI thread, so we need to call BeginInvoke				
-				BeginInvoke(new OnPresenceDelegate(XmppCon_OnPresence), new object[]{sender, pres});
+				BeginInvoke(new OnPresenceDelegate(_xmppCon_OnPresence), new object[]{sender, pres});
 				return;
 			}
 
 			if (pres.Type == PresenceType.subscribe)
 			{
-				frmSubscribe f = new frmSubscribe(XmppCon, pres.From);
+				frmSubscribe f = new frmSubscribe(_xmppCon, pres.From);
 				f.Show();
 			}
 			else if(pres.Type == PresenceType.subscribed)
@@ -830,13 +837,13 @@ namespace MiniClient
 
 		}
 
-        private void XmppCon_OnIq(object sender, agsXMPP.protocol.client.IQ iq)
+        private void _xmppCon_OnIq(object sender, agsXMPP.protocol.client.IQ iq)
         {
             if (InvokeRequired)
             {
                 // Windows Forms are not Thread Safe, we need to invoke this :(
                 // We're not in the UI thread, so we need to call BeginInvoke				
-                BeginInvoke(new IqHandler(XmppCon_OnIq), new object[] { sender, iq });
+                BeginInvoke(new IqHandler(_xmppCon_OnIq), new object[] { sender, iq });
                 return;
             }
                        
@@ -856,7 +863,7 @@ namespace MiniClient
                             // somebody wants to send a file to us
                             Console.WriteLine(file.Size.ToString());
                             Console.WriteLine(file.Name);
-                            frmFileTransfer frmFile = new frmFileTransfer(XmppCon, iq);
+                            frmFileTransfer frmFile = new frmFileTransfer(_xmppCon, iq);
                             frmFile.Show();
                         }
                     }
@@ -881,7 +888,7 @@ namespace MiniClient
                                 version.Ver = "0.5";
                                 version.Os = Environment.OSVersion.ToString();
 
-                                XmppCon.Send(iq);
+                                _xmppCon.Send(iq);
                             }
                         }                        
                     }
@@ -894,13 +901,13 @@ namespace MiniClient
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="msg"></param>
-		private void XmppCon_OnMessage(object sender, agsXMPP.protocol.client.Message msg)
+		private void _xmppCon_OnMessage(object sender, agsXMPP.protocol.client.Message msg)
 		{
             if (InvokeRequired)
             {
                 // Windows Forms are not Thread Safe, we need to invoke this :(
                 // We're not in the UI thread, so we need to call BeginInvoke				
-                BeginInvoke(new OnMessageDelegate(XmppCon_OnMessage), new object[] { sender, msg });
+                BeginInvoke(new OnMessageDelegate(_xmppCon_OnMessage), new object[] { sender, msg });
                 return;
             }
 
@@ -945,7 +952,7 @@ namespace MiniClient
                         if (rn != null)
                             nick = rn.Text;
 
-                        frmChat f = new frmChat(msg.From, XmppCon, nick);
+                        frmChat f = new frmChat(msg.From, _xmppCon, nick);
                         f.Show();
                         f.IncomingMessage(msg);
                     }
@@ -953,13 +960,13 @@ namespace MiniClient
 			}
 		}
 
-		private void XmppCon_OnClose(object sender)
+		private void _xmppCon_OnClose(object sender)
 		{
             if (InvokeRequired)
             {
                 // Windows Forms are not Thread Safe, we need to invoke this :(
                 // We're not in the UI thread, so we need to call BeginInvoke				
-                BeginInvoke(new ObjectHandler(XmppCon_OnClose), new object[] {sender});
+                BeginInvoke(new ObjectHandler(_xmppCon_OnClose), new object[] {sender});
                 return;
             }
             			
@@ -980,7 +987,7 @@ namespace MiniClient
 
 		}
 		
-		private void XmppCon_OnError(object sender, Exception ex)
+		private void _xmppCon_OnError(object sender, Exception ex)
 		{
 
 		}
@@ -1009,9 +1016,9 @@ namespace MiniClient
 			}
 		}
         
-		private void XmppCon_OnXmppConnectionStateChanged(object sender, XmppConnectionState state)
+		private void _xmppCon_On_xmppConnectionStateChanged(object sender, XmppConnectionState state)
 		{
-			Console.WriteLine("OnXmppConnectionStateChanged: " + state.ToString());
+			Console.WriteLine("On_xmppConnectionStateChanged: " + state.ToString());
 		}
 		
 		private void OnBrowseIQ(object sender, IQ iq, object data)
@@ -1029,9 +1036,9 @@ namespace MiniClient
         {
             //DiscoItemsIq discoIq = new DiscoItemsIq(IqType.get);
             ////TreeNode node = treeGC.SelectedNode;
-            ////discoIq.To = new Jid(this.XmppCon.Server);
+            ////discoIq.To = new Jid(this._xmppCon.Server);
             //discoIq.To = new Jid("amessage.info");
-            //this.XmppCon.IqGrabber.SendIq(discoIq, new IqCB(OnGetDiscovery), null);
+            //this._xmppCon.IqGrabber.SendIq(discoIq, new IqCB(OnGetDiscovery), null);
         }
 
         /// <summary>
@@ -1066,7 +1073,7 @@ namespace MiniClient
 
             DiscoItemsIq discoIq = new DiscoItemsIq(IqType.get);
             discoIq.To = new Jid(node.Text);
-            this.XmppCon.IqGrabber.SendIq(discoIq, new IqCB(OnGetChatRooms), node);
+            this._xmppCon.IqGrabber.SendIq(discoIq, new IqCB(OnGetChatRooms), node);
         }
 
         /// <summary>
@@ -1110,7 +1117,7 @@ namespace MiniClient
 
             DiscoItemsIq discoIq = new DiscoItemsIq(IqType.get);
             discoIq.To = new Jid((string) node.Tag);
-            this.XmppCon.IqGrabber.SendIq(discoIq, new IqCB(OnGetParticipants), node);
+            this._xmppCon.IqGrabber.SendIq(discoIq, new IqCB(OnGetParticipants), node);
         }
 
         private void OnGetParticipants(object sender, IQ iq, object data)
@@ -1148,7 +1155,7 @@ namespace MiniClient
             {
                 if (!Util.ChatForms.ContainsKey(node.RosterItem.Jid.ToString()))
                 {
-                    frmChat f = new frmChat(node.RosterItem.Jid, XmppCon, node.Text);
+                    frmChat f = new frmChat(node.RosterItem.Jid, _xmppCon, node.Text);
                     f.Show();
                 }
             }			
@@ -1162,7 +1169,7 @@ namespace MiniClient
                 RosterIq riq = new RosterIq();
                 riq.Type = IqType.set;
 
-                XmppCon.RosterManager.RemoveRosterItem(node.RosterItem.Jid);
+                _xmppCon.RosterManager.RemoveRosterItem(node.RosterItem.Jid);
             }
         }
 
@@ -1176,7 +1183,7 @@ namespace MiniClient
                 {
                     Jid jid = node.RosterItem.Jid;
                     jid.Resource = node.FirstNode.Text;
-                    frmFileTransfer ft = new frmFileTransfer(XmppCon, jid);
+                    frmFileTransfer ft = new frmFileTransfer(_xmppCon, jid);
                     ft.Show();
                 }               
             }
@@ -1203,17 +1210,17 @@ namespace MiniClient
 
         private void connectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmLogin f = new frmLogin(XmppCon);
+            frmLogin f = new frmLogin(_xmppCon);
 
             if (f.ShowDialog() == DialogResult.OK)
             {               
-                XmppCon.Open();
+                _xmppCon.Open();
             }
         }
 
         private void disconnectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            XmppCon.Close();
+            _xmppCon.Close();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1223,30 +1230,26 @@ namespace MiniClient
 
         private void cboStatus_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (XmppCon != null && XmppCon.Authenticated)
+            if (_xmppCon != null && _xmppCon.Authenticated)
 			{
 				if (cboStatus.Text == "online")
 				{
-					XmppCon.Show = ShowType.NONE;
+					_xmppCon.Show = ShowType.NONE;
 				}
                 else if (cboStatus.Text == "offline")
                 {
-                    XmppCon.Close(); 
+                    _xmppCon.Close(); 
                 }
                 else
                 {
-                    XmppCon.Show = (ShowType)Enum.Parse(typeof(ShowType), cboStatus.Text);
+                    _xmppCon.Show = (ShowType)Enum.Parse(typeof(ShowType), cboStatus.Text);
                 }
-				XmppCon.SendMyPresence();
+				_xmppCon.SendMyPresence();
 			}		
         }       
 
         private void joinToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Join a ChatRoom
-            if (XmppCon.XmppConnectionState == XmppConnectionState.Disconnected)
-                return;
-
             TreeNode node = this.treeGC.SelectedNode;
             if (node != null && node.Level == 1)
             {
@@ -1256,24 +1259,18 @@ namespace MiniClient
 
         private void toolStripButtonFindRooms_Click(object sender, EventArgs e)
         {
-            if (XmppCon.XmppConnectionState == XmppConnectionState.Disconnected)
-                return;
-
             FindChatRooms(); 
         }
 
         private void toolStripButtonFindPart_Click(object sender, EventArgs e)
         {
-            if (XmppCon.XmppConnectionState == XmppConnectionState.Disconnected)
-                return;
-
             FindParticipants();
         }
 
         #region << Disco Server >>
         private void DiscoServer()
         {           
-            discoManager.DiscoverItems(new Jid(XmppCon.Server), new IqCB(OnDiscoServerResult), null);            
+            discoManager.DiscoverItems(new Jid(_xmppCon.Server), new IqCB(OnDiscoServerResult), null);            
         }
 
         /**
@@ -1331,7 +1328,7 @@ namespace MiniClient
 
         private void toolStripButtonSearch_Click(object sender, EventArgs e)
         {
-            frmSearch fSearch = new frmSearch(this.XmppCon);
+            frmSearch fSearch = new frmSearch(this._xmppCon);
             fSearch.Show();
         }
 
@@ -1342,13 +1339,13 @@ namespace MiniClient
 
         private void addContactToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmAddRoster f = new frmAddRoster(XmppCon);
+            frmAddRoster f = new frmAddRoster(_xmppCon);
             f.ShowDialog();   
         }
 
         private void searchContactToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmSearch fSearch = new frmSearch(this.XmppCon);
+            frmSearch fSearch = new frmSearch(this._xmppCon);
             fSearch.Show();
         }
 
@@ -1364,17 +1361,11 @@ namespace MiniClient
 
         private void serverRefreshButton_Click(object sender, EventArgs e)
         {
-            if (XmppCon.XmppConnectionState == XmppConnectionState.Disconnected)
-                return;
-
             FindChatRooms();
         }
 
         private void findParticipantsButton_Click(object sender, EventArgs e)
         {
-            if (XmppCon.XmppConnectionState == XmppConnectionState.Disconnected)
-                return;
-
             FindParticipants();
         }
 
@@ -1404,7 +1395,7 @@ namespace MiniClient
             {
                 if (!Util.ChatForms.ContainsKey(node.RosterItem.Jid.ToString()))
                 {
-                    frmChat f = new frmChat(node.RosterItem.Jid, XmppCon, node.Text);
+                    frmChat f = new frmChat(node.RosterItem.Jid, _xmppCon, node.Text);
                     f.Show();
                 }
             }	
@@ -1416,22 +1407,17 @@ namespace MiniClient
             if (node == null)
                 return;
             else if (node.Level == 0)
+            {
                 FindChatRooms();
+            }
             else if (node.Level != 0)
                 joinChatRoom(node);
         }
 
         private void joinChatRoom(TreeNode node)
         {
-            // Ask for the Nickname for this GroupChat
-            frmInputBox input = new frmInputBox("Nickname", "Nickname");
-            if (input.ShowDialog() == DialogResult.OK)
-            {
-                Jid jid = new Jid((string)node.Tag);
-                string nickname = input.Result;
-                frmGroupChat gc = new frmGroupChat(this.XmppCon, jid, nickname);
-                gc.Show();
-            }
+            Jid jid = new Jid((string)node.Tag);
+            frmGroupChat gc = new frmGroupChat(this._xmppCon, jid);
         }
 
     }
