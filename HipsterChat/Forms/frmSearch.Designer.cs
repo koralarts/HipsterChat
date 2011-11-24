@@ -1,4 +1,4 @@
-namespace MiniClient
+namespace HipsterClient
 {
     partial class frmSearch
     {

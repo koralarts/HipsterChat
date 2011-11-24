@@ -6,12 +6,12 @@ using System.Windows.Forms;
 
 using agsXMPP;
 
-namespace MiniClient
+namespace HipsterClient
 {
 	/// <summary>
 	/// Summary description for femAddRoster.
 	/// </summary>
-	public class frmAddRoster : System.Windows.Forms.Form
+	public class frmAddContact : System.Windows.Forms.Form
     {
         private System.Windows.Forms.TextBox txtJid;
         private System.Windows.Forms.Label label2;
@@ -24,7 +24,7 @@ namespace MiniClient
 
 		private XmppClientConnection _connection;
         
-		public frmAddRoster(XmppClientConnection con)
+		public frmAddContact(XmppClientConnection con)
 		{
 			//
 			// Required for Windows Form Designer support
@@ -34,7 +34,7 @@ namespace MiniClient
 			_connection = con;
 		}
 
-        public frmAddRoster(Jid jid, XmppClientConnection con)
+        public frmAddContact(Jid jid, XmppClientConnection con)
             : this(con)
         {
             txtJid.Text = jid.Bare;
@@ -117,12 +117,12 @@ namespace MiniClient
             this.cancelButton.UseVisualStyleBackColor = false;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // frmAddRoster
-            // 
+            // frmAddContact
+            //
             this.AcceptButton = this.cmdAdd;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.BackColor = System.Drawing.Color.Black;
-            this.BackgroundImage = global::MiniClient.Properties.Resources.addBg;
+            this.BackColor = Color.Black;
+            this.BackgroundImage = global::HipsterClient.Properties.Resources.addBg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(272, 161);
             this.ControlBox = false;
@@ -131,14 +131,14 @@ namespace MiniClient
             this.Controls.Add(this.txtJid);
             this.Controls.Add(this.label2);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
-            this.Name = "frmAddRoster";
+          //  this.MinimizeBox = false;
+            this.Name = "frmAddContact";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add Contact";
             this.ResumeLayout(false);
             this.PerformLayout();
-
+            this.FormBorderStyle = FormBorderStyle.None;
 		}
 		#endregion
 

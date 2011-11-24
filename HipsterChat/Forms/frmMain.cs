@@ -34,16 +34,16 @@ using System.Text;
 
 using agsXMPP.protocol.stream.feature.compression;
 
-namespace MiniClient
+namespace HipsterClient
 {
-	/// <summary>
-	/// MainForm
-	/// </summary>
-	public class frmMain : System.Windows.Forms.Form
+    /// <summary>
+    /// MainForm
+    /// </summary>
+    public class frmMain : System.Windows.Forms.Form
     {
         private System.ComponentModel.IContainer components;
 
-        private ContextMenuStrip contextMenuGC;        
+        private ContextMenuStrip contextMenuGC;
         private ContextMenuStrip contextMenuStripRoster;
         private ToolStripMenuItem chatToolStripMenuItem;
         private ToolStripMenuItem deleteToolStripMenuItem;
@@ -58,13 +58,13 @@ namespace MiniClient
         private ToolStripMenuItem sendFileToolStripMenuItem;
 
         delegate void OnMessageDelegate(object sender, agsXMPP.protocol.client.Message msg);
-		delegate void OnPresenceDelegate(object sender, Presence pres);
+        delegate void OnPresenceDelegate(object sender, Presence pres);
 
         const int IMAGE_PARTICIPANT = 3;
         const int IMAGE_CHATROOM = 4;
-        const int IMAGE_SERVER      = 5;
+        const int IMAGE_SERVER = 5;
 
-        private XmppClientConnection _xmppCon;
+        private XmppClientConnection XmppCon;
         private Label statusBar1;
         private Button closeButton;
         private ToolStripSeparator toolStripSeparator1;
@@ -96,95 +96,87 @@ namespace MiniClient
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
 
-        /**
-         * frmMain()
-         * 
-         * Description: Main window constructor. Where the XMPP object, and controls are initialized.
-         * @author Karl Castillo
-         */
-		public frmMain()
-		{
+        public frmMain()
+        {
             InitializeComponent();
-			treeGC.ContextMenuStrip = contextMenuGC;
+            treeGC.ContextMenuStrip = contextMenuGC;
             contactListPanel.BringToFront();
-			cboStatus.Items.AddRange( new object[] {"offline",
+
+            // initialize Combo Status
+            cboStatus.Items.AddRange(new object[] {"offline",
 													ShowType.away.ToString(),
 													ShowType.xa.ToString(),
 													ShowType.chat.ToString(),
 													ShowType.dnd.ToString(),
 													"online" });
-			cboStatus.SelectedIndex = 0;
+            cboStatus.SelectedIndex = 0;
 
-			// Creating XMPP Client
-            _xmppCon = new XmppClientConnection();
-            
-            // Initializing Connection Type
-            _xmppCon.SocketConnectionType = agsXMPP.net.SocketConnectionType.Direct;
+            // initilaize XmppConnection
+            XmppCon = new XmppClientConnection();
 
-            // Initializing XML Object Handlers
-			_xmppCon.OnReadXml		    += new XmlHandler(_xmppCon_OnReadXml);
-			_xmppCon.OnWriteXml		    += new XmlHandler(_xmppCon_OnWriteXml);
-			
-            // Initializing Contact List Handlers
-			_xmppCon.OnRosterStart	    += new ObjectHandler(_xmppCon_OnRosterStart);
-			_xmppCon.OnRosterEnd		+= new ObjectHandler(_xmppCon_OnRosterEnd);
-			_xmppCon.OnRosterItem	    += new agsXMPP.XmppClientConnection.RosterHandler(_xmppCon_OnRosterItem);
+            XmppCon.SocketConnectionType = agsXMPP.net.SocketConnectionType.Direct;
 
-            // Initializing Transfer Agent Handlers
-			_xmppCon.OnAgentStart	    += new ObjectHandler(_xmppCon_OnAgentStart);
-			_xmppCon.OnAgentEnd		    += new ObjectHandler(_xmppCon_OnAgentEnd);
-			_xmppCon.OnAgentItem		+= new agsXMPP.XmppClientConnection.AgentHandler(_xmppCon_OnAgentItem);
+            XmppCon.OnReadXml += new XmlHandler(XmppCon_OnReadXml);
+            XmppCon.OnWriteXml += new XmlHandler(XmppCon_OnWriteXml);
 
-            // Initializing Miscellaneous Object Handlers
-			_xmppCon.OnLogin			+= new ObjectHandler(_xmppCon_OnLogin);
-			_xmppCon.OnClose			+= new ObjectHandler(_xmppCon_OnClose);
-			_xmppCon.OnError			+= new ErrorHandler(_xmppCon_OnError);
-			_xmppCon.OnPresence		    += new PresenceHandler(_xmppCon_OnPresence);
-			_xmppCon.OnMessage		    += new MessageHandler(_xmppCon_OnMessage);
-			_xmppCon.OnIq			    += new IqHandler(_xmppCon_OnIq);
-			_xmppCon.OnAuthError		+= new XmppElementHandler(_xmppCon_OnAuthError);
-            _xmppCon.OnSocketError      += new ErrorHandler(_xmppCon_OnSocketError);
-            _xmppCon.OnStreamError      += new XmppElementHandler(_xmppCon_OnStreamError);
+            XmppCon.OnRosterStart += new ObjectHandler(XmppCon_OnRosterStart);
+            XmppCon.OnRosterEnd += new ObjectHandler(XmppCon_OnRosterEnd);
+            XmppCon.OnRosterItem += new agsXMPP.XmppClientConnection.RosterHandler(XmppCon_OnRosterItem);
 
-            // Initializing Socket Object Handlers
-            _xmppCon.OnReadSocketData    += new agsXMPP.net.BaseSocket.OnSocketDataHandler(ClientSocket_OnReceive);
-            _xmppCon.OnWriteSocketData   += new agsXMPP.net.BaseSocket.OnSocketDataHandler(ClientSocket_OnSend);
-            _xmppCon.ClientSocket.OnValidateCertificate += new System.Net.Security.RemoteCertificateValidationCallback(ClientSocket_OnValidateCertificate);
-            
-			// Initializing Status Object Handler		
-			_xmppCon.OnXmppConnectionStateChanged		+= new XmppConnectionStateHandler(_xmppCon_On_xmppConnectionStateChanged);
-            _xmppCon.OnSaslStart                         += new SaslEventHandler(_xmppCon_OnSaslStart);
+            XmppCon.OnAgentStart += new ObjectHandler(XmppCon_OnAgentStart);
+            XmppCon.OnAgentEnd += new ObjectHandler(XmppCon_OnAgentEnd);
+            XmppCon.OnAgentItem += new agsXMPP.XmppClientConnection.AgentHandler(XmppCon_OnAgentItem);
 
-            discoManager = new DiscoManager(_xmppCon);
+            XmppCon.OnLogin += new ObjectHandler(XmppCon_OnLogin);
+            XmppCon.OnClose += new ObjectHandler(XmppCon_OnClose);
+            XmppCon.OnError += new ErrorHandler(XmppCon_OnError);
+            XmppCon.OnPresence += new PresenceHandler(XmppCon_OnPresence);
+            XmppCon.OnMessage += new MessageHandler(XmppCon_OnMessage);
+            XmppCon.OnIq += new IqHandler(XmppCon_OnIq);
+            XmppCon.OnAuthError += new XmppElementHandler(XmppCon_OnAuthError);
+            XmppCon.OnSocketError += new ErrorHandler(XmppCon_OnSocketError);
+            XmppCon.OnStreamError += new XmppElementHandler(XmppCon_OnStreamError);
+
+
+            XmppCon.OnReadSocketData += new agsXMPP.net.BaseSocket.OnSocketDataHandler(ClientSocket_OnReceive);
+            XmppCon.OnWriteSocketData += new agsXMPP.net.BaseSocket.OnSocketDataHandler(ClientSocket_OnSend);
+
+            XmppCon.ClientSocket.OnValidateCertificate += new System.Net.Security.RemoteCertificateValidationCallback(ClientSocket_OnValidateCertificate);
+
+
+            XmppCon.OnXmppConnectionStateChanged += new XmppConnectionStateHandler(XmppCon_OnXmppConnectionStateChanged);
+            XmppCon.OnSaslStart += new SaslEventHandler(XmppCon_OnSaslStart);
+
+            discoManager = new DiscoManager(XmppCon);
 
             agsXMPP.Factory.ElementFactory.AddElementType("Login", null, typeof(Settings.Login));
             LoadChatServers();
 
-            frmLogin f = new frmLogin(_xmppCon);
+            frmLogin f = new frmLogin(XmppCon);
 
             if (f.ShowDialog() == DialogResult.OK)
             {
-                _xmppCon.Open();
+                XmppCon.Open();
             }
-		}
+        }
 
-        void _xmppCon_OnStreamError(object sender, Element e)
+        void XmppCon_OnStreamError(object sender, Element e)
         {
             // Stream errors <stream:error/>
-        }       
+        }
 
-        private void _xmppCon_OnSocketError(object sender, Exception ex)
+        private void XmppCon_OnSocketError(object sender, Exception ex)
         {
             if (InvokeRequired)
-            {			
-                BeginInvoke(new ErrorHandler(_xmppCon_OnSocketError), new object[] { sender, ex });
+            {
+                BeginInvoke(new ErrorHandler(XmppCon_OnSocketError), new object[] { sender, ex });
                 return;
             }
 
-            MessageBox.Show("Socket Error\r\n" + ex.Message + "\r\n" + ex.InnerException);            
-        }           
+            MessageBox.Show("Socket Error\r\n" + ex.Message + "\r\n" + ex.InnerException);
+        }
 
-        private void _xmppCon_OnSaslStart(object sender, SaslEventArgs args)
+        private void XmppCon_OnSaslStart(object sender, SaslEventArgs args)
         {
             // You can define the SASL mechanism here when needed, or implement your own SASL mechanisms
             // for authentication
@@ -200,46 +192,46 @@ namespace MiniClient
         private void LoadChatServers()
         {
             treeGC.TreeViewNodeSorter = new TreeNodeSorter();
-            
+
             string fileName = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             fileName += @"\chatservers.xml";
 
             Document doc = new Document();
             doc.LoadFile(fileName);
-                        
+
             // Get Servers
             ElementList servers = doc.RootElement.SelectElements("Server");
             foreach (Element server in servers)
             {
                 TreeNode n = new TreeNode(server.Value);
-                n.Tag           = "server";
-                n.ImageIndex    = n.SelectedImageIndex = IMAGE_SERVER;
+                n.Tag = "server";
+                n.ImageIndex = n.SelectedImageIndex = IMAGE_SERVER;
 
                 this.treeGC.Nodes.Add(n);
             }
         }
-		/// <summary>
-		/// 
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if (components != null) 
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// 
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Vom Windows Form-Designer generierter Code
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Vom Windows Form-Designer generierter Code
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.contextMenuGC = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -306,9 +298,10 @@ namespace MiniClient
             // 
             // chatToolStripMenuItem
             // 
+
             this.chatToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.chatToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.chatToolStripMenuItem.Image = global::MiniClient.Properties.Resources.comment;
+            this.chatToolStripMenuItem.Image = global::HipsterClient.Properties.Resources.comment;
             this.chatToolStripMenuItem.Name = "chatToolStripMenuItem";
             this.chatToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.chatToolStripMenuItem.Text = "Chat";
@@ -319,7 +312,7 @@ namespace MiniClient
             // 
             this.deleteToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.deleteToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.deleteToolStripMenuItem.Image = global::MiniClient.Properties.Resources.user_delete;
+            this.deleteToolStripMenuItem.Image = global::HipsterClient.Properties.Resources.user_delete;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
@@ -330,7 +323,7 @@ namespace MiniClient
             // 
             this.sendFileToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.sendFileToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.sendFileToolStripMenuItem.Image = global::MiniClient.Properties.Resources.package;
+            this.sendFileToolStripMenuItem.Image = global::HipsterClient.Properties.Resources.package;
             this.sendFileToolStripMenuItem.Name = "sendFileToolStripMenuItem";
             this.sendFileToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.sendFileToolStripMenuItem.Text = "Send File";
@@ -368,7 +361,7 @@ namespace MiniClient
             // 
             this.connectToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.connectToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.connectToolStripMenuItem.Image = global::MiniClient.Properties.Resources.connect;
+            this.connectToolStripMenuItem.Image = global::HipsterClient.Properties.Resources.connect;
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
             this.connectToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.C)));
             this.connectToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
@@ -380,7 +373,7 @@ namespace MiniClient
             this.disconnectToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.disconnectToolStripMenuItem.Enabled = false;
             this.disconnectToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.disconnectToolStripMenuItem.Image = global::MiniClient.Properties.Resources.disconnect;
+            this.disconnectToolStripMenuItem.Image = global::HipsterClient.Properties.Resources.disconnect;
             this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
             this.disconnectToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D)));
             this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
@@ -397,7 +390,7 @@ namespace MiniClient
             this.addContactToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.addContactToolStripMenuItem.Enabled = false;
             this.addContactToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.addContactToolStripMenuItem.Image = global::MiniClient.Properties.Resources.user_add;
+            this.addContactToolStripMenuItem.Image = global::HipsterClient.Properties.Resources.user_add;
             this.addContactToolStripMenuItem.Name = "addContactToolStripMenuItem";
             this.addContactToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.A)));
             this.addContactToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
@@ -409,7 +402,7 @@ namespace MiniClient
             this.searchContactToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.searchContactToolStripMenuItem.Enabled = false;
             this.searchContactToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.searchContactToolStripMenuItem.Image = global::MiniClient.Properties.Resources.zoom;
+            this.searchContactToolStripMenuItem.Image = global::HipsterClient.Properties.Resources.zoom;
             this.searchContactToolStripMenuItem.Name = "searchContactToolStripMenuItem";
             this.searchContactToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.searchContactToolStripMenuItem.Text = "Search Contact";
@@ -426,7 +419,7 @@ namespace MiniClient
             // 
             this.exitToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.exitToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.exitToolStripMenuItem.Image = global::MiniClient.Properties.Resources.door_in;
+            this.exitToolStripMenuItem.Image = global::HipsterClient.Properties.Resources.door_in;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.exitToolStripMenuItem.Text = "Exit";
@@ -446,7 +439,7 @@ namespace MiniClient
             // closeButton
             // 
             this.closeButton.BackColor = System.Drawing.Color.Transparent;
-            this.closeButton.BackgroundImage = global::MiniClient.Properties.Resources.close;
+            this.closeButton.BackgroundImage = global::HipsterClient.Properties.Resources.close;
             this.closeButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.closeButton.Cursor = System.Windows.Forms.Cursors.Default;
             this.closeButton.FlatAppearance.BorderSize = 0;
@@ -551,7 +544,7 @@ namespace MiniClient
             // 
             // toolStripButtonFindRooms
             // 
-            this.toolStripButtonFindRooms.Image = global::MiniClient.Properties.Resources.comments;
+            this.toolStripButtonFindRooms.Image = global::HipsterClient.Properties.Resources.comments;
             this.toolStripButtonFindRooms.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonFindRooms.Name = "toolStripButtonFindRooms";
             this.toolStripButtonFindRooms.Size = new System.Drawing.Size(90, 22);
@@ -559,7 +552,7 @@ namespace MiniClient
             // 
             // toolStripButtonFindPart
             // 
-            this.toolStripButtonFindPart.Image = global::MiniClient.Properties.Resources.group;
+            this.toolStripButtonFindPart.Image = global::HipsterClient.Properties.Resources.group;
             this.toolStripButtonFindPart.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonFindPart.Name = "toolStripButtonFindPart";
             this.toolStripButtonFindPart.Size = new System.Drawing.Size(115, 22);
@@ -579,7 +572,7 @@ namespace MiniClient
             // 
             // findParticipantsButton
             // 
-            this.findParticipantsButton.BackgroundImage = global::MiniClient.Properties.Resources.zoom;
+            this.findParticipantsButton.BackgroundImage = global::HipsterClient.Properties.Resources.zoom;
             this.findParticipantsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.findParticipantsButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.findParticipantsButton.FlatAppearance.BorderSize = 0;
@@ -595,7 +588,7 @@ namespace MiniClient
             // 
             // serverRefreshButton
             // 
-            this.serverRefreshButton.BackgroundImage = global::MiniClient.Properties.Resources.refresh;
+            this.serverRefreshButton.BackgroundImage = global::HipsterClient.Properties.Resources.refresh;
             this.serverRefreshButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.serverRefreshButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.serverRefreshButton.FlatAppearance.BorderSize = 0;
@@ -626,7 +619,7 @@ namespace MiniClient
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.BackgroundImage = global::MiniClient.Properties.Resources.mainFrmBg;
+            this.BackgroundImage = global::HipsterClient.Properties.Resources.mainFrmBg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(385, 485);
             this.Controls.Add(this.groupChatPanel);
@@ -652,108 +645,104 @@ namespace MiniClient
             this.groupChatPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
+        }
+        #endregion
 
-		}
-		#endregion
+        /// <summary>
+        /// 
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.DoEvents();
+            Application.Run(new frmMain());
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		[STAThread]
-		static void Main() 
-		{
-			Application.EnableVisualStyles();
-			Application.DoEvents();
-			Application.Run(new frmMain());
-		}
-
-		#region << _xmppConnection events >>
-		private void _xmppCon_OnReadXml(object sender, string xml)
-		{			
-			if (InvokeRequired)
-			{					
-				BeginInvoke(new XmlHandler(_xmppCon_OnReadXml), new object[]{sender, xml});
-				return;
-			}
-		}
-
-		private void _xmppCon_OnWriteXml(object sender, string xml)
-		{
-			if (InvokeRequired)
-			{					
-				BeginInvoke(new XmlHandler(_xmppCon_OnWriteXml), new object[]{sender, xml});
-				return;
-			}
-		}
-
-		private void _xmppCon_OnRosterStart(object sender)
-		{
-			if (InvokeRequired)
-			{	
-				BeginInvoke(new ObjectHandler(_xmppCon_OnRosterStart), new object[]{this});
-				return;
-			}
-			// Disable redraw for faster updating
-			rosterControl.BeginUpdate();
-		}
-		
-		private void _xmppCon_OnRosterEnd(object sender)
-		{
-			if (InvokeRequired)
-			{					
-				BeginInvoke(new ObjectHandler(_xmppCon_OnRosterEnd), new object[]{this});
-				return;
-			}
-			// enable redraw again
-            rosterControl.EndUpdate();
-            rosterControl.ExpandAll();
-            
-            cboStatus.Text = "online";
-		}
-		
-		private void _xmppCon_OnRosterItem(object sender, agsXMPP.protocol.iq.roster.RosterItem item)
-		{
-			if (InvokeRequired)
-			{				
-				BeginInvoke(new agsXMPP.XmppClientConnection.RosterHandler(_xmppCon_OnRosterItem), new object[]{this, item});
-				return;
-			}
-
-			if (item.Subscription != SubscriptionType.remove)
-			{
-                rosterControl.AddRosterItem(item);
-			}
-			else
-			{                
-                rosterControl.RemoveRosterItem(item);
-			}
-		
-		}
-		
-		private void _xmppCon_OnAgentStart(object sender)
-		{
-
-		}
-
-		private void _xmppCon_OnAgentEnd(object sender)
-		{
-
-		}
-
-		private void _xmppCon_OnAgentItem(object sender, agsXMPP.protocol.iq.agent.Agent agent)
-		{
-
-		}
-
-		private void _xmppCon_OnLogin(object sender)
-		{
+        #region << XmppConnection events >>
+        private void XmppCon_OnReadXml(object sender, string xml)
+        {
             if (InvokeRequired)
-            {			
-                BeginInvoke(new ObjectHandler(_xmppCon_OnLogin), new object[] { sender});
+            {
+                BeginInvoke(new XmlHandler(XmppCon_OnReadXml), new object[] { sender, xml });
                 return;
             }
-			connectToolStripMenuItem.Enabled	= false;
-			disconnectToolStripMenuItem.Enabled	= true;
+        }
+
+        private void XmppCon_OnWriteXml(object sender, string xml)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new XmlHandler(XmppCon_OnWriteXml), new object[] { sender, xml });
+                return;
+            }
+        }
+
+        private void XmppCon_OnRosterStart(object sender)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new ObjectHandler(XmppCon_OnRosterStart), new object[] { this });
+                return;
+            }
+            // Disable redraw for faster updating
+            rosterControl.BeginUpdate();
+        }
+
+        private void XmppCon_OnRosterEnd(object sender)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new ObjectHandler(XmppCon_OnRosterEnd), new object[] { this });
+                return;
+            }
+            // enable redraw again
+            rosterControl.EndUpdate();
+            rosterControl.ExpandAll();
+
+            cboStatus.Text = "online";
+        }
+
+        private void XmppCon_OnRosterItem(object sender, agsXMPP.protocol.iq.roster.RosterItem item)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new agsXMPP.XmppClientConnection.RosterHandler(XmppCon_OnRosterItem), new object[] { this, item });
+                return;
+            }
+
+            if (item.Subscription != SubscriptionType.remove)
+            {
+                rosterControl.AddRosterItem(item);
+            }
+            else
+            {
+                rosterControl.RemoveRosterItem(item);
+
+            }
+        }
+
+        private void XmppCon_OnAgentStart(object sender)
+        {
+        }
+
+        private void XmppCon_OnAgentEnd(object sender)
+        {
+        }
+
+        private void XmppCon_OnAgentItem(object sender, agsXMPP.protocol.iq.agent.Agent agent)
+        {
+        }
+
+        private void XmppCon_OnLogin(object sender)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new ObjectHandler(XmppCon_OnLogin), new object[] { sender });
+                return;
+            }
+            connectToolStripMenuItem.Enabled = false;
+            disconnectToolStripMenuItem.Enabled = true;
             addContactToolStripMenuItem.Enabled = true;
             searchContactToolStripMenuItem.Enabled = true;
             contactListPanel.Enabled = true;
@@ -763,90 +752,90 @@ namespace MiniClient
             this.Text = "HipsterChat - Online";
 
             DiscoServer();
-		}
+        }
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-		private void _xmppCon_OnAuthError(object sender, Element e)
-		{
-			if (InvokeRequired)
-			{	
-				// Windows Forms are not Thread Safe, we need to invoke this :(
-				// We're not in the UI thread, so we need to call BeginInvoke				
-				BeginInvoke(new XmppElementHandler(_xmppCon_OnAuthError), new object[]{sender, e});
-				return;
-			}
-			
-			if (_xmppCon.XmppConnectionState != XmppConnectionState.Disconnected)
-                _xmppCon.Close();
-
-			MessageBox.Show("Authentication Error!\r\nWrong password or username.", 
-				"Error", 
-				MessageBoxButtons.OK,
-				MessageBoxIcon.Exclamation,
-				MessageBoxDefaultButton.Button1);
-            
-		}
-        
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="pres"></param>
-		private void _xmppCon_OnPresence(object sender, Presence pres)
-		{
-			if (InvokeRequired)
-			{	
-				// Windows Forms are not Thread Safe, we need to invoke this :(
-				// We're not in the UI thread, so we need to call BeginInvoke				
-				BeginInvoke(new OnPresenceDelegate(_xmppCon_OnPresence), new object[]{sender, pres});
-				return;
-			}
-
-			if (pres.Type == PresenceType.subscribe)
-			{
-				frmSubscribe f = new frmSubscribe(_xmppCon, pres.From);
-				f.Show();
-			}
-			else if(pres.Type == PresenceType.subscribed)
-			{
-
-			}
-			else if(pres.Type == PresenceType.unsubscribe)
-			{
-
-			}
-			else if(pres.Type == PresenceType.unsubscribed)
-			{
-
-			}
-			else
-			{
-                try
-                {
-                    rosterControl.SetPresence(pres);
-                }
-                catch(Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-			}
-
-		}
-
-        private void _xmppCon_OnIq(object sender, agsXMPP.protocol.client.IQ iq)
+        private void XmppCon_OnAuthError(object sender, Element e)
         {
             if (InvokeRequired)
             {
                 // Windows Forms are not Thread Safe, we need to invoke this :(
                 // We're not in the UI thread, so we need to call BeginInvoke				
-                BeginInvoke(new IqHandler(_xmppCon_OnIq), new object[] { sender, iq });
+                BeginInvoke(new XmppElementHandler(XmppCon_OnAuthError), new object[] { sender, e });
                 return;
             }
-                       
+
+            if (XmppCon.XmppConnectionState != XmppConnectionState.Disconnected)
+                XmppCon.Close();
+
+            MessageBox.Show("Authentication Error!\r\nWrong password or username.",
+                "Error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Exclamation,
+                MessageBoxDefaultButton.Button1);
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="pres"></param>
+        private void XmppCon_OnPresence(object sender, Presence pres)
+        {
+            if (InvokeRequired)
+            {
+                // Windows Forms are not Thread Safe, we need to invoke this :(
+                // We're not in the UI thread, so we need to call BeginInvoke				
+                BeginInvoke(new OnPresenceDelegate(XmppCon_OnPresence), new object[] { sender, pres });
+                return;
+            }
+
+            if (pres.Type == PresenceType.subscribe)
+            {
+                frmSubscribe f = new frmSubscribe(XmppCon, pres.From);
+                f.Show();
+            }
+            else if (pres.Type == PresenceType.subscribed)
+            {
+
+            }
+            else if (pres.Type == PresenceType.unsubscribe)
+            {
+
+            }
+            else if (pres.Type == PresenceType.unsubscribed)
+            {
+
+            }
+            else
+            {
+                try
+                {
+                    rosterControl.SetPresence(pres);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+        }
+
+        private void XmppCon_OnIq(object sender, agsXMPP.protocol.client.IQ iq)
+        {
+            if (InvokeRequired)
+            {
+                // Windows Forms are not Thread Safe, we need to invoke this :(
+                // We're not in the UI thread, so we need to call BeginInvoke				
+                BeginInvoke(new IqHandler(XmppCon_OnIq), new object[] { sender, iq });
+                return;
+            }
+
 
             if (iq != null)
             {
@@ -863,11 +852,11 @@ namespace MiniClient
                             // somebody wants to send a file to us
                             Console.WriteLine(file.Size.ToString());
                             Console.WriteLine(file.Name);
-                            frmFileTransfer frmFile = new frmFileTransfer(_xmppCon, iq);
+                            frmFileTransfer frmFile = new frmFileTransfer(XmppCon, iq);
                             frmFile.Show();
                         }
                     }
-                }                
+                }
                 else
                 {
                     Element query = iq.Query;
@@ -888,26 +877,26 @@ namespace MiniClient
                                 version.Ver = "0.5";
                                 version.Os = Environment.OSVersion.ToString();
 
-                                _xmppCon.Send(iq);
+                                XmppCon.Send(iq);
                             }
-                        }                        
+                        }
                     }
                 }
             }
         }
 
         /// <summary>
-		/// We received a message
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="msg"></param>
-		private void _xmppCon_OnMessage(object sender, agsXMPP.protocol.client.Message msg)
-		{
+        /// We received a message
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="msg"></param>
+        private void XmppCon_OnMessage(object sender, agsXMPP.protocol.client.Message msg)
+        {
             if (InvokeRequired)
             {
                 // Windows Forms are not Thread Safe, we need to invoke this :(
                 // We're not in the UI thread, so we need to call BeginInvoke				
-                BeginInvoke(new OnMessageDelegate(_xmppCon_OnMessage), new object[] { sender, msg });
+                BeginInvoke(new OnMessageDelegate(XmppCon_OnMessage), new object[] { sender, msg });
                 return;
             }
 
@@ -921,28 +910,28 @@ namespace MiniClient
                 //Handle errors here
                 // we dont handle them in this example
                 return;
-            }			
+            }
 
-			// check for xData Message
-			
-			if (msg.HasTag(typeof(Data)))
-			{	
-                Element e = msg.SelectSingleElement(typeof(Data));                
-				Data xdata = e as Data;
-				if (xdata.Type == XDataFormType.form)
-				{
-					frmXData fXData = new frmXData(xdata);
-					fXData.Text = "xData Form from " + msg.From.ToString();
-					fXData.Show();
-				}
-			}
-            else if(msg.HasTag(typeof(agsXMPP.protocol.extensions.ibb.Data)))
+            // check for xData Message
+
+            if (msg.HasTag(typeof(Data)))
+            {
+                Element e = msg.SelectSingleElement(typeof(Data));
+                Data xdata = e as Data;
+                if (xdata.Type == XDataFormType.form)
+                {
+                    frmXData fXData = new frmXData(xdata);
+                    fXData.Text = "xData Form from " + msg.From.ToString();
+                    fXData.Show();
+                }
+            }
+            else if (msg.HasTag(typeof(agsXMPP.protocol.extensions.ibb.Data)))
             {
                 // ignore IBB messages
                 return;
             }
-			else
-			{
+            else
+            {
                 if (msg.Body != null)
                 {
                     if (!Util.ChatForms.ContainsKey(msg.From.Bare))
@@ -952,26 +941,26 @@ namespace MiniClient
                         if (rn != null)
                             nick = rn.Text;
 
-                        frmChat f = new frmChat(msg.From, _xmppCon, nick);
+                        frmChat f = new frmChat(msg.From, XmppCon, nick);
                         f.Show();
                         f.IncomingMessage(msg);
                     }
                 }
-			}
-		}
+            }
+        }
 
-		private void _xmppCon_OnClose(object sender)
-		{
+        private void XmppCon_OnClose(object sender)
+        {
             if (InvokeRequired)
             {
                 // Windows Forms are not Thread Safe, we need to invoke this :(
                 // We're not in the UI thread, so we need to call BeginInvoke				
-                BeginInvoke(new ObjectHandler(_xmppCon_OnClose), new object[] {sender});
+                BeginInvoke(new ObjectHandler(XmppCon_OnClose), new object[] { sender });
                 return;
             }
-            			
-			connectToolStripMenuItem.Enabled	= true;
-			disconnectToolStripMenuItem.Enabled	= false;
+
+            connectToolStripMenuItem.Enabled = true;
+            disconnectToolStripMenuItem.Enabled = false;
             addContactToolStripMenuItem.Enabled = false;
             searchContactToolStripMenuItem.Enabled = false;
             contactListPanel.Enabled = false;
@@ -980,56 +969,54 @@ namespace MiniClient
             contactListPanel.BringToFront();
             cboStatus.SelectedValueChanged -= new System.EventHandler(this.cboStatus_SelectedValueChanged);
 
-			cboStatus.Text = "offline";
+            cboStatus.Text = "offline";
             statusBar1.Text = "OffLine";
             this.Text = "HipsterChat - Offline";
             rosterControl.Clear();
+        }
 
-		}
-		
-		private void _xmppCon_OnError(object sender, Exception ex)
-		{
-
-		}
-		#endregion
+        private void XmppCon_OnError(object sender, Exception ex)
+        {
+        }
+        #endregion
 
         private bool ClientSocket_OnValidateCertificate(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors)
         {
-			return true;
-		}
+            return true;
+        }
 
-		private void ClientSocket_OnReceive(object sender, byte[] data, int count)
-		{
-			if (InvokeRequired)
-			{					
-				BeginInvoke(new agsXMPP.net.ClientSocket.OnSocketDataHandler(ClientSocket_OnReceive), new object[]{sender, data, count});
-				return;
-			}
-		}
+        private void ClientSocket_OnReceive(object sender, byte[] data, int count)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new agsXMPP.net.ClientSocket.OnSocketDataHandler(ClientSocket_OnReceive), new object[] { sender, data, count });
+                return;
+            }
+        }
 
-		private void ClientSocket_OnSend(object sender, byte[] data, int count)
-		{
-			if (InvokeRequired)
-			{				
-				BeginInvoke(new agsXMPP.net.ClientSocket.OnSocketDataHandler(ClientSocket_OnSend), new object[]{sender, data, count});
-				return;
-			}
-		}
-        
-		private void _xmppCon_On_xmppConnectionStateChanged(object sender, XmppConnectionState state)
-		{
-			Console.WriteLine("On_xmppConnectionStateChanged: " + state.ToString());
-		}
-		
-		private void OnBrowseIQ(object sender, IQ iq, object data)
-		{			
-			Element s = iq.SelectSingleElement(typeof(agsXMPP.protocol.iq.browse.Service));
-			if (s!=null)
-			{
-				agsXMPP.protocol.iq.browse.Service service = s as agsXMPP.protocol.iq.browse.Service;
-				string[] ns = service.GetNamespaces();
-			}			
-		}
+        private void ClientSocket_OnSend(object sender, byte[] data, int count)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new agsXMPP.net.ClientSocket.OnSocketDataHandler(ClientSocket_OnSend), new object[] { sender, data, count });
+                return;
+            }
+        }
+
+        private void XmppCon_OnXmppConnectionStateChanged(object sender, XmppConnectionState state)
+        {
+            Console.WriteLine("OnXmppConnectionStateChanged: " + state.ToString());
+        }
+
+        private void OnBrowseIQ(object sender, IQ iq, object data)
+        {
+            Element s = iq.SelectSingleElement(typeof(agsXMPP.protocol.iq.browse.Service));
+            if (s != null)
+            {
+                agsXMPP.protocol.iq.browse.Service service = s as agsXMPP.protocol.iq.browse.Service;
+                string[] ns = service.GetNamespaces();
+            }
+        }
 
         #region << RequestDiscover >>
         public void RequestDiscovery()
@@ -1073,7 +1060,7 @@ namespace MiniClient
 
             DiscoItemsIq discoIq = new DiscoItemsIq(IqType.get);
             discoIq.To = new Jid(node.Text);
-            this._xmppCon.IqGrabber.SendIq(discoIq, new IqCB(OnGetChatRooms), node);
+            this.XmppCon.IqGrabber.SendIq(discoIq, new IqCB(OnGetChatRooms), node);
         }
 
         /// <summary>
@@ -1103,8 +1090,8 @@ namespace MiniClient
             foreach (DiscoItem item in rooms)
             {
                 TreeNode n = new TreeNode(item.Name);
-                n.Tag           = item.Jid.ToString();
-                n.ImageIndex    = n.SelectedImageIndex  = IMAGE_CHATROOM;
+                n.Tag = item.Jid.ToString();
+                n.ImageIndex = n.SelectedImageIndex = IMAGE_CHATROOM;
                 node.Nodes.Add(n);
             }
         }
@@ -1116,8 +1103,8 @@ namespace MiniClient
                 return;
 
             DiscoItemsIq discoIq = new DiscoItemsIq(IqType.get);
-            discoIq.To = new Jid((string) node.Tag);
-            this._xmppCon.IqGrabber.SendIq(discoIq, new IqCB(OnGetParticipants), node);
+            discoIq.To = new Jid((string)node.Tag);
+            this.XmppCon.IqGrabber.SendIq(discoIq, new IqCB(OnGetParticipants), node);
         }
 
         private void OnGetParticipants(object sender, IQ iq, object data)
@@ -1141,8 +1128,8 @@ namespace MiniClient
             foreach (DiscoItem item in rooms)
             {
                 TreeNode n = new TreeNode(item.Jid.Resource);
-                n.Tag           = item.Jid.ToString();
-                n.ImageIndex    = n.SelectedImageIndex  = IMAGE_PARTICIPANT;
+                n.Tag = item.Jid.ToString();
+                n.ImageIndex = n.SelectedImageIndex = IMAGE_PARTICIPANT;
                 node.Nodes.Add(n);
             }
         }
@@ -1155,10 +1142,10 @@ namespace MiniClient
             {
                 if (!Util.ChatForms.ContainsKey(node.RosterItem.Jid.ToString()))
                 {
-                    frmChat f = new frmChat(node.RosterItem.Jid, _xmppCon, node.Text);
+                    frmChat f = new frmChat(node.RosterItem.Jid, XmppCon, node.Text);
                     f.Show();
                 }
-            }			
+            }
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1169,7 +1156,7 @@ namespace MiniClient
                 RosterIq riq = new RosterIq();
                 riq.Type = IqType.set;
 
-                _xmppCon.RosterManager.RemoveRosterItem(node.RosterItem.Jid);
+                XmppCon.RosterManager.RemoveRosterItem(node.RosterItem.Jid);
             }
         }
 
@@ -1183,9 +1170,9 @@ namespace MiniClient
                 {
                     Jid jid = node.RosterItem.Jid;
                     jid.Resource = node.FirstNode.Text;
-                    frmFileTransfer ft = new frmFileTransfer(_xmppCon, jid);
+                    frmFileTransfer ft = new frmFileTransfer(XmppCon, jid);
                     ft.Show();
-                }               
+                }
             }
         }
 
@@ -1210,17 +1197,17 @@ namespace MiniClient
 
         private void connectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmLogin f = new frmLogin(_xmppCon);
+            frmLogin f = new frmLogin(XmppCon);
 
             if (f.ShowDialog() == DialogResult.OK)
-            {               
-                _xmppCon.Open();
+            {
+                XmppCon.Open();
             }
         }
 
         private void disconnectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _xmppCon.Close();
+            XmppCon.Close();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1230,23 +1217,23 @@ namespace MiniClient
 
         private void cboStatus_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (_xmppCon != null && _xmppCon.Authenticated)
-			{
-				if (cboStatus.Text == "online")
-				{
-					_xmppCon.Show = ShowType.NONE;
-				}
+            if (XmppCon != null && XmppCon.Authenticated)
+            {
+                if (cboStatus.Text == "online")
+                {
+                    XmppCon.Show = ShowType.NONE;
+                }
                 else if (cboStatus.Text == "offline")
                 {
-                    _xmppCon.Close(); 
+                    XmppCon.Close();
                 }
                 else
                 {
-                    _xmppCon.Show = (ShowType)Enum.Parse(typeof(ShowType), cboStatus.Text);
+                    XmppCon.Show = (ShowType)Enum.Parse(typeof(ShowType), cboStatus.Text);
                 }
-				_xmppCon.SendMyPresence();
-			}		
-        }       
+                XmppCon.SendMyPresence();
+            }
+        }
 
         private void joinToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1255,11 +1242,14 @@ namespace MiniClient
             {
                 joinChatRoom(node);
             }
-        }             
+        }
 
         private void toolStripButtonFindRooms_Click(object sender, EventArgs e)
         {
-            FindChatRooms(); 
+            if (XmppCon.XmppConnectionState == XmppConnectionState.Disconnected)
+                return;
+
+            FindChatRooms();
         }
 
         private void toolStripButtonFindPart_Click(object sender, EventArgs e)
@@ -1269,8 +1259,8 @@ namespace MiniClient
 
         #region << Disco Server >>
         private void DiscoServer()
-        {           
-            discoManager.DiscoverItems(new Jid(_xmppCon.Server), new IqCB(OnDiscoServerResult), null);            
+        {
+            discoManager.DiscoverItems(new Jid(XmppCon.Server), new IqCB(OnDiscoServerResult), null);
         }
 
         /**
@@ -1285,7 +1275,7 @@ namespace MiniClient
                 {
                     DiscoItems items = query as DiscoItems;
                     DiscoItem[] itms = items.GetDiscoItems();
-                    
+
                     foreach (DiscoItem itm in itms)
                     {
                         if (itm.Jid != null)
@@ -1320,7 +1310,7 @@ namespace MiniClient
                         Jid jid = iq.From;
                         if (!Util.Services.Proxy.Contains(jid))
                             Util.Services.Proxy.Add(jid);
-                    }                    
+                    }
                 }
             }
         }
@@ -1328,7 +1318,7 @@ namespace MiniClient
 
         private void toolStripButtonSearch_Click(object sender, EventArgs e)
         {
-            frmSearch fSearch = new frmSearch(this._xmppCon);
+            frmSearch fSearch = new frmSearch(this.XmppCon);
             fSearch.Show();
         }
 
@@ -1339,13 +1329,13 @@ namespace MiniClient
 
         private void addContactToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmAddRoster f = new frmAddRoster(_xmppCon);
-            f.ShowDialog();   
+            frmAddContact f = new frmAddContact(XmppCon);
+            f.ShowDialog();
         }
 
         private void searchContactToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmSearch fSearch = new frmSearch(this._xmppCon);
+            frmSearch fSearch = new frmSearch(this.XmppCon);
             fSearch.Show();
         }
 
@@ -1395,10 +1385,10 @@ namespace MiniClient
             {
                 if (!Util.ChatForms.ContainsKey(node.RosterItem.Jid.ToString()))
                 {
-                    frmChat f = new frmChat(node.RosterItem.Jid, _xmppCon, node.Text);
+                    frmChat f = new frmChat(node.RosterItem.Jid, XmppCon, node.Text);
                     f.Show();
                 }
-            }	
+            }
         }
 
         private void treeGC_DoubleClick(object sender, EventArgs e)
@@ -1417,7 +1407,7 @@ namespace MiniClient
         private void joinChatRoom(TreeNode node)
         {
             Jid jid = new Jid((string)node.Tag);
-            frmGroupChat gc = new frmGroupChat(this._xmppCon, jid);
+            frmGroupChat gc = new frmGroupChat(this.XmppCon, jid);
         }
 
     }

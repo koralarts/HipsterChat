@@ -10,24 +10,20 @@ using agsXMPP.protocol;
 using agsXMPP.protocol.client;
 using agsXMPP.Collections;
 
-namespace MiniClient
+namespace HipsterClient
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	public class frmChat : System.Windows.Forms.Form
-	{
-				
-		private System.ComponentModel.Container components = null;
+    public class frmChat : System.Windows.Forms.Form
+    {
+        private System.ComponentModel.Container components = null;
 
-		private XmppClientConnection _xmppCon;
-        private Jid _jid;
+        private XmppClientConnection _connection;
+        private Jid m_Jid;
         private System.Windows.Forms.RichTextBox rtfChat;
         private Button cmdSend1;
         private TextBox rtfSend;
         private Panel panel1;
         private Button closeButton;
-		private string _nickname;
+        private string _nickname;
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
         private Label chatWithLabel;
@@ -39,35 +35,35 @@ namespace MiniClient
 
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
-		
-		public frmChat(Jid jid, XmppClientConnection con, string nickname)
-		{
-			_jid = jid;
-			_xmppCon = con;
-			_nickname = nickname;
 
-			InitializeComponent();
-			
-			this.Text = "Chat with " + nickname;
-            this.chatWithLabel.Text = "Chatting with: " + _jid.User;
-            Util.ChatForms.Add(_jid.Bare.ToLower(), this);
-            this.rtfSend.Select();
-
-			// Setup new Message Callback
-            con.MessageGrabber.Add(jid, new BareJidComparer(), new MessageCB(MessageCallback), null);
-		}
-
-        public frmChat(Jid jid, XmppClientConnection con, string nickname, bool privateChat)
+        public frmChat(Jid jid, XmppClientConnection con, string nickname)
         {
-            _jid = jid;
-            _xmppCon = con;
+            m_Jid = jid;
+            _connection = con;
             _nickname = nickname;
 
             InitializeComponent();
 
-            this.Text = "Chat with " + _jid.User;
-            this.chatWithLabel.Text = "Chatting with: " + _jid.User;
-            Util.ChatForms.Add(_jid.Bare.ToLower(), this);
+            this.Text = "Chat with " + nickname;
+            this.chatWithLabel.Text = "Chatting with: " + m_Jid.User;
+            Util.ChatForms.Add(m_Jid.Bare.ToLower(), this);
+            this.rtfSend.Select();
+
+            // Setup new Message Callback
+            con.MessageGrabber.Add(jid, new BareJidComparer(), new MessageCB(MessageCallback), null);
+        }
+
+        public frmChat(Jid jid, XmppClientConnection con, string nickname, bool privateChat)
+        {
+            m_Jid = jid;
+            _connection = con;
+            _nickname = nickname;
+
+            InitializeComponent();
+
+            this.Text = "Chat with " + m_Jid.User;
+            this.chatWithLabel.Text = "Chatting with: " + m_Jid.User;
+            Util.ChatForms.Add(m_Jid.Bare.ToLower(), this);
             this.rtfSend.Select();
 
             // Setup new Message Callback
@@ -77,29 +73,29 @@ namespace MiniClient
                 con.MessageGrabber.Add(jid, new FullJidComparer(), new MessageCB(MessageCallback), null);
         }
 
-		public Jid Jid
-		{
-			get { return _jid; }
-			set { _jid = value; }
-		}
-		/// <summary>
-		/// 
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-			
-			Util.ChatForms.Remove(_jid.Bare.ToLower());
-            _xmppCon.MessageGrabber.Remove(_jid);
-			_xmppCon = null;
-		}
+        public Jid Jid
+        {
+            get { return m_Jid; }
+            set { m_Jid = value; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+
+            Util.ChatForms.Remove(m_Jid.Bare.ToLower());
+            _connection.MessageGrabber.Remove(m_Jid);
+            _connection = null;
+        }
 
 		#region Form-Designer Code
 		
@@ -196,8 +192,9 @@ namespace MiniClient
             // frmChat
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.BackgroundImage = global::HipsterClient.Properties.Resources.chatbg;
             this.BackColor = System.Drawing.Color.Black;
-            this.BackgroundImage = global::MiniClient.Properties.Resources.chatbg;
+            this.BackgroundImage = global::HipsterClient.Properties.Resources.chatbg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(500, 350);
             this.Controls.Add(this.chatWithLabel);
@@ -215,45 +212,45 @@ namespace MiniClient
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		#endregion
+        }
+        #endregion
 
-		private void OutgoingMessage(agsXMPP.protocol.client.Message msg)
-		{
-			rtfChat.SelectionColor = Color.White;
-			rtfChat.AppendText("Me said: ");
-			rtfChat.SelectionColor = Color.DarkTurquoise;
-			rtfChat.AppendText(msg.Body);
-			rtfChat.AppendText("\r\n");
+        private void OutgoingMessage(agsXMPP.protocol.client.Message msg)
+        {
+            rtfChat.SelectionColor = Color.White;
+            rtfChat.AppendText("Me: ");
+            rtfChat.SelectionColor = Color.DarkTurquoise;
+            rtfChat.AppendText(msg.Body);
+            rtfChat.AppendText("\r\n");
             rtfChat.ScrollToCaret();
-		}
+        }
 
-		public void IncomingMessage(agsXMPP.protocol.client.Message msg)
-		{
-			rtfChat.SelectionColor = Color.Red;
-			rtfChat.AppendText(_jid.User + " said: ");
-			rtfChat.SelectionColor = Color.DarkTurquoise;
-			rtfChat.AppendText(msg.Body);
-			rtfChat.AppendText("\r\n");
+        public void IncomingMessage(agsXMPP.protocol.client.Message msg)
+        {
+            rtfChat.SelectionColor = Color.Red;
+            rtfChat.AppendText(m_Jid.User + ": ");
+            rtfChat.SelectionColor = Color.DarkTurquoise;
+            rtfChat.AppendText(msg.Body);
+            rtfChat.AppendText("\r\n");
             rtfChat.ScrollToCaret();
-		}
+        }
 
-		private void cmdSend_Click(object sender, System.EventArgs e)
-		{
+        private void cmdSend_Click(object sender, System.EventArgs e)
+        {
             sendText();
-		}
+        }
 
-		private void MessageCallback(object sender, agsXMPP.protocol.client.Message msg, object data)
-		{
+        private void MessageCallback(object sender, agsXMPP.protocol.client.Message msg, object data)
+        {
             if (InvokeRequired)
-            {			
+            {
                 BeginInvoke(new MessageCB(MessageCallback), new object[] { sender, msg, data });
                 return;
             }
-            
+
             if (msg.Body != null)
-			    IncomingMessage(msg);
-		}
+                IncomingMessage(msg);
+        }
 
         private void closeButton_Click(object sender, EventArgs e)
         {
@@ -295,17 +292,17 @@ namespace MiniClient
             agsXMPP.protocol.client.Message msg = new agsXMPP.protocol.client.Message();
 
             msg.Type = MessageType.chat;
-            msg.To = _jid;
+            msg.To = m_Jid;
             msg.Body = rtfSend.Text;
 
             if (msg.Body != null && msg.Body.Length > 0)
             {
-                _xmppCon.Send(msg);
+                _connection.Send(msg);
                 OutgoingMessage(msg);
             }
 
             rtfSend.Clear();
             rtfSend.Select();
         }
-	}
+    }
 }

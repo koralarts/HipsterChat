@@ -21,7 +21,7 @@ using agsXMPP.protocol.x.data;
 
 using agsXMPP.Xml;
 
-namespace MiniClient
+namespace HipsterClient
 {
     public partial class frmFileTransfer : Form
     {
@@ -274,7 +274,7 @@ namespace MiniClient
             
             string hostname = System.Net.Dns.GetHostName();          
 
-            System.Net.IPHostEntry iphe = System.Net.Dns.Resolve(hostname);
+            System.Net.IPHostEntry iphe = System.Net.Dns.GetHostEntry(hostname);
 
             for (int i = 0; i < iphe.AddressList.Length; i++)
             {

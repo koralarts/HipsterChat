@@ -13,32 +13,31 @@ using System.Diagnostics;
 using agsXMPP;
 using agsXMPP.net;
 
-namespace MiniClient
+namespace HipsterClient
 {
 
     /// <summary>
     /// Use async sockets to connect, send and receive data over TCP sockets.
     /// </summary>
     public class JEP65Socket : BaseSocket
-    {       
+    {
         private const int BUFFERSIZE = 1024;
 
         private System.Timers.Timer connectTimeoutTimer = new System.Timers.Timer();
-        private bool                m_bTimeout          = false;
-        private bool                m_SocksConnected    = false;
-        private Socket              _socket;
-        //private long                m_ConnectTimeout    = 10000; // 10 seconds is default
+        private bool m_bTimeout = false;
+        private bool m_SocksConnected = false;
+        private Socket _socket;
 
-        private bool                m_SyncConnect       = false;
-                      
+        private bool m_SyncConnect = false;
+
         private byte[] m_ReadBuffer = null;
-        
-               
-        private string m_SID = null;        
+
+
+        private string m_SID = null;
         private Jid m_Initiator;
         private Jid m_Target;
 
-        
+
 
         /// <summary>
         /// Object for synchronizing threads
@@ -55,19 +54,13 @@ namespace MiniClient
         {
             get { return m_Initiator; }
             set { m_Initiator = value; }
-        }        
+        }
 
         public Jid Target
         {
             get { return m_Target; }
             set { m_Target = value; }
         }
-
-        //public long ConnectTimeout
-        //{
-        //    get { return m_ConnectTimeout; }
-        //    set { m_ConnectTimeout = value; }
-        //}
 
         public Socket Socket
         {
@@ -79,8 +72,8 @@ namespace MiniClient
         /// </summary>
         /// <returns></returns>
         private string BuildHash()
-        {           
-            return agsXMPP.util.Hash.Sha1Hash(m_SID + m_Initiator.ToString() + m_Target.ToString());            
+        {
+            return agsXMPP.util.Hash.Sha1Hash(m_SID + m_Initiator.ToString() + m_Target.ToString());
         }
 
         #region << Constructor >>
@@ -94,14 +87,14 @@ namespace MiniClient
         {
             get { return false; }
         }
-        
+
         public override bool SupportsStartTls
         {
 
-			get
-			{
-				return false;
-			}
+            get
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -118,42 +111,42 @@ namespace MiniClient
         }
 
         public void Listen(int port)
-        {        
+        {
             IPEndPoint lep = new IPEndPoint(IPAddress.Any, port);
             Socket s = new Socket(lep.Address.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
                 s.Bind(lep);
                 s.Listen(0);
-                                   
+
                 Console.WriteLine("Waiting for a connection...");
-                s.BeginAccept(new AsyncCallback(EndAccept), s);                   
-                
+                s.BeginAccept(new AsyncCallback(EndAccept), s);
+
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
-        }               
+        }
 
         protected void EndAccept(IAsyncResult ar)
         {
 
-	        // Retrieve the state object and the handler socket
-	        // from the async state object.
+            // Retrieve the state object and the handler socket
+            // from the async state object.
             Console.WriteLine("Socket Accepted");
 
             // Get the socket that handles the client request.
-            Socket listener = (Socket) ar.AsyncState;
+            Socket listener = (Socket)ar.AsyncState;
             _socket = listener.EndAccept(ar);
-            
-            //listener.Shutdown(SocketShutdown.Both);
-            listener.Close(); 
-            
+
+            listener.Shutdown(SocketShutdown.Both);
+            listener.Close();
+
             m_ReadBuffer = null;
             m_ReadBuffer = new byte[BUFFERSIZE];
 
-            _socket.BeginReceive(m_ReadBuffer, 0, BUFFERSIZE, SocketFlags.None, new AsyncCallback(OnAuthReceiveServer), null);            
+            _socket.BeginReceive(m_ReadBuffer, 0, BUFFERSIZE, SocketFlags.None, new AsyncCallback(OnAuthReceiveServer), null);
         }
 
         #region << server side stuff >>
@@ -161,10 +154,10 @@ namespace MiniClient
         {
             // Receive 3 byte Auth
             int rec = _socket.EndReceive(ar);
-            
+
             // VER
             if (m_ReadBuffer[0] != 0x05)
-            {	
+            {
                 throw new Exception("wrong proxy version");
             }
 
@@ -172,20 +165,20 @@ namespace MiniClient
             int nMethods = m_ReadBuffer[1];
 
             Dictionary<int, int> Methods = new Dictionary<int, int>();
-                        
-            
+
+
             // Parse METHODS
             for (int i = 2; i < nMethods + 2; i++)
             {
                 Methods.Add((int)m_ReadBuffer[i], (int)m_ReadBuffer[i]);
             }
-                        
+
             // Send response if everything is OK
             // Send 2 byte response...
             byte[] buffer = new Byte[2];
             buffer[0] = 5;
             if (Methods.ContainsKey(0))
-                buffer[1] = 0;            
+                buffer[1] = 0;
             else
                 buffer[1] = 0xFF;
 
@@ -202,11 +195,10 @@ namespace MiniClient
             }
             catch (Exception ex)
             {
-                //    ProtocolComplete(e);
-                //    return;
+                Console.WriteLine(ex.ToString());
             }
         }
-        
+
         private void OnRequestProxyConnectionReceiveServer(IAsyncResult ar)
         {
             /*
@@ -250,8 +242,8 @@ namespace MiniClient
                If the chosen method includes encapsulation for purposes of
                authentication, integrity and/or confidentiality, the replies are
                encapsulated in the method-dependent encapsulation.
-            */ 
-            
+            */
+
             int rec = _socket.EndReceive(ar);
             /*
                 00000000  05 01 00 03 28 66 37 32  61 32 33 65 65 30 31 35   ....(f72 a23ee015 
@@ -347,14 +339,13 @@ namespace MiniClient
             }
             catch (Exception ex)
             {
-                //    ProtocolComplete(e);
-                //    return;
+                Console.WriteLine(ex.ToString());
             }
         }
 
         public void SendFile(string filename)
         {
-            _socket.BeginSendFile(filename, new AsyncCallback(OnFileSend), null);            
+            _socket.BeginSendFile(filename, new AsyncCallback(OnFileSend), null);
         }
 
         private void OnFileSend(IAsyncResult ar)
@@ -367,9 +358,9 @@ namespace MiniClient
         {
             lock (m_Lock)
             {
-                m_SyncConnect   = true;
-                m_bTimeout      = false;
-                
+                m_SyncConnect = true;
+                m_bTimeout = false;
+
                 Connect();
 
                 // Timeout
@@ -380,7 +371,7 @@ namespace MiniClient
                 Monitor.Wait(m_Lock);
                 Console.WriteLine("Release Lock");
                 Console.WriteLine("sock commected:" + m_SocksConnected.ToString());
-                
+
                 return m_SocksConnected;
             }
         }
@@ -391,17 +382,15 @@ namespace MiniClient
 
             m_ReadBuffer = null;
             m_ReadBuffer = new byte[BUFFERSIZE];
-            
+
             m_SocksConnected = false;
 
-            IPHostEntry ipHostInfo = Dns.Resolve(Address);
-            //IPHostEntry ipHostInfo = Dns.GetHostByAddress(Address);
-            //Dns.GetHostEntry
-            IPAddress ipAddress = ipHostInfo.AddressList[0];// IPAddress.Parse(address);
+            IPHostEntry ipHostInfo = Dns.GetHostEntry(Address);
+            IPAddress ipAddress = ipHostInfo.AddressList[0];
             IPEndPoint endPoint = new IPEndPoint(ipAddress, Port);
 
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            
+
             _socket.BeginConnect(endPoint, new AsyncCallback(EndConnect), null);
         }
 
@@ -414,7 +403,7 @@ namespace MiniClient
         {
             m_bTimeout = true;
             connectTimeoutTimer.Stop();
-            _socket.Close();            
+            _socket.Close();
         }
 
         private void SendAuth()
@@ -435,11 +424,10 @@ namespace MiniClient
             }
             catch (Exception ex)
             {
-            //    ProtocolComplete(e);
-            //    return;
-            }                    
+                Console.WriteLine(ex.ToString());
+            }
 
-            _socket.BeginReceive(m_ReadBuffer, 0, m_ReadBuffer.Length, SocketFlags.None, new AsyncCallback(OnAuthReceive), null);            
+            _socket.BeginReceive(m_ReadBuffer, 0, m_ReadBuffer.Length, SocketFlags.None, new AsyncCallback(OnAuthReceive), null);
         }
 
         private void OnAuthReceive(IAsyncResult ar)
@@ -484,8 +472,8 @@ namespace MiniClient
             buffer[6 + length] = 0;
 
             //Debug.WriteLine("sending request to proxy to " + RemoteAddress);
-            _socket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(this.OnRequestProxyConnectionSent), null);                     
-            
+            _socket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(this.OnRequestProxyConnectionSent), null);
+
         }
 
         private void OnRequestProxyConnectionSent(IAsyncResult ar)
@@ -496,9 +484,9 @@ namespace MiniClient
             }
             catch (Exception ex)
             {
-               
-            }            
-            _socket.BeginReceive(m_ReadBuffer, 0, m_ReadBuffer.Length, SocketFlags.None, new AsyncCallback(OnReadVariableResponseReceive), null);            
+                Console.WriteLine(ex.ToString());
+            }
+            _socket.BeginReceive(m_ReadBuffer, 0, m_ReadBuffer.Length, SocketFlags.None, new AsyncCallback(OnReadVariableResponseReceive), null);
         }
 
         private void OnReadVariableResponseReceive(IAsyncResult ar)
@@ -532,7 +520,7 @@ namespace MiniClient
                     Monitor.Pulse(m_Lock);
             }
         }
-        
+
         private void EndConnect(IAsyncResult ar)
         {
             lock (m_Lock)
@@ -556,7 +544,7 @@ namespace MiniClient
                     }
                 }
             }
-        }     
+        }
 
         /// <summary>
         /// Disconnect from the server.
@@ -583,7 +571,7 @@ namespace MiniClient
                 _socket.Close();
             }
             catch { }
-            
+
             m_SocksConnected = false;
             FireOnDisconnect();
         }
@@ -597,17 +585,17 @@ namespace MiniClient
         {
             Send(Encoding.UTF8.GetBytes(data));
         }
-        
+
         /// <summary>
         /// Send data to the server.
         /// </summary>
         public override void Send(byte[] bData)
         {
             base.FireOnSend(bData, bData.Length);
-                 
+
             _socket.BeginSend(bData, 0, bData.Length, SocketFlags.None, new AsyncCallback(EndSend), null);
         }
-                
+
 
         private void EndSend(IAsyncResult ar)
         {
@@ -617,8 +605,9 @@ namespace MiniClient
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.ToString());
             }
-        }    
+        }
         #endregion
 
         #region << Async Receive >>
@@ -637,9 +626,9 @@ namespace MiniClient
                 int nBytes;
                 nBytes = _socket.EndReceive(ar);
                 if (nBytes > 0)
-                {                    
+                {
                     base.FireOnReceive(m_ReadBuffer, nBytes);
-                    
+
                     // Setup next Receive Callback
                     if (this.Connected)
                         this.Receive();
@@ -660,7 +649,7 @@ namespace MiniClient
                 Disconnect();
             }
         }
-        #endregion      
-    
+        #endregion
+
     }
 }

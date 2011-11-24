@@ -11,7 +11,7 @@ using agsXMPP.protocol;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.iq.search;
 
-namespace MiniClient
+namespace HipsterClient
 {
     public partial class frmSearch : Form
     {
@@ -405,7 +405,7 @@ namespace MiniClient
                         if (nickCol != -1)
                             nick = dataGridView1.CurrentRow.Cells[nickCol].Value.ToString();
 
-                        frmAddRoster frmAdd = new frmAddRoster(jid, m_XmppCon);
+                        frmAddContact frmAdd = new frmAddContact(jid, m_XmppCon);
                         frmAdd.Show();
                     }
                 }

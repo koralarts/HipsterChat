@@ -1,4 +1,4 @@
-namespace MiniClient
+namespace HipsterClient
 {
     partial class frmInputBox
     {
@@ -85,7 +85,7 @@ namespace MiniClient
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.BackgroundImage = global::MiniClient.Properties.Resources.groupChatBg;
+            this.BackgroundImage = global::HipsterClient.Properties.Resources.groupChatBg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(319, 97);
             this.Controls.Add(this.lblMessage);

@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using System.Collections;
 using System.Text;
 
-namespace MiniClient
+namespace HipsterClient
 {
     public class TreeNodeSorter : IComparer
     {

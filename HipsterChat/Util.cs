@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using agsXMPP;
 using agsXMPP.protocol.client;
 
-namespace MiniClient
+namespace HipsterClient
 {
 	/// <summary>
 	/// Summary description for Util.
@@ -44,7 +44,7 @@ namespace MiniClient
             }
             else if (pres.Type == PresenceType.error)
             {
-                // presence error, we dont care in the miniclient here
+                // Don't do anythng here?
             }
             else
             {
