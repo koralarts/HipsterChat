@@ -57,7 +57,6 @@ namespace HipsterClient
         private ToolStripMenuItem joinToolStripMenuItem;
 
         private ToolStripMenuItem sendFileToolStripMenuItem;
-        private ImageList ils16;
 
         delegate void OnMessageDelegate(object sender, agsXMPP.protocol.client.Message msg);
         delegate void OnPresenceDelegate(object sender, Presence pres);
