@@ -69,7 +69,6 @@ namespace HipsterChat
         private Button closeButton;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem addContactToolStripMenuItem;
-        private ToolStripMenuItem searchContactToolStripMenuItem;
         private Button contactsButton;
         private Button groupChatButton;
         private ComboBox cboStatus;
@@ -245,7 +244,6 @@ namespace HipsterChat
             this.disconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.addContactToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchContactToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusBar1 = new System.Windows.Forms.Label();
@@ -318,14 +316,8 @@ namespace HipsterChat
             // 
             // sendFileToolStripMenuItem
             // 
-            this.sendFileToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
-            this.sendFileToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.sendFileToolStripMenuItem.Image = global::HipsterChat.Properties.Resources.package;
             this.sendFileToolStripMenuItem.Name = "sendFileToolStripMenuItem";
-            this.sendFileToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.sendFileToolStripMenuItem.Text = "Send File";
-            this.sendFileToolStripMenuItem.ToolTipText = "Send File to Contact";
-            this.sendFileToolStripMenuItem.Click += new System.EventHandler(this.sendFileToolStripMenuItem_Click);
+            this.sendFileToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
             // menuStrip1
             // 
@@ -346,7 +338,6 @@ namespace HipsterChat
             this.disconnectToolStripMenuItem,
             this.toolStripSeparator1,
             this.addContactToolStripMenuItem,
-            this.searchContactToolStripMenuItem,
             this.toolStripSeparator2,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
@@ -393,16 +384,6 @@ namespace HipsterChat
             this.addContactToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.addContactToolStripMenuItem.Text = "Add Contact";
             this.addContactToolStripMenuItem.Click += new System.EventHandler(this.addContactToolStripMenuItem_Click);
-            // 
-            // searchContactToolStripMenuItem
-            // 
-            this.searchContactToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
-            this.searchContactToolStripMenuItem.Enabled = false;
-            this.searchContactToolStripMenuItem.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.searchContactToolStripMenuItem.Image = global::HipsterChat.Properties.Resources.zoom;
-            this.searchContactToolStripMenuItem.Name = "searchContactToolStripMenuItem";
-            this.searchContactToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.searchContactToolStripMenuItem.Text = "Search Contact";
             // 
             // toolStripSeparator2
             // 
@@ -624,6 +605,7 @@ namespace HipsterChat
             this.groupChatPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
         #endregion
 
@@ -723,7 +705,6 @@ namespace HipsterChat
             connectToolStripMenuItem.Enabled = false;
             disconnectToolStripMenuItem.Enabled = true;
             addContactToolStripMenuItem.Enabled = true;
-            searchContactToolStripMenuItem.Enabled = true;
             contactListPanel.Enabled = true;
             contactsButton.Enabled = true;
             groupChatButton.Enabled = true;
@@ -821,20 +802,7 @@ namespace HipsterChat
                 // No Iq with query
                 if (iq.HasTag(typeof(agsXMPP.protocol.extensions.si.SI)))
                 {
-                    if (iq.Type == IqType.set)
-                    {
-                        agsXMPP.protocol.extensions.si.SI si = iq.SelectSingleElement(typeof(agsXMPP.protocol.extensions.si.SI)) as agsXMPP.protocol.extensions.si.SI;
 
-                        agsXMPP.protocol.extensions.filetransfer.File file = si.File;
-                        if (file != null)
-                        {
-                            // somebody wants to send a file to us
-                            Console.WriteLine(file.Size.ToString());
-                            Console.WriteLine(file.Name);
-                            frmFileTransfer frmFile = new frmFileTransfer(XmppCon, iq);
-                            frmFile.Show();
-                        }
-                    }
                 }
                 else
                 {
@@ -941,7 +909,6 @@ namespace HipsterChat
             connectToolStripMenuItem.Enabled = true;
             disconnectToolStripMenuItem.Enabled = false;
             addContactToolStripMenuItem.Enabled = false;
-            searchContactToolStripMenuItem.Enabled = false;
             contactListPanel.Enabled = false;
             contactsButton.Enabled = false;
             groupChatButton.Enabled = false;
@@ -1136,22 +1103,6 @@ namespace HipsterChat
                 riq.Type = IqType.set;
 
                 XmppCon.RosterManager.RemoveRosterItem(node.RosterItem.Jid);
-            }
-        }
-
-        private void sendFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            RosterNode node = rosterControl.SelectedItem();
-
-            if (node != null)
-            {
-                if (node.Nodes.Count > 0)
-                {
-                    Jid jid = node.RosterItem.Jid;
-                    jid.Resource = node.FirstNode.Text;
-                    frmFileTransfer ft = new frmFileTransfer(XmppCon, jid);
-                    ft.Show();
-                }
             }
         }
 
