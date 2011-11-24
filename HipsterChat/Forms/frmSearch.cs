@@ -405,7 +405,7 @@ namespace HipsterClient
                         if (nickCol != -1)
                             nick = dataGridView1.CurrentRow.Cells[nickCol].Value.ToString();
 
-                        frmAddRoster frmAdd = new frmAddRoster(jid, m_XmppCon);
+                        frmAddContact frmAdd = new frmAddContact(jid, m_XmppCon);
                         frmAdd.Show();
                     }
                     else if (sender == tsiVcard)

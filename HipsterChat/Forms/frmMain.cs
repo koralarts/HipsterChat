@@ -1349,7 +1349,7 @@ namespace HipsterClient
 
         private void addContactToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmAddRoster f = new frmAddRoster(XmppCon);
+            frmAddContact f = new frmAddContact(XmppCon);
             f.ShowDialog();   
         }
 
