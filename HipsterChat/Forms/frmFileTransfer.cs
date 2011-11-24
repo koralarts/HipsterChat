@@ -274,7 +274,7 @@ namespace HipsterClient
             
             string hostname = System.Net.Dns.GetHostName();          
 
-            System.Net.IPHostEntry iphe = System.Net.Dns.Resolve(hostname);
+            System.Net.IPHostEntry iphe = System.Net.Dns.GetHostEntry(hostname);
 
             for (int i = 0; i < iphe.AddressList.Length; i++)
             {
